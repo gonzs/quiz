@@ -5,9 +5,9 @@
       "type": "mc",
       "question": "Color del cielo",
       "options": [
-        { "id": 1, "desc": "azul" },
-        { "id": 2, "desc": "verde" },
-        { "id": 3, "desc": "rojo" }
+        { "option": 1, "desc": "azul" },
+        { "option": 2, "desc": "verde" },
+        { "option": 3, "desc": "rojo" }
       ],
       "correct": 1
     },

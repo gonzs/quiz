@@ -18,7 +18,7 @@ const Admger = () => {
   return (
     <div>
       {data.length === 0 ? (
-        <Spinner animation="border" role="status">
+        <Spinner className="main" animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
       ) : (

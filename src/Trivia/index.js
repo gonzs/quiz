@@ -4,7 +4,6 @@ import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Trivia = ({ id, questions }) => {
-  console.log(questions);
   const prevId = Number(id) - 1;
   const nextId = Number(id) + 1;
   let data;
@@ -17,7 +16,10 @@ const Trivia = ({ id, questions }) => {
       options = data.options;
       break;
     case 'vof':
-      options = [{ id: true, desc: 'Verdadero' }, { id: false, desc: 'Falso' }];
+      options = [
+        { option: '1', desc: 'Verdadero' },
+        { option: '2', desc: 'Falso' },
+      ];
       break;
 
     default:
@@ -32,13 +34,13 @@ const Trivia = ({ id, questions }) => {
 
       <div>
         {options.length !== 0 ? (
-          options.map((opt, index) => (
+          options.map((o, index) => (
             <Form.Check
               key={index}
-              id={opt.id}
+              id={o.option}
               name="options"
               type="radio"
-              label={opt.desc}
+              label={o.desc}
             />
           ))
         ) : (
