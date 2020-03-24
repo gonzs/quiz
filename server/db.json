@@ -1,0 +1,29 @@
+{
+  "admger": [
+    {
+      "id": 1,
+      "type": "mc",
+      "question": "Color del cielo",
+      "options": [
+        { "id": 1, "desc": "azul" },
+        { "id": 2, "desc": "verde" },
+        { "id": 3, "desc": "rojo" }
+      ],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "type": "vof",
+      "question": "Color del cielo es rojo",
+      "correct": false
+    },
+    {
+      "id": 3,
+      "type": "text",
+      "question": "Color del cielo",
+      "correct": "AZUL"
+    }
+  ],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" }
+}
