@@ -12,7 +12,6 @@ function App() {
   return (
     <div id="App">
       <h1>Quiz</h1>
-
       <BrowserRouter>
         <NavBar />
         <Switch>
