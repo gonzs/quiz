@@ -1,5 +1,4 @@
 import React from 'react';
-import { data3 } from './data';
 import './App.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HomeRoute, AdmgerRoute, IntartRoute } from './routes';
