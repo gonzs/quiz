@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Trivia from '../Trivia';
 import { Spinner } from 'react-bootstrap';
-import axios from 'axios';
 
 const Admger = () => {
   const { id } = useParams();
