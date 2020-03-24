@@ -8,17 +8,17 @@ const NavBar = () => {
     <Nav justify variant="tabs" defaultActiveKey={HomeRoute}>
       <Nav.Item>
         <Nav.Link as={Link} to={HomeRoute}>
-          Home
+          HOME
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link as={Link} to={AdmgerRoute}>
-          Administración Gerencial
+        <Nav.Link as={Link} to={`${AdmgerRoute}/1`}>
+          ADMINISTRACION GERENCIAL
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link as={Link} to={IntartRoute}>
-          Inteligencia Artificial
+          INTELIGENCIA ARTIFICIAL
         </Nav.Link>
       </Nav.Item>
     </Nav>
