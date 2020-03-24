@@ -7,6 +7,7 @@ const Admger = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
 
+  // TODO: Implement redux
   useEffect(() => {
     setTimeout(() => {
       fetch('http://localhost:3000/admger')
