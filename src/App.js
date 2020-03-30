@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HomeRoute, AdmgerRoute, IntartRoute } from './routes';
@@ -7,17 +7,11 @@ import Home from './Home';
 import Admger from './Admger';
 import Intart from './Intart';
 import Store from './Store';
-import { Provider } from 'react-redux';
-import { getQuiz } from './Actions';
 
 function App() {
-  useEffect(() => {
-    // store.dispatch(getQuiz());
-  }, []);
-
   return (
     <div id="App">
-      <Provider store={Store}>
+      <Store>
         <h1>Quiz</h1>
         <BrowserRouter>
           <NavBar />
@@ -28,7 +22,7 @@ function App() {
             <Redirect from="" to={HomeRoute} />
           </Switch>
         </BrowserRouter>
-      </Provider>
+      </Store>
     </div>
   );
 }
