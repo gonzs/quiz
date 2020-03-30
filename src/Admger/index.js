@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Trivia from '../Trivia';
 import { Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getQuiz } from '../Actions';
 
 const Admger = () => {
   const { id } = useParams();
-  const [data, setData] = useState([]);
+  const isFetching = useSelector(state => state.quiz.isFetching);
+  const data = useSelector(state => state.quiz.quiz);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch('http://localhost:3000/admger')
-        .then(res => res.json())
-        .then(data => setData(data));
-    }, 1000);
+    dispatch(getQuiz());
   }, []);
 
   return (
     <div>
-      {data.length === 0 ? (
+      {isFetching ? (
         <Spinner className="main" animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
