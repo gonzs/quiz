@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Trivia from '../Trivia';
+import { Redirect } from 'react-router-dom';
+import { ADMGER } from '../routes';
 import { Spinner, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuiz } from '../Actions';
 
+// TODO: refactor to a generic component
 const Admger = () => {
-  const { id } = useParams();
-  const { isFetching, success, error, quiz } = useSelector(state => state.quiz);
+  const { isFetching, success, error } = useSelector(state => state.quiz);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getQuiz());
+    // * Dispatch getQuiz action
+    dispatch(getQuiz('admger'));
   }, [dispatch]);
 
   return (
@@ -21,7 +22,7 @@ const Admger = () => {
           <span className="sr-only">Loading...</span>
         </Spinner>
       ) : success ? (
-        <Trivia id={id} questions={quiz} />
+        <Redirect to={`${ADMGER}/1`} />
       ) : (
         <Alert variant="danger">{error}</Alert>
       )}

@@ -1,10 +1,10 @@
 import { REQUEST_QUIZ, RECEIVE_SUCCESS, RECEIVE_ERROR } from './types';
 
-export function getQuiz() {
+export function getQuiz(subject) {
   return dispatch => {
     dispatch(requestQuiz());
 
-    fetch('http://localhost:3000/admger')
+    fetch(`http://localhost:3000/${subject}`)
       .then(response => {
         if (response.ok !== true) throw new Error(response.status);
         else return response.json();
