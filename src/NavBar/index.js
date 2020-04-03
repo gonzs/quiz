@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HOME, ADMGER, IA } from '../routes';
+import { HOME, ADMGER, IA } from '../constants/routes';
 import Nav from 'react-bootstrap/Nav';
 
 const NavBar = () => {

@@ -1,33 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
 import { Link, useParams, Redirect, useRouteMatch } from 'react-router-dom';
+import { saveAnswer } from '../Actions';
 
 const Trivia = props => {
   const { id } = useParams();
   const question = useSelector(state => state.quiz.quiz[id - 1]);
   const pathData = useRouteMatch().path.split('/');
   const rootPath = `${pathData[0]}/${pathData[1]}`;
-
+  const dispatch = useDispatch();
   const prevId = parseInt(id) - 1;
   const nextId = parseInt(id) + 1;
-  let options = [];
+  const [answer, setAnswer] = useState();
 
-  if (question !== undefined)
-    switch (question.type) {
-      case 'mc':
-        options = question.options;
-        break;
-      case 'vof':
-        options = [
-          { option: '1', desc: 'Verdadero' },
-          { option: '2', desc: 'Falso' },
-        ];
-        break;
-
-      default:
-        break;
-    }
+  const saveAnswerEvent = () => {
+    dispatch(saveAnswer({ id: id, text: answer }));
+  };
 
   return (
     <div>
@@ -40,36 +29,50 @@ const Trivia = props => {
           </h1>
 
           <div>
-            {options.length !== 0 ? (
-              options.map((o, index) => (
+            {question.options !== undefined && question.options.length !== 0 ? (
+              question.options.map((o, index) => (
                 <Form.Check
                   key={index}
                   id={o.option}
                   name="options"
                   type="radio"
                   label={o.desc}
+                  onClick={() => setAnswer(o.desc)}
                 />
               ))
             ) : (
               <div>
                 <Form.Label>Respuesta:</Form.Label>
-                <Form.Control as="textarea" rows="4" cols="50" />
+                <Form.Control
+                  as="textarea"
+                  rows="4"
+                  cols="50"
+                  onChange={event => setAnswer(event.target.value)}
+                />
               </div>
             )}
           </div>
 
           <ButtonGroup>
-            {question.id !== 1 ? (
-              <Button as={Link} to={`${rootPath}/${prevId}`}>
+            {parseInt(id) !== 1 ? (
+              <Button
+                as={Link}
+                to={`${rootPath}/${prevId}`}
+                onClick={() => saveAnswerEvent()}
+              >
                 Previous
               </Button>
             ) : (
               <span></span>
             )}
-            {question.id === 3 ? (
-              <Button>Submit</Button>
+            {parseInt(id) === 3 ? (
+              <Button onClick={() => saveAnswerEvent()}>Submit</Button>
             ) : (
-              <Button as={Link} to={`${rootPath}/${nextId}`}>
+              <Button
+                as={Link}
+                to={`${rootPath}/${nextId}`}
+                onClick={() => saveAnswerEvent()}
+              >
                 Next
               </Button>
             )}

@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-
-import { REQUEST_QUIZ, RECEIVE_SUCCESS, RECEIVE_ERROR } from '../Actions/types';
+import {
+  REQUEST_QUIZ,
+  RECEIVE_SUCCESS,
+  RECEIVE_ERROR,
+  SAVE_ANSWER,
+} from '../Actions/types';
 
 function quiz(
   state = {
@@ -8,6 +12,7 @@ function quiz(
     success: true,
     error: '',
     quiz: [],
+    answers: [],
   },
   action
 ) {
@@ -25,10 +30,36 @@ function quiz(
 
     case RECEIVE_ERROR:
       return {
+        ...state,
         isFetching: false,
         success: false,
         error: action.payload.toString(),
       };
+
+    case SAVE_ANSWER:
+      let existed_item = state.answers.find(
+        item => item.id === action.payload.id
+      );
+
+      if (existed_item) {
+        let updatedAnswers = state.answers.map(item => {
+          if (item.id === action.payload.id) {
+            item.text = action.payload.text;
+            return item;
+          }
+          return item;
+        });
+
+        return {
+          ...state,
+          answers: updatedAnswers,
+        };
+      } else {
+        return {
+          ...state,
+          answers: [...state.answers, action.payload],
+        };
+      }
 
     default:
       return state;

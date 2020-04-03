@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { ADMGER } from '../routes';
+import { ADMGER } from '../constants/routes';
 import { Spinner, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuiz } from '../Actions';

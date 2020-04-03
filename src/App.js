@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { HOME, ADMGER, IA } from './routes';
+import { HOME, ADMGER, IA } from './constants/routes';
 import NavBar from './NavBar';
 import Home from './Home';
 import Admger from './Admger';

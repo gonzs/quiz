@@ -2,7 +2,7 @@
   "admger": [
     {
       "id": 1,
-      "type": "mc",
+      "type": "choice",
       "title": "Color del cielo",
       "options": [
         { "option": 1, "desc": "azul" },
@@ -13,21 +13,25 @@
     },
     {
       "id": 2,
-      "type": "vof",
+      "type": "choice",
       "title": "Color del cielo es rojo",
-      "correct": false
+      "options": [
+        { "option": 1, "desc": "Falso" },
+        { "option": 2, "desc": "verdadero" }
+      ],
+      "correct": 1
     },
     {
       "id": 3,
-      "type": "text",
+      "type": "free_text",
       "title": "Color del cielo",
       "correct": "AZUL"
     }
   ],
   "ia": [
     {
-      "id": 1,
-      "type": "mc",
+      "id": 2,
+      "type": "choice",
       "title": "Color del mar",
       "options": [
         { "option": 1, "desc": "azul" },
@@ -37,14 +41,18 @@
       "correct": 1
     },
     {
-      "id": 2,
-      "type": "vof",
+      "id": 6,
+      "type": "choice",
       "title": "Color del mar es rojo",
-      "correct": false
+      "options": [
+        { "option": 1, "desc": "Falso" },
+        { "option": 2, "desc": "verdadero" }
+      ],
+      "correct": 1
     },
     {
-      "id": 3,
-      "type": "text",
+      "id": 12,
+      "type": "free_text",
       "title": "Color del mar",
       "correct": "AZUL"
     }
