@@ -4,13 +4,13 @@ import {
   RECEIVE_ERROR,
   SAVE_ANSWER,
 } from './types';
-import { URL_SERVER, ERROR_TEXT } from '../constants';
+import { ERROR_TEXT } from '../constants';
 
 export function getQuiz(subject) {
   return dispatch => {
     dispatch(requestQuiz());
 
-    fetch(`${URL_SERVER}/${subject}`)
+    fetch(`${process.env.REACT_APP_API_URL}/${subject}`)
       .then(response => {
         if (response.ok !== true) throw new Error(response.status);
         else return response.json();

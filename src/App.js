@@ -11,6 +11,7 @@ import Trivia from './Trivia';
 import logo from './logo.svg';
 
 function App() {
+  console.log(process.env);
   return (
     <div id="App">
       <Store>

@@ -18,7 +18,7 @@ function quiz(
 ) {
   switch (action.type) {
     case REQUEST_QUIZ:
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, answers: [] };
 
     case RECEIVE_SUCCESS:
       return {
