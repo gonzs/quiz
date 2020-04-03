@@ -20,7 +20,8 @@ const Trivia = props => {
   });
 
   const saveAnswerEvent = () => {
-    dispatch(saveAnswer({ id: question.id, text: answer }));
+    if (retrievedAnswer.length === 0 || answer !== retrievedAnswer[0].text)
+      dispatch(saveAnswer({ id: question.id, text: answer }));
   };
 
   return (

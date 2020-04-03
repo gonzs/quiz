@@ -8,12 +8,18 @@ import Admger from './Admger';
 import Intart from './Intart';
 import Store from './Store';
 import Trivia from './Trivia';
+import logo from './logo.svg';
 
 function App() {
   return (
     <div id="App">
       <Store>
-        <h1>Quiz</h1>
+        <h1>
+          <img src={logo} className="logo" alt="logo" />
+          Quiz
+          <img src={logo} className="logo" alt="logo" />
+        </h1>
+
         <BrowserRouter>
           <NavBar />
           <Switch>
