@@ -21,7 +21,7 @@ In initial versions this is using json-server package as a fake api rest.
 _Dont forget to create a .env.local file with a API url. Format:_
 
 ```shell
-REACT_APP_API_URL = http://localhos:8080
+REACT_APP_API_URL = http://localhost:8080
 ```
 
 This project was generated with [template](https://github.com/gonzs/react-template).
