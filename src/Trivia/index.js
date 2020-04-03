@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
 import { Link, useParams, Redirect, useRouteMatch } from 'react-router-dom';
@@ -12,10 +12,15 @@ const Trivia = props => {
   const dispatch = useDispatch();
   const prevId = parseInt(id) - 1;
   const nextId = parseInt(id) + 1;
-  const [answer, setAnswer] = useState();
+  const retrievedAnswer = useSelector(state =>
+    state.quiz.answers.filter(o => o.id === question.id)
+  );
+  const [answer, setAnswer] = useState(() => {
+    if (retrievedAnswer.length !== 0) return retrievedAnswer[0].text;
+  });
 
   const saveAnswerEvent = () => {
-    dispatch(saveAnswer({ id: id, text: answer }));
+    dispatch(saveAnswer({ id: question.id, text: answer }));
   };
 
   return (
@@ -37,7 +42,8 @@ const Trivia = props => {
                   name="options"
                   type="radio"
                   label={o.desc}
-                  onClick={() => setAnswer(o.desc)}
+                  checked={o.desc === answer}
+                  onChange={() => setAnswer(o.desc)}
                 />
               ))
             ) : (
@@ -47,6 +53,7 @@ const Trivia = props => {
                   as="textarea"
                   rows="4"
                   cols="50"
+                  value={answer}
                   onChange={event => setAnswer(event.target.value)}
                 />
               </div>

@@ -18,9 +18,19 @@ function App() {
           <NavBar />
           <Switch>
             <Route path={HOME} component={Home} exact />
-            <Route path={`${ADMGER}/:id`} component={Trivia} />
+            <Route
+              path={`${ADMGER}/:id`}
+              render={props => (
+                <Trivia key={props.match.params.id || 'empty'} />
+              )}
+            />
             <Route path={`${ADMGER}`} component={Admger} />
-            <Route path={`${IA}/:id`} component={Trivia} />
+            <Route
+              path={`${IA}/:id`}
+              render={props => (
+                <Trivia key={props.match.params.id || 'empty'} />
+              )}
+            />
             <Route path={IA} component={Intart} exact />
             <Redirect from="" to={HOME} />
           </Switch>
