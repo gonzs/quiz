@@ -1,5 +1,5 @@
 {
-  "admger": [
+  "administraciongerencial": [
     {
       "id": 1,
       "type": "choice",
@@ -28,7 +28,7 @@
       "correct": "AZUL"
     }
   ],
-  "ia": [
+  "inteligenciaartificial": [
     {
       "id": 2,
       "type": "choice",

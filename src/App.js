@@ -1,17 +1,15 @@
 import React from 'react';
 import './App.css';
+import logo from './logo.svg';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HOME, ADMGER, IA } from './constants/routes';
 import NavBar from './NavBar';
 import Home from './Home';
-import Admger from './Admger';
-import Intart from './Intart';
-import Store from './Store';
 import Trivia from './Trivia';
-import logo from './logo.svg';
+import Question from './Trivia/Question';
+import Store from './Store';
 
 function App() {
-  console.log(process.env);
   return (
     <div id="App">
       <Store>
@@ -28,17 +26,17 @@ function App() {
             <Route
               path={`${ADMGER}/:id`}
               render={props => (
-                <Trivia key={props.match.params.id || 'empty'} />
+                <Question key={props.match.params.id || 'empty'} />
               )}
             />
-            <Route path={`${ADMGER}`} component={Admger} />
+            <Route path={`${ADMGER}`} component={Trivia} />
             <Route
               path={`${IA}/:id`}
               render={props => (
-                <Trivia key={props.match.params.id || 'empty'} />
+                <Question key={props.match.params.id || 'empty'} />
               )}
             />
-            <Route path={IA} component={Intart} exact />
+            <Route path={IA} component={Trivia} exact />
             <Redirect from="" to={HOME} />
           </Switch>
         </BrowserRouter>
