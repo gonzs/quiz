@@ -29,7 +29,7 @@ const Question = () => {
       {question === undefined ? (
         <Redirect to={rootPath} />
       ) : (
-        <div className="main">
+        <div className="trivia">
           <h1>
             <Badge variant="secondary">{question.title}</Badge>
           </h1>

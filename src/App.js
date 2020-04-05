@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import logo from './logo.svg';
+import logo from './icons/logo.svg';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HOME, ADMGER, IA } from './constants/routes';
 import NavBar from './NavBar';

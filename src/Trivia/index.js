@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Spinner, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuiz } from '../Actions';
+import danger from '../icons/danger.svg';
 
 const Trivia = props => {
   const path = props.match.path.split('/');
@@ -17,13 +18,16 @@ const Trivia = props => {
   return (
     <div>
       {isFetching ? (
-        <Spinner className="main" animation="border" role="status">
+        <Spinner className="trivia" animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
       ) : success ? (
         <Redirect to={`${path[1]}/1`} />
       ) : (
-        <Alert variant="danger">{error}</Alert>
+        <Alert className="message">
+          <img src={danger} className="danger" alt="danger" />
+          {error}
+        </Alert>
       )}
     </div>
   );

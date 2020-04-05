@@ -18,7 +18,7 @@
   margin: 0px 80px;
 }
 
-.main {
+.trivia {
   margin: 40px auto;
   display: flex;
   flex-direction: column;
@@ -31,4 +31,24 @@
   border: 5px solid black;
   border-radius: 10px;
   box-shadow: 5px 10px #888888;
+  background: ##fffefa;
+}
+
+.message {
+  font-size: 22px;
+  color: #e0514b;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  /* text-align: center; */
+  background: ##fffefa;
+  border: 2px solid #e0514b;
+  border-radius: 5px;
+  box-shadow: 5px 5px #f5cac9;
+}
+
+.danger {
+  height: 30px;
+  margin: 0px 30px;
 }
