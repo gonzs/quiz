@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Spinner, Alert } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuiz } from '../Actions';
-import danger from '../icons/danger.svg';
+import { ErrorMessage } from '../Messages';
 
 const Trivia = props => {
   const path = props.match.path.split('/');
@@ -24,10 +24,7 @@ const Trivia = props => {
       ) : success ? (
         <Redirect to={`${path[1]}/1`} />
       ) : (
-        <Alert className="message">
-          <img src={danger} className="danger" alt="danger" />
-          {error}
-        </Alert>
+        <ErrorMessage text={error} />
       )}
     </div>
   );

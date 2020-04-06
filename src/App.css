@@ -40,8 +40,8 @@
   margin: 40px auto;
   display: flex;
   justify-content: center;
-  width: 500px;
-  /* text-align: center; */
+  width: 800px;
+  padding: 40px 120px;
   background: ##fffefa;
   border: 2px solid #e0514b;
   border-radius: 5px;
@@ -49,6 +49,6 @@
 }
 
 .danger {
-  height: 30px;
-  margin: 0px 30px;
+  height: 50px;
+  margin: auto 30px;
 }

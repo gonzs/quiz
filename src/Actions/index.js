@@ -4,7 +4,7 @@ import {
   RECEIVE_ERROR,
   SAVE_ANSWER,
 } from './types';
-import { ERROR_TEXT } from '../constants';
+import { ERROR_TEXT, ERROR_FETCH } from '../constants';
 
 export function getQuiz(subject) {
   return dispatch => {
@@ -19,8 +19,8 @@ export function getQuiz(subject) {
         dispatch(receiveSuccess(data));
       })
       .catch(error => {
-        console.error(ERROR_TEXT, error);
-        dispatch(receiveError(error));
+        console.log(ERROR_TEXT, error);
+        dispatch(receiveError(ERROR_FETCH));
       });
   };
 }
