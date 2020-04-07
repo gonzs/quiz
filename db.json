@@ -5,21 +5,19 @@
       "type": "choice",
       "title": "Color del cielo",
       "options": [
-        { "option": 1, "desc": "azul" },
+        { "option": 1, "desc": "azul", "correct": true },
         { "option": 2, "desc": "verde" },
         { "option": 3, "desc": "rojo" }
-      ],
-      "correct": 1
+      ]
     },
     {
       "id": 2,
       "type": "choice",
       "title": "Color del cielo es rojo",
       "options": [
-        { "option": 1, "desc": "Falso" },
+        { "option": 1, "desc": "Falso", "correct": true },
         { "option": 2, "desc": "verdadero" }
-      ],
-      "correct": 1
+      ]
     },
     {
       "id": 3,
@@ -34,7 +32,7 @@
       "type": "choice",
       "title": "Color del mar",
       "options": [
-        { "option": 1, "desc": "azul" },
+        { "option": 1, "desc": "azul", "correct": true },
         { "option": 2, "desc": "verde" },
         { "option": 3, "desc": "rojo" }
       ],
@@ -45,7 +43,7 @@
       "type": "choice",
       "title": "Color del mar es rojo",
       "options": [
-        { "option": 1, "desc": "Falso" },
+        { "option": 1, "desc": "Falso", "correct": true },
         { "option": 2, "desc": "verdadero" }
       ],
       "correct": 1
