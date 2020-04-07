@@ -11,6 +11,7 @@ function quiz(
     isFetching: true,
     success: true,
     error: '',
+    subject: '',
     quiz: [],
     answers: [],
   },
@@ -25,7 +26,8 @@ function quiz(
         ...state,
         isFetching: false,
         success: true,
-        quiz: action.payload,
+        subject: action.payload.subject,
+        quiz: action.payload.data,
       };
 
     case RECEIVE_ERROR:

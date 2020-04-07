@@ -7,7 +7,9 @@ import { ErrorMessage } from '../Messages';
 
 const Trivia = props => {
   const path = props.match.path.split('/');
-  const { isFetching, success, error } = useSelector(state => state.quiz);
+  const { isFetching, subject, success, error } = useSelector(
+    state => state.quiz
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Trivia = props => {
           <span className="sr-only">Loading...</span>
         </Spinner>
       ) : success ? (
-        <Redirect to={`${path[1]}/1`} />
+        <Redirect to={`${subject}/1`} />
       ) : (
         <ErrorMessage text={error} />
       )}

@@ -16,10 +16,10 @@ export function getQuiz(subject) {
         else return response.json();
       })
       .then(data => {
-        dispatch(receiveSuccess(data));
+        dispatch(receiveSuccess({ data, subject }));
       })
       .catch(error => {
-        console.log(ERROR_TEXT, error);
+        console.error(ERROR_TEXT, error);
         dispatch(receiveError(ERROR_FETCH));
       });
   };

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
-import { Link, useParams, Redirect, useRouteMatch } from 'react-router-dom';
+import { Link, useParams, Redirect } from 'react-router-dom';
 import { saveAnswer } from '../Actions';
+import { RESULTS } from '../constants/routes';
 
 const Question = () => {
   const { id } = useParams();
+  const subject = useSelector(state => state.quiz.subject);
   const question = useSelector(state => state.quiz.quiz[id - 1]);
-  const pathData = useRouteMatch().path.split('/');
-  const rootPath = `${pathData[0]}/${pathData[1]}`;
   const dispatch = useDispatch();
   const prevId = parseInt(id) - 1;
   const nextId = parseInt(id) + 1;
@@ -27,7 +27,7 @@ const Question = () => {
   return (
     <div>
       {question === undefined ? (
-        <Redirect to={rootPath} />
+        <Redirect to={subject} />
       ) : (
         <div className="trivia">
           <h1>
@@ -43,8 +43,8 @@ const Question = () => {
                   name="options"
                   type="radio"
                   label={o.desc}
-                  checked={o.desc === answer}
-                  onChange={() => setAnswer(o.desc)}
+                  checked={o.option === answer}
+                  onChange={() => setAnswer(o.option)}
                 />
               ))
             ) : (
@@ -55,7 +55,9 @@ const Question = () => {
                   rows="4"
                   cols="50"
                   value={answer}
-                  onChange={event => setAnswer(event.target.value)}
+                  onChange={event =>
+                    setAnswer(event.target.value.toUpperCase())
+                  }
                 />
               </div>
             )}
@@ -65,7 +67,7 @@ const Question = () => {
             {parseInt(id) !== 1 ? (
               <Button
                 as={Link}
-                to={`${rootPath}/${prevId}`}
+                to={`/${subject}/${prevId}`}
                 onClick={() => saveAnswerEvent()}
               >
                 Previous
@@ -74,11 +76,17 @@ const Question = () => {
               <span></span>
             )}
             {parseInt(id) === 3 ? (
-              <Button onClick={() => saveAnswerEvent()}>Submit</Button>
+              <Button
+                as={Link}
+                to={`/${subject + RESULTS}`}
+                onClick={() => saveAnswerEvent()}
+              >
+                Submit
+              </Button>
             ) : (
               <Button
                 as={Link}
-                to={`${rootPath}/${nextId}`}
+                to={`/${subject}/${nextId}`}
                 onClick={() => saveAnswerEvent()}
               >
                 Next
