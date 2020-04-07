@@ -8,7 +8,9 @@ import { RESULTS } from '../constants/routes';
 const Question = () => {
   const { id } = useParams();
   const subject = useSelector(state => state.quiz.subject);
-  const question = useSelector(state => state.quiz.quiz[id - 1]);
+  const { question, quant } = useSelector(state => {
+    return { question: state.quiz.quiz[id - 1], quant: state.quiz.quiz.length };
+  });
   const dispatch = useDispatch();
   const prevId = parseInt(id) - 1;
   const nextId = parseInt(id) + 1;
@@ -75,7 +77,7 @@ const Question = () => {
             ) : (
               <span></span>
             )}
-            {parseInt(id) === 3 ? (
+            {parseInt(id) === quant ? (
               <Button
                 as={Link}
                 to={`/${subject + RESULTS}`}

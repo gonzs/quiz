@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Badge from 'react-bootstrap/Badge';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { HOME } from '../constants/routes';
+import { Table, Nav } from 'react-bootstrap';
 
 const Results = () => {
   const quiz = useSelector(state => state.quiz.quiz);
   const answers = useSelector(state => state.quiz.answers);
-  const [results, setResults] = useState([]);
+  const subject = useSelector(state => state.quiz.subject);
+  let score = 0;
 
-  useEffect(() => {
-    const validateQuiz = () => {
-      let resultsAux = quiz.map((q, index) => {
-        let i = answers.findIndex(a => a.id === q.id);
+  const validateQuestion = question => {
+    let i = answers.findIndex(a => a.id === question.id);
 
-        if (answers[i].text === q.correct)
-          return { response: `Pregunta ${index + 1} ==> Correcta` };
-        else return { response: `Pregunta ${index + 1} ==> Incorrecta` };
-      });
-      setResults(resultsAux);
-    };
-
-    validateQuiz();
-  }, []);
+    if (answers[i].text === question.correct) {
+      return { answer: 'Correct', points: 1 };
+    } else return { answer: 'Incorrect', points: 0 };
+  };
 
   return (
     <div>
@@ -33,9 +28,34 @@ const Results = () => {
           <h1>
             <Badge variant="secondary">Results</Badge>
           </h1>
-          {results.map((r, index) => {
-            return <h4 key={index}>{r.response}</h4>;
-          })}
+
+          <Table responsive striped bordered hover>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {quiz.map((question, index) => {
+                let { answer, points } = validateQuestion(question);
+                score += points;
+
+                return (
+                  <tr key={index}>
+                    <td>
+                      <Nav.Link as={Link} to={`/${subject}/${index + 1}`}>
+                        {index + 1}
+                      </Nav.Link>
+                    </td>
+                    <td className={answer.toLowerCase()}>{answer}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+          <h2>{`Score: ${score} / ${quiz.length}`}</h2>
         </div>
       )}
     </div>

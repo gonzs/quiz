@@ -52,3 +52,12 @@
   height: 50px;
   margin: auto 30px;
 }
+
+.correct {
+  color: #6fbe7b;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: #de3a28;
+}

@@ -26,6 +26,18 @@
       "type": "free_text",
       "title": "Color del cielo",
       "correct": "AZUL"
+    },
+    {
+      "id": 4,
+      "type": "free_text",
+      "title": "Color del mar",
+      "correct": "AZUL"
+    },
+    {
+      "id": 5,
+      "type": "free_text",
+      "title": "Color del oceano",
+      "correct": "AZUL"
     }
   ],
   "inteligenciaartificial": [
