@@ -53,6 +53,7 @@ export function postResults(subject, score) {
   return dispatch => {
     dispatch(sendResults());
 
+    // TODO: Build API to post the results
     fetch(`${process.env.REACT_APP_API_URL}/results`, {
       method: 'POST',
       body: JSON.stringify({ subject, score }),
