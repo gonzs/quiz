@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 import {
   REQUEST_QUIZ,
-  RECEIVE_SUCCESS,
-  RECEIVE_ERROR,
+  REQUEST_QUIZ_SUCCESS,
+  REQUEST_QUIZ_ERROR,
   SAVE_ANSWER,
-} from '../Actions/types';
+  SEND_RESULTS,
+  SEND_RESULTS_SUCCESS,
+  SEND_RESULTS_ERROR,
+} from '../types';
 
 function quiz(
   state = {
@@ -12,7 +15,7 @@ function quiz(
     success: true,
     error: '',
     subject: '',
-    quiz: [],
+    questions: [],
     answers: [],
   },
   action
@@ -21,16 +24,16 @@ function quiz(
     case REQUEST_QUIZ:
       return { ...state, isFetching: true, answers: [] };
 
-    case RECEIVE_SUCCESS:
+    case REQUEST_QUIZ_SUCCESS:
       return {
         ...state,
         isFetching: false,
         success: true,
         subject: action.payload.subject,
-        quiz: action.payload.data,
+        questions: action.payload.data,
       };
 
-    case RECEIVE_ERROR:
+    case REQUEST_QUIZ_ERROR:
       return {
         ...state,
         isFetching: false,
@@ -68,4 +71,28 @@ function quiz(
   }
 }
 
-export default combineReducers({ quiz });
+function results(
+  state = { isSending: false, success: true, error: '' },
+  action
+) {
+  switch (action.type) {
+    case SEND_RESULTS:
+      return { ...state, isSending: true };
+
+    case SEND_RESULTS_SUCCESS:
+      return { ...state, isSending: false, success: true };
+
+    case SEND_RESULTS_ERROR:
+      return {
+        ...state,
+        isSending: false,
+        success: false,
+        error: action.payload.toString(),
+      };
+
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({ quiz, results });

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { getQuiz } from '../Actions';
-import { ErrorMessage } from '../Messages';
+import { getQuiz } from '../Redux/Actions';
+import ErrorRequestMessage from '../Messages/ErrorRequestMessage';
 
 const Trivia = props => {
   const path = props.match.path.split('/');
@@ -26,7 +26,7 @@ const Trivia = props => {
       ) : success ? (
         <Redirect to={`${subject}/1`} />
       ) : (
-        <ErrorMessage text={error} />
+        <ErrorRequestMessage text={error} />
       )}
     </div>
   );

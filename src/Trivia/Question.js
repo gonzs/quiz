@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
 import { Link, useParams, Redirect } from 'react-router-dom';
-import { saveAnswer } from '../Actions';
+import { saveAnswer, postResults } from '../Redux/Actions';
 import { RESULTS } from '../constants/routes';
 
 const Question = () => {
   const { id } = useParams();
   const subject = useSelector(state => state.quiz.subject);
   const { question, quant } = useSelector(state => {
-    return { question: state.quiz.quiz[id - 1], quant: state.quiz.quiz.length };
+    return {
+      question: state.quiz.questions[id - 1],
+      quant: state.quiz.questions.length,
+    };
   });
   const dispatch = useDispatch();
   const prevId = parseInt(id) - 1;
@@ -25,6 +28,11 @@ const Question = () => {
     if (retrievedAnswer.length === 0 || answer !== retrievedAnswer[0].text)
       dispatch(saveAnswer({ id: question.id, text: answer }));
   };
+
+  // const submitEvent = async () => {
+  //   await saveAnswerEvent();
+  //   dispatch(postResults({}));
+  // };
 
   return (
     <div>

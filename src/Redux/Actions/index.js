@@ -1,0 +1,89 @@
+import {
+  REQUEST_QUIZ,
+  REQUEST_QUIZ_SUCCESS,
+  REQUEST_QUIZ_ERROR,
+  SAVE_ANSWER,
+  SEND_RESULTS,
+  SEND_RESULTS_SUCCESS,
+  SEND_RESULTS_ERROR,
+} from '../types';
+import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../constants';
+
+export function getQuiz(subject) {
+  return dispatch => {
+    dispatch(requestQuiz());
+
+    fetch(`${process.env.REACT_APP_API_URL}/${subject}`)
+      .then(response => {
+        if (response.ok !== true) throw new Error(response.status);
+        else return response.json();
+      })
+      .then(data => {
+        dispatch(requestSuccess({ data, subject }));
+      })
+      .catch(error => {
+        console.error(ERROR_TEXT, error);
+        dispatch(requestError(ERROR_FETCH));
+      });
+  };
+}
+
+export const requestQuiz = () => ({
+  type: REQUEST_QUIZ,
+});
+
+export const requestSuccess = payload => {
+  return {
+    type: REQUEST_QUIZ_SUCCESS,
+    payload,
+  };
+};
+
+export const requestError = payload => ({
+  type: REQUEST_QUIZ_ERROR,
+  payload,
+});
+
+export const saveAnswer = payload => ({
+  type: SAVE_ANSWER,
+  payload,
+});
+
+export function postResults(subject, score) {
+  return dispatch => {
+    dispatch(sendResults());
+
+    fetch(`${process.env.REACT_APP_API_URL}/results`, {
+      method: 'POST',
+      body: JSON.stringify({ subject, score }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (response.ok !== true) throw new Error(response.status);
+        else return response.json();
+      })
+      .then(data => {
+        dispatch(sendSuccess());
+      })
+      .catch(error => {
+        console.error(ERROR_TEXT, error);
+        dispatch(sendError(ERROR_SEND));
+      });
+  };
+}
+
+export const sendResults = () => ({
+  type: SEND_RESULTS,
+});
+
+export const sendSuccess = payload => ({
+  type: SEND_RESULTS_SUCCESS,
+  payload,
+});
+
+export const sendError = payload => ({
+  type: SEND_RESULTS_ERROR,
+  payload,
+});

@@ -2,7 +2,7 @@ import React from 'react';
 import danger from '../icons/danger.svg';
 import Alert from 'react-bootstrap/Alert';
 
-export const ErrorMessage = ({ text }) => {
+const ErrorRequestMessage = ({ text }) => {
   return (
     <Alert className="message">
       <img src={danger} className="danger" alt="danger" />
@@ -10,3 +10,4 @@ export const ErrorMessage = ({ text }) => {
     </Alert>
   );
 };
+export default ErrorRequestMessage;
