@@ -1,35 +1,49 @@
-import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import Spinner from 'react-bootstrap/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import { getQuiz } from '../Redux/Actions';
-import ErrorRequestMessage from '../Messages/ErrorRequestMessage';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveAnswer } from '../Redux/Actions';
 
-const Trivia = props => {
-  const path = props.match.path.split('/');
-  const { isFetching, subject, success, error } = useSelector(
-    state => state.quiz
-  );
-  const dispatch = useDispatch();
+export const useNavigation = () => {
+  let { id } = useParams();
+  id = parseInt(id);
+  const prevId = parseInt(id) - 1;
+  const nextId = parseInt(id) + 1;
+  const length = useSelector(state => state.quiz.questions.length);
+  const isFirst = id === 1 ? true : false;
+  const isLast = id === length ? true : false;
 
-  useEffect(() => {
-    // * Dispatch getQuiz action
-    dispatch(getQuiz(path[1]));
-  }, [dispatch]);
-
-  return (
-    <div>
-      {isFetching ? (
-        <Spinner className="trivia" animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      ) : success ? (
-        <Redirect to={`${subject}/1`} />
-      ) : (
-        <ErrorRequestMessage text={error} />
-      )}
-    </div>
-  );
+  return {
+    id,
+    prevId,
+    nextId,
+    isFirst,
+    isLast,
+  };
 };
 
-export default Trivia;
+export const useRetrieveAnswer = id => {
+  const question = useSelector(state => state.quiz.questions[id - 1]);
+  const retrievedAnswer = useSelector(state =>
+    state.quiz.answers.filter(answer => answer.id === question.id)
+  );
+
+  return {
+    retrievedAnswer,
+  };
+};
+
+export const useQuestion = id => {
+  return {
+    subject: useSelector(state => state.quiz.subject),
+    question: useSelector(state => state.quiz.questions[id - 1]),
+  };
+};
+
+export const useSaveAnswer = (retrieved, question, current) => {
+  const dispatch = useDispatch();
+  return () => {
+    if (retrieved.length === 0 || current !== retrieved[0].text) {
+      console.log('paso');
+      dispatch(saveAnswer({ id: question.id, text: current }));
+    }
+  };
+};

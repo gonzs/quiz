@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HOME, ADMGER, IA, RESULTS } from './constants/routes';
 import NavBar from './NavBar';
 import Home from './Home';
-import Trivia from './Trivia';
+import Trivia from './Trivia/Trivia';
 import Question from './Trivia/Question';
 import Results from './Trivia/Results';
 import Store from './Redux';

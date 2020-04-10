@@ -52,11 +52,7 @@ const Results = () => {
         <Redirect to={HOME} />
       ) : (
         <div>
-          {!isSending ? (
-            <SendMessage success={success} error={error} />
-          ) : (
-            <div></div>
-          )}
+          {!isSending && <SendMessage success={success} error={error} />}
 
           <div className="trivia">
             <h1>
