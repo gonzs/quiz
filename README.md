@@ -8,6 +8,8 @@ The app has a menu bar with differents subjects. Each subject route will show 10
 
 UI -> `CSS flex` & `react-bootstrap`.
 
+HTTP client -> `axios` to hadle rest API
+
 State management -> `redux` & `redux thunk` to handle asynchronism.
 
 Routing -> `react router`. Two sub-routes per subject, one for the question and other for results. e.g. /history/4 , /history/results

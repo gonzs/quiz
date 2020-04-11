@@ -8,18 +8,20 @@ import {
   SEND_RESULTS_ERROR,
 } from '../types';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../constants';
+import axios from 'axios';
 
 export function getQuiz(subject) {
   return dispatch => {
     dispatch(requestQuiz());
 
-    fetch(`${process.env.REACT_APP_API_URL}/${subject}`)
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/${subject}`)
       .then(response => {
-        if (response.ok !== true) throw new Error(response.status);
-        else return response.json();
-      })
-      .then(data => {
-        dispatch(requestSuccess({ data, subject }));
+        if (response.statusText !== 'OK') throw new Error(response.status);
+        else {
+          let data = response.data;
+          dispatch(requestSuccess({ data, subject }));
+        }
       })
       .catch(error => {
         console.error(ERROR_TEXT, error);
@@ -54,19 +56,11 @@ export function postResults(subject, score) {
     dispatch(sendResults());
 
     // TODO: Build API to post the results
-    fetch(`${process.env.REACT_APP_API_URL}/results`, {
-      method: 'POST',
-      body: JSON.stringify({ subject, score }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/results`, { subject, score })
       .then(response => {
-        if (response.ok !== true) throw new Error(response.status);
-        else return response.json();
-      })
-      .then(data => {
-        dispatch(sendSuccess());
+        if (response.statusText !== 'OK') throw new Error(response.status);
+        else dispatch(sendSuccess());
       })
       .catch(error => {
         console.error(ERROR_TEXT, error);
