@@ -63,7 +63,7 @@ export const useQuiz = _path => {
   useEffect(() => {
     // * Dispatch getQuiz action
     dispatch(getQuiz(path));
-  }, []);
+  }, [dispatch, path]);
 };
 
 export const useResultsData = () => {
@@ -89,5 +89,5 @@ export const useValidateQuiz = (questions, answers, setResults, subject) => {
     });
     setResults({ validated: validated, score: score });
     if (validated.length !== 0) dispatch(postResults(subject, score));
-  }, [questions, answers, setResults, subject]);
+  }, [dispatch, questions, answers, setResults, subject]);
 };
