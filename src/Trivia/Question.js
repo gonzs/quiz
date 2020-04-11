@@ -7,16 +7,23 @@ import {
   useRetrieveAnswer,
   useQuestion,
   useSaveAnswer,
-} from './index';
+  useQuizData,
+} from './Logic';
 
 const Question = () => {
-  // * Get custom's hooks
+  // * Get Navigation data
   const { id, prevId, nextId, isFirst, isLast } = useNavigation();
-  const { subject, question } = useQuestion(id);
+  // * Get current question
+  const question = useQuestion(id);
+  // * Get current subject
+  const { subject } = useQuizData();
+  // * Get cached answer
   const { retrievedAnswer } = useRetrieveAnswer(id);
+  // * Answer local state
   const [answer, setAnswer] = useState(() => {
     if (retrievedAnswer.length !== 0) return retrievedAnswer[0].text;
   });
+  // * Save Answer event
   const saveAnswer = useSaveAnswer(retrievedAnswer, question, answer);
 
   // Render if there is not question

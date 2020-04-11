@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import { getQuiz } from '../Redux/Actions';
 import ErrorRequestMessage from '../Messages/ErrorRequestMessage';
+import { useQuiz, useQuizData } from './Logic';
 
 const Trivia = props => {
-  const path = props.match.path.split('/');
-  const { isFetching, subject, success, error } = useSelector(
-    state => state.quiz
-  );
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // * Dispatch getQuiz action
-    dispatch(getQuiz(path[1]));
-  }, [dispatch]);
+  // * Get quiz data
+  const { isFetching, subject, success, error } = useQuizData();
+  // * Get questions
+  useQuiz(props.match.path.split('/'));
 
   // Render loading
   if (isFetching)
@@ -30,5 +23,4 @@ const Trivia = props => {
   // Render first question
   else return <Redirect to={`${subject}/1`} />;
 };
-
 export default Trivia;

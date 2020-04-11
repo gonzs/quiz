@@ -1,91 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { HOME } from '../constants/routes';
 import { Table, Nav, Badge } from 'react-bootstrap';
 import SendMessage from '../Messages/SendMessage';
-import { postResults } from '../Redux/Actions';
+import { useQuizData, useResultsData, useValidateQuiz } from './Logic';
 
 const Results = () => {
-  const {
-    questions,
-    answers,
-    subject,
-    isSending,
-    success,
-    error,
-  } = useSelector(state => {
-    return {
-      questions: state.quiz.questions,
-      answers: state.quiz.answers,
-      subject: state.quiz.subject,
-      isSending: state.results.isSending,
-      success: state.results.success,
-      error: state.results.error,
-    };
-  });
+  // * Get Quiz data
+  const { questions, answers, subject } = useQuizData();
+  // * Get Results data
+  const { isSending, success, error } = useResultsData();
+  // * Declare local results state
+  const [results, setResults] = useState({ validated: [], score: 0 });
 
-  const [state, setState] = useState({ validated: [], score: 0 });
-  const dispatch = useDispatch();
+  // * Validate Quiz
+  useValidateQuiz(questions, answers, setResults, subject);
 
-  const validateQuiz = (q, a) => {
-    let score = 0;
-    const validated = q.map((question, index) => {
-      let i = a.findIndex(answer => answer.id === question.id);
+  // Render if there are not answers
+  if (answers.length === 0) return <Redirect to={HOME} />;
 
-      if (a[i].text === question.correct) {
-        score += 1;
-        return 'Correct';
-      } else return 'Incorrect';
-    });
-    setState({ validated: validated, score: score });
-    if (validated.length !== 0) dispatch(postResults(subject, score));
-  };
-
-  useEffect(() => {
-    validateQuiz(questions, answers);
-  }, []);
-
+  // Render results table
   return (
     <div>
-      {answers.length === 0 ? (
-        <Redirect to={HOME} />
-      ) : (
-        <div>
-          {!isSending && <SendMessage success={success} error={error} />}
+      {!isSending && <SendMessage success={success} error={error} />}
 
-          <div className="trivia">
-            <h1>
-              <Badge variant="secondary">Results</Badge>
-            </h1>
+      <div className="trivia">
+        <h1>
+          <Badge variant="secondary">Results</Badge>
+        </h1>
 
-            <Table responsive striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Answer</th>
+        <Table responsive striped bordered hover>
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Answer</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {results.validated.map((elem, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <Nav.Link as={Link} to={`/${subject}/${index + 1}`}>
+                      {index + 1}
+                    </Nav.Link>
+                  </td>
+                  <td className={elem.toLowerCase()}>{elem}</td>
                 </tr>
-              </thead>
-
-              <tbody>
-                {state.validated.map((elem, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <Nav.Link as={Link} to={`/${subject}/${index + 1}`}>
-                          {index + 1}
-                        </Nav.Link>
-                      </td>
-                      <td className={elem.toLowerCase()}>{elem}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-            <h2>{`Score: ${state.score} / ${questions.length}`}</h2>
-          </div>
-        </div>
-      )}
+              );
+            })}
+          </tbody>
+        </Table>
+        <h2>{`Score: ${results.score} / ${questions.length}`}</h2>
+      </div>
     </div>
   );
 };
