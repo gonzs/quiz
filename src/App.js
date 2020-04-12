@@ -8,7 +8,7 @@ import Home from './Home';
 import Trivia from './Trivia/Trivia';
 import Question from './Trivia/Question';
 import Results from './Trivia/Results';
-import Store from './Redux';
+import Store from './Redux/Store';
 
 function App() {
   return (
