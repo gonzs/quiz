@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #f8f9fa;
+}
+
+.title {
+  font-size: 5em;
+}
+
+.logo {
+  height: 4em;
+  margin: auto 4em;
+}

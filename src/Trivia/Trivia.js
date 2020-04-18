@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import ErrorRequestMessage from '../Messages/ErrorRequestMessage';
-import { useQuiz, useQuizData } from './Logic';
+import { useQuiz, useQuizData } from './Model';
 
 const Trivia = props => {
   // * Get quiz data
@@ -13,7 +13,7 @@ const Trivia = props => {
   // Render loading
   if (isFetching)
     return (
-      <Spinner className="trivia" animation="border" role="status">
+      <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
     );

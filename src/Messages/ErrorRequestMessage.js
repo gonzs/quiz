@@ -1,6 +1,7 @@
 import React from 'react';
 import danger from '../icons/danger.svg';
 import Alert from 'react-bootstrap/Alert';
+import './Message.css';
 
 const ErrorRequestMessage = ({ text }) => {
   return (

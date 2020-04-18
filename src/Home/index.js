@@ -1,6 +1,5 @@
 import React from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
+import { Jumbotron, Button } from 'react-bootstrap';
 
 const Home = () => {
   return (
@@ -8,7 +7,7 @@ const Home = () => {
       <h1>Hello, Welcome to this QUIZ!</h1>
       <p>This is a simple quiz</p>
       <p>
-        <Button variant="primary">Learn more</Button>
+        <Button variant="secondary">Learn more</Button>
       </p>
     </Jumbotron>
   );

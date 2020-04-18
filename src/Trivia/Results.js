@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { HOME } from '../constants/routes';
-import { Table, Nav, Badge } from 'react-bootstrap';
+import { Table, Card, Badge } from 'react-bootstrap';
 import SendMessage from '../Messages/SendMessage';
-import { useQuizData, useResultsData, useValidateQuiz } from './Logic';
+import { useQuizData, useResultsData, useValidateQuiz } from './Model';
 
 const Results = () => {
   // * Get Quiz data
@@ -24,36 +24,35 @@ const Results = () => {
     <div>
       {!isSending && <SendMessage success={success} error={error} />}
 
-      <div className="trivia">
-        <h1>
-          <Badge variant="secondary">Results</Badge>
-        </h1>
+      <Card bg="light" text="dark" bsPrefix="card">
+        <Card.Header bsPrefix="card-header">Results</Card.Header>
+        <Card.Body bsPrefix="card-body">
+          <Table responsive striped bordered hover>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+              </tr>
+            </thead>
 
-        <Table responsive striped bordered hover>
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {results.validated.map((elem, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    <Nav.Link as={Link} to={`/${subject}/${index + 1}`}>
-                      {index + 1}
-                    </Nav.Link>
-                  </td>
-                  <td className={elem.toLowerCase()}>{elem}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-        <h2>{`Score: ${results.score} / ${questions.length}`}</h2>
-      </div>
+            <tbody>
+              {results.validated.map((elem, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      <Link to={`/${subject}/${index + 1}`}>{index + 1}</Link>
+                    </td>
+                    <td tqclassName={elem.toLowerCase()}>{elem}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </Card.Body>
+        <h2>
+          <Badge variant="secondary">{`Score: ${results.score} / ${questions.length}`}</Badge>
+        </h2>
+      </Card>
     </div>
   );
 };

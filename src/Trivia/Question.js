@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonGroup, Button, Badge, Form } from 'react-bootstrap';
+import { ButtonGroup, Button, Card, Form } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { RESULTS } from '../constants/routes';
 import {
@@ -8,7 +8,8 @@ import {
   useQuestion,
   useSaveAnswer,
   useQuizData,
-} from './Logic';
+} from './Model';
+import './Trivia.css';
 
 const Question = () => {
   // * Get Navigation data
@@ -31,26 +32,28 @@ const Question = () => {
 
   // Render Trivia
   return (
-    <div className="trivia">
-      <h1>
-        <Badge variant="secondary">{question.title}</Badge>
-      </h1>
+    <Card bg="light" text="dark" bsPrefix="card">
+      <Card.Header bsPrefix="card-header">{`# ${id}`}</Card.Header>
+      <Card.Body bsPrefix="card-body">
+        <Card.Title bsPrefix="card-title">{question.title}</Card.Title>
 
-      <div>
         {question.options !== undefined && question.options.length !== 0 ? (
-          question.options.map((o, index) => (
-            <Form.Check
-              key={index}
-              id={o.option}
-              name="options"
-              type="radio"
-              label={o.desc}
-              checked={o.option === answer}
-              onChange={() => setAnswer(o.option)}
-            />
-          ))
+          <div className="card-body-box">
+            {question.options.map((o, index) => (
+              <Form.Check
+                key={index}
+                id={o.option}
+                name="options"
+                type="radio"
+                label={o.desc}
+                checked={o.option === answer}
+                onChange={() => setAnswer(o.option)}
+                bsPrefix="form-check"
+              />
+            ))}
+          </div>
         ) : (
-          <div>
+          <div className="card-body-box">
             <Form.Label>Respuesta:</Form.Label>
             <Form.Control
               as="textarea"
@@ -61,26 +64,45 @@ const Question = () => {
             />
           </div>
         )}
-      </div>
+      </Card.Body>
 
-      <ButtonGroup>
-        {!isFirst && (
-          <Button as={Link} to={`/${subject}/${prevId}`} onClick={saveAnswer}>
+      <ButtonGroup bsPrefix="btn-group">
+        {!isFirst ? (
+          <Button
+            variant="secondary"
+            as={Link}
+            to={`/${subject}/${prevId}`}
+            onClick={saveAnswer}
+          >
+            Previous
+          </Button>
+        ) : (
+          <Button variant="secondary" disabled>
             Previous
           </Button>
         )}
 
         {isLast ? (
-          <Button as={Link} to={`/${subject + RESULTS}`} onClick={saveAnswer}>
+          <Button
+            variant="secondary"
+            as={Link}
+            to={`/${subject + RESULTS}`}
+            onClick={saveAnswer}
+          >
             Submit
           </Button>
         ) : (
-          <Button as={Link} to={`/${subject}/${nextId}`} onClick={saveAnswer}>
+          <Button
+            variant="secondary"
+            as={Link}
+            to={`/${subject}/${nextId}`}
+            onClick={saveAnswer}
+          >
             Next
           </Button>
         )}
       </ButtonGroup>
-    </div>
+    </Card>
   );
 };
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import './App.css';
-import logo from './icons/logo.svg';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { HOME, ADMGER, IA, RESULTS } from './constants/routes';
 import NavBar from './NavBar';
@@ -9,18 +7,15 @@ import Trivia from './Trivia/Trivia';
 import Question from './Trivia/Question';
 import Results from './Trivia/Results';
 import Store from './Redux/Store';
+import Header from './Header';
 
 function App() {
   return (
-    <div id="App">
+    <div>
       <Store>
-        <h1>
-          <img src={logo} className="logo" alt="logo" />
-          Quiz
-          <img src={logo} className="logo" alt="logo" />
-        </h1>
-
         <BrowserRouter>
+          <Header />
+
           <NavBar />
           <Switch>
             <Route path={HOME} component={Home} exact />
