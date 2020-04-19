@@ -24,9 +24,9 @@ const Results = () => {
     <div>
       {!isSending && <SendMessage success={success} error={error} />}
 
-      <Card bg="light" text="dark" bsPrefix="card">
-        <Card.Header bsPrefix="card-header">Results</Card.Header>
-        <Card.Body bsPrefix="card-body">
+      <Card bg="light" text="dark">
+        <Card.Header>Results</Card.Header>
+        <Card.Body>
           <Table responsive striped bordered hover>
             <thead>
               <tr>
@@ -42,7 +42,7 @@ const Results = () => {
                     <td>
                       <Link to={`/${subject}/${index + 1}`}>{index + 1}</Link>
                     </td>
-                    <td tqclassName={elem.toLowerCase()}>{elem}</td>
+                    <td className={elem.toLowerCase()}>{elem}</td>
                   </tr>
                 );
               })}

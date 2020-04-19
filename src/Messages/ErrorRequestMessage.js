@@ -1,11 +1,12 @@
 import React from 'react';
 import danger from '../icons/danger.svg';
 import Alert from 'react-bootstrap/Alert';
-import './Message.css';
+import { ERROR_TEXT } from '../constants';
 
 const ErrorRequestMessage = ({ text }) => {
   return (
-    <Alert className="message">
+    <Alert variant="danger">
+      <Alert.Heading>{ERROR_TEXT}</Alert.Heading>
       <img src={danger} className="danger" alt="danger" />
       {text}
     </Alert>

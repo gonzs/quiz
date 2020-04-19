@@ -32,10 +32,10 @@ const Question = () => {
 
   // Render Trivia
   return (
-    <Card bg="light" text="dark" bsPrefix="card">
-      <Card.Header bsPrefix="card-header">{`# ${id}`}</Card.Header>
-      <Card.Body bsPrefix="card-body">
-        <Card.Title bsPrefix="card-title">{question.title}</Card.Title>
+    <Card bg="light" text="dark">
+      <Card.Header>{`# ${id}`}</Card.Header>
+      <Card.Body>
+        <Card.Title>{question.title}</Card.Title>
 
         {question.options !== undefined && question.options.length !== 0 ? (
           <div className="card-body-box">
@@ -48,7 +48,6 @@ const Question = () => {
                 label={o.desc}
                 checked={o.option === answer}
                 onChange={() => setAnswer(o.option)}
-                bsPrefix="form-check"
               />
             ))}
           </div>
@@ -66,7 +65,7 @@ const Question = () => {
         )}
       </Card.Body>
 
-      <ButtonGroup bsPrefix="btn-group">
+      <ButtonGroup>
         {!isFirst ? (
           <Button
             variant="secondary"

@@ -13,6 +13,7 @@ const Trivia = props => {
   // Render loading
   if (isFetching)
     return (
+      // TODO: align spinner
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
