@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   background-color: #f8f9fa;
 }
 
@@ -10,5 +10,5 @@
 
 .logo {
   height: 4em;
-  margin: auto 4em;
+  margin: auto;
 }
