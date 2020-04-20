@@ -1,14 +1,13 @@
 .alert {
-  margin: 2em auto;
-  /* width: 40em; */
-  height: 10em;
+  margin: 2em 2em;
+  min-height: 10em;
   border-radius: 5px;
   box-shadow: 0.25em 0.25em #f5cac9;
 }
 
 .danger {
   height: 2.5em;
-  margin: auto 1.5em;
+  margin: 1em 1.5em;
 }
 
 .toast {
