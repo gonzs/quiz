@@ -9,7 +9,7 @@ import {
   useSaveAnswer,
   useQuizData,
 } from './Model';
-import './Trivia.css';
+// import './Trivia.css';
 
 const Question = () => {
   // * Get Navigation data
