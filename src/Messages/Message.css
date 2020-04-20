@@ -1,6 +1,6 @@
 .alert {
   margin: 2em auto;
-  width: 40em;
+  /* width: 40em; */
   height: 10em;
   border-radius: 5px;
   box-shadow: 0.25em 0.25em #f5cac9;
