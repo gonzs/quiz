@@ -11,7 +11,8 @@
 }
 
 .toast {
-  position: relative;
-  top: 5%;
-  left: 75%;
+  position: absolute;
+  top: 1em;
+  left: 2em;
+  margin: 1em 2em;
 }
