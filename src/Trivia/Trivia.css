@@ -52,3 +52,10 @@
 .incorrect {
   color: #de3a28;
 }
+
+.spinner-border {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  margin: 4em auto;
+}
