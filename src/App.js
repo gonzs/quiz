@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { HOME, ADMGER, IA, RESULTS } from './constants/routes';
+import { HOME, SUB1, SUB2, RESULTS } from './constants/routes';
 import NavBar from './NavBar';
 import Home from './Home';
 import Trivia from './Trivia/Trivia';
@@ -20,27 +20,27 @@ function App() {
           <Switch>
             <Route path={HOME} component={Home} exact />
 
-            <Route path={ADMGER + RESULTS} component={Results} exact />
+            <Route path={SUB1 + RESULTS} component={Results} exact />
 
             <Route
-              path={`${ADMGER}/:id`}
+              path={`${SUB1}/:id`}
               render={props => (
                 <Question key={props.match.params.id || 'empty'} />
               )}
             />
 
-            <Route path={ADMGER} component={Trivia} />
+            <Route path={SUB1} component={Trivia} />
 
-            <Route path={IA + RESULTS} component={Results} exact />
+            <Route path={SUB2 + RESULTS} component={Results} exact />
 
             <Route
-              path={`${IA}/:id`}
+              path={`${SUB2}/:id`}
               render={props => (
                 <Question key={props.match.params.id || 'empty'} />
               )}
             />
 
-            <Route path={IA} component={Trivia} />
+            <Route path={SUB2} component={Trivia} />
 
             <Redirect from="" to={HOME} />
           </Switch>

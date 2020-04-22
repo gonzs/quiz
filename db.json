@@ -1,72 +1,72 @@
 {
-  "administraciongerencial": [
+  "subject1": [
     {
       "id": 1,
       "type": "choice",
-      "title": "Color del cielo",
+      "title": "multiple choice",
       "options": [
-        { "option": 1, "desc": "azul" },
-        { "option": 2, "desc": "verde" },
-        { "option": 3, "desc": "rojo" }
+        { "option": 1, "desc": "abcde" },
+        { "option": 2, "desc": "edcba" },
+        { "option": 3, "desc": "ababab" }
       ],
       "correct": 1
     },
     {
       "id": 2,
       "type": "choice",
-      "title": "Color del cielo es rojo",
+      "title": "true or false",
       "options": [
-        { "option": 1, "desc": "Falso" },
-        { "option": 2, "desc": "verdadero" }
+        { "option": 1, "desc": "False" },
+        { "option": 2, "desc": "True" }
       ],
       "correct": 1
     },
     {
       "id": 3,
       "type": "free_text",
-      "title": "Color del cielo",
-      "correct": "AZUL"
+      "title": "testing free text",
+      "correct": "TEXT"
     },
     {
       "id": 4,
       "type": "free_text",
-      "title": "Color del mar",
-      "correct": "AZUL"
+      "title": "Another free text",
+      "correct": "TEXT"
     },
     {
       "id": 5,
       "type": "free_text",
-      "title": "Color del oceano",
-      "correct": "AZUL"
+      "title": "free text free",
+      "correct": "TEXT"
     }
   ],
-  "inteligenciaartificial": [
+  "subject2": [
     {
-      "id": 2,
+      "id": 3,
       "type": "choice",
-      "title": "Color del mar",
+      "title": "multiple choice",
       "options": [
-        { "option": 1, "desc": "azul" },
-        { "option": 2, "desc": "verde" },
-        { "option": 3, "desc": "rojo" }
+        { "option": 1, "desc": "abcde" },
+        { "option": 2, "desc": "edcba" },
+        { "option": 3, "desc": "ababab" }
       ],
       "correct": 1
     },
     {
-      "id": 6,
+      "id": 7,
       "type": "choice",
-      "title": "Color del mar es rojo",
+      "title": "true or false",
       "options": [
-        { "option": 1, "desc": "Falso" },
-        { "option": 2, "desc": "verdadero" }
+        { "option": 1, "desc": "False" },
+        { "option": 2, "desc": "True" }
       ],
       "correct": 1
     },
     {
       "id": 12,
       "type": "free_text",
-      "title": "Color del mar",
-      "correct": "AZUL"
+      "title": "testing free text",
+      "correct": "TEXT"
     }
   ]
 }

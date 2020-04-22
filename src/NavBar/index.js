@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HOME, ADMGER, IA } from '../constants/routes';
+import { HOME, SUB1, SUB2 } from '../constants/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
 
 const NavBar = () => {
@@ -12,11 +12,11 @@ const NavBar = () => {
           <Nav.Link as={Link} to={HOME}>
             HOME
           </Nav.Link>
-          <Nav.Link as={Link} to={ADMGER}>
-            ADMINISTRACION GERENCIAL
+          <Nav.Link as={Link} to={SUB1}>
+            SUBJECT 1
           </Nav.Link>
-          <Nav.Link as={Link} to={IA}>
-            INTELIGENCIA ARTIFICIAL
+          <Nav.Link as={Link} to={SUB2}>
+            SUBJECT 2
           </Nav.Link>
         </Nav>
         <Nav>
