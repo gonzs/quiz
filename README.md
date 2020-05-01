@@ -18,7 +18,7 @@ Routing -> `react router`. Two sub-routes per subject, one for the question and 
 
 ### Backend
 
-In initial versions this is using json-server package as a fake api rest.
+A rest API was built with `Firebase` Cloud Functions [(follow this repo)](https://github.com/gonzs/quiz-firebase-api)
 
 _Dont forget to create a .env.local file with a API url. Format:_
 
