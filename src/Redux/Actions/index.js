@@ -17,7 +17,9 @@ export function getQuiz(subject) {
     axios
       .get(`${process.env.REACT_APP_API_URL}/${subject}`)
       .then(response => {
-        if (response.statusText !== 'OK') throw new Error(response.status);
+        console.log(response);
+        if (response.status !== 200)
+          throw new Error(response.status + response.statusText);
         else {
           let data = response.data;
           dispatch(requestSuccess({ data, subject }));
@@ -59,7 +61,8 @@ export function postResults(subject, score) {
     axios
       .post(`${process.env.REACT_APP_API_URL}/results`, { subject, score })
       .then(response => {
-        if (response.statusText !== 'OK') throw new Error(response.status);
+        if (response.status !== 200)
+          throw new Error(response.status + response.statusText);
         else dispatch(sendSuccess());
       })
       .catch(error => {
