@@ -42,7 +42,14 @@ const Results = () => {
                     <td>
                       <Link to={`/${subject}/${index + 1}`}>{index + 1}</Link>
                     </td>
-                    <td className={elem.toLowerCase()}>{elem}</td>
+                    <td>
+                      <Link
+                        className={elem.toLowerCase()}
+                        to={`/${subject}/${index + 1}`}
+                      >
+                        {elem}
+                      </Link>{' '}
+                    </td>
                   </tr>
                 );
               })}
