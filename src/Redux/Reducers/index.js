@@ -7,7 +7,7 @@ import {
   SEND_RESULTS,
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
-} from '../types';
+} from '../types-actions';
 
 function quiz(
   state = {
@@ -77,7 +77,7 @@ function results(
 ) {
   switch (action.type) {
     case SEND_RESULTS:
-      return { ...state, isSending: true };
+      return { ...state, isSending: true, error: '' };
 
     case SEND_RESULTS_SUCCESS:
       return { ...state, isSending: false, success: true };

@@ -6,7 +6,7 @@ import {
   SEND_RESULTS,
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
-} from '../types';
+} from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../constants';
 import axios from 'axios';
 
@@ -17,12 +17,13 @@ export function getQuiz(subject) {
     axios
       .get(`${process.env.REACT_APP_API_URL}/${subject}`)
       .then(response => {
-        console.log(response);
         if (response.status !== 200)
-          throw new Error(response.status + response.statusText);
+          throw new Error(`${response.status} - ${response.statusText}`);
         else {
           let data = response.data;
-          dispatch(requestSuccess({ data, subject }));
+          if (data.length === 0)
+            throw new Error(`${response.status} - NO DATA`);
+          else dispatch(requestSuccess({ data, subject }));
         }
       })
       .catch(error => {

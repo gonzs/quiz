@@ -39,15 +39,15 @@ const Question = () => {
 
         {question.options !== undefined && question.options.length !== 0 ? (
           <div className="card-body-box">
-            {question.options.map((o, index) => (
+            {question.options.map((opt, index) => (
               <Form.Check
                 key={index}
-                id={o.option}
+                id={index + 1}
                 name="options"
                 type="radio"
-                label={o.desc}
-                checked={o.option === answer}
-                onChange={() => setAnswer(o.option)}
+                label={opt}
+                checked={opt === answer}
+                onChange={() => setAnswer(opt)}
               />
             ))}
           </div>
