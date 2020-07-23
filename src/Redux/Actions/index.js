@@ -58,7 +58,6 @@ export function postResults(subject, score) {
   return dispatch => {
     dispatch(sendResults());
 
-    // TODO: Build API to post the results
     axios
       .post(`${process.env.REACT_APP_API_URL}/results`, { subject, score })
       .then(response => {

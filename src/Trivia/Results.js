@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { HOME } from '../constants/routes';
+import { HOME } from '../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import SendMessage from '../Messages/SendMessage';
 import { useQuizData, useResultsData, useValidateQuiz } from './Model';

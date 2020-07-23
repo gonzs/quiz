@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ButtonGroup, Button, Card, Form } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
-import { RESULTS } from '../constants/routes';
+import { RESULTS } from '../Router/routes';
 import {
   useNavigation,
   useRetrieveAnswer,
