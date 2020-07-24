@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ButtonGroup, Button, Card, Form } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Card, Form } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { RESULTS } from '../Router/routes';
 import {
   useNavigation,
@@ -8,7 +8,8 @@ import {
   useQuestion,
   useSaveAnswer,
   useQuizData,
-} from './Model';
+} from './CustomHooks';
+import NavButtons from '../Buttons/NavButtons';
 import './Trivia.css';
 
 const Question = () => {
@@ -65,42 +66,7 @@ const Question = () => {
         )}
       </Card.Body>
 
-      <ButtonGroup>
-        {!isFirst ? (
-          <Button
-            variant="secondary"
-            as={Link}
-            to={`/${subject}/${prevId}`}
-            onClick={saveAnswer}
-          >
-            Previous
-          </Button>
-        ) : (
-          <Button variant="secondary" disabled>
-            Previous
-          </Button>
-        )}
-
-        {isLast ? (
-          <Button
-            variant="secondary"
-            as={Link}
-            to={`/${subject + RESULTS}`}
-            onClick={saveAnswer}
-          >
-            Submit
-          </Button>
-        ) : (
-          <Button
-            variant="secondary"
-            as={Link}
-            to={`/${subject}/${nextId}`}
-            onClick={saveAnswer}
-          >
-            Next
-          </Button>
-        )}
-      </ButtonGroup>
+      <NavButtons subject={subject} saveAnswer={saveAnswer} />
     </Card>
   );
 };
