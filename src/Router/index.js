@@ -4,7 +4,7 @@ import Home from '../Home';
 import Trivia from '../Trivia/Trivia';
 import Question from '../Trivia/Question';
 import Results from '../Trivia/Results';
-import { HOME, SUB1, SUB2, RESULTS } from './routes';
+import { HOME, SUB1, SUB2, RESULTS } from './Routes';
 
 const Router = () => (
   <Switch>

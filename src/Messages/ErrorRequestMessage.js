@@ -1,7 +1,7 @@
 import React from 'react';
-import danger from '../icons/danger.svg';
+import danger from '../Icons/danger.svg';
 import Alert from 'react-bootstrap/Alert';
-import { ERROR_TEXT } from '../constants';
+import { ERROR_TEXT } from '../Constants';
 
 const ErrorRequestMessage = ({ text }) => {
   return (

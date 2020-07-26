@@ -4,7 +4,7 @@ import RootReducer from './Reducers';
 import reduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import { NODE_ENV_PROD } from '../constants';
+import { NODE_ENV_PROD } from '../Constants';
 
 const Store = props => {
   if (process.env.NODE_ENV === NODE_ENV_PROD) {
