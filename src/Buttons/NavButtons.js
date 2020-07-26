@@ -1,11 +1,11 @@
 import React from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useNavigation } from '../Trivia/CustomHooks';
+import { useNavigation } from '../Hooks';
 import CustomButton from '../Buttons/CustomButton';
 
 const NavButtons = ({ subject, saveAnswer }) => {
   // * Get Navigation data
-  const { id, prevId, nextId, isFirst, isLast } = useNavigation();
+  const { prevId, nextId, isFirst, isLast } = useNavigation();
 
   return (
     <ButtonGroup>

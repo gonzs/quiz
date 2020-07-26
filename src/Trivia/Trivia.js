@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import ErrorRequestMessage from '../Messages/ErrorRequestMessage';
-import { useQuiz, useQuizData } from './CustomHooks';
+import { useQuiz, useQuizData } from '../Hooks';
 
 const Trivia = props => {
   // * Get quiz data

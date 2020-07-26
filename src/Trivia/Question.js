@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import { RESULTS } from '../Router/routes';
 import {
   useNavigation,
   useRetrieveAnswer,
   useQuestion,
   useSaveAnswer,
   useQuizData,
-} from './CustomHooks';
+} from '../Hooks';
 import NavButtons from '../Buttons/NavButtons';
 import './Trivia.css';
 
 const Question = () => {
   // * Get Navigation data
-  const { id, prevId, nextId, isFirst, isLast } = useNavigation();
+  const { id } = useNavigation();
   // * Get current question
   const question = useQuestion(id);
   // * Get current subject
