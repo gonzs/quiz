@@ -102,3 +102,13 @@ test('renders error message for invalid login', () => {
 
   expect(msgSubmit.length).toBe(1);
 });
+
+test('No submit without values', () => {
+  const email = '';
+  const password = '';
+  const wrapper = setup(null, { email, password });
+  const submit = findByTestAttr(wrapper, 'submit-button');
+  submit.simulate('click');
+
+  expect(wrapper.state().isSubmitted).toBe(false);
+});
