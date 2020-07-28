@@ -50,7 +50,9 @@ class SignIn extends Component {
         <button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
           Sign In
         </button>
-        {!isLogin && <p data-test="msg-failure">login has failured</p>}
+        {!isLogin && isSubmitted && (
+          <p data-test="msg-failure">Invalid login</p>
+        )}
       </div>
     );
   }
