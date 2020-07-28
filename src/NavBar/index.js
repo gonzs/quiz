@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HOME, SUB1, SUB2 } from '../Router/Routes';
+import { HOME, SUB1, SUB2 } from '../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
 
 const NavBar = () => {

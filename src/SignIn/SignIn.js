@@ -1,12 +1,56 @@
 import React, { Component } from 'react';
 
 class SignIn extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      isSubmitted: false,
+      isLogin: false,
+    };
+  }
+
+  onSubmit() {
+    this.setState({ ...this.state, isSubmitted: true });
+  }
+  onChange(e) {
+    this.setState({
+      ...this.state,
+      isSubmitted: false,
+      [e.target.id]: e.target.value,
+    });
+  }
+
   render() {
+    const { email, password, isSubmitted, isLogin } = this.state;
+
     return (
       <div data-test="sign-in">
-        <input type="email" data-test="email-field"></input>
-        <input type="password" data-test="password-field"></input>
-        <button data-test="submit-button">Sign In</button>
+        <input
+          id="email"
+          type="email"
+          onChange={this.onChange.bind(this)}
+          data-test="email-field"
+        ></input>
+        {email.length === 0 && isSubmitted && (
+          <p data-test="msg-email">Email is mandatory</p>
+        )}
+        <br />
+        <input
+          id="password"
+          type="password"
+          onChange={this.onChange.bind(this)}
+          data-test="password-field"
+        ></input>
+        {password.length === 0 && isSubmitted && (
+          <p data-test="msg-password">Password is mandatory</p>
+        )}
+        <br />
+        <button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
+          Sign In
+        </button>
+        {!isLogin && <p data-test="msg-failure">login has failured</p>}
       </div>
     );
   }

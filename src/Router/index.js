@@ -4,7 +4,8 @@ import Home from '../Home';
 import Trivia from '../Trivia/Trivia';
 import Question from '../Trivia/Question';
 import Results from '../Trivia/Results';
-import { HOME, SUB1, SUB2, RESULTS } from './Routes';
+import { HOME, SUB1, SUB2, RESULTS, SIGN_IN } from './routes';
+import SignIn from '../SignIn/SignIn';
 
 const Router = () => (
   <Switch>
@@ -27,6 +28,8 @@ const Router = () => (
     />
 
     <Route path={SUB2} component={Trivia} />
+
+    <Route path={SIGN_IN} component={SignIn} />
 
     <Redirect from="" to={HOME} />
   </Switch>

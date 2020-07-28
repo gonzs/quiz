@@ -7,7 +7,7 @@ import {
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
 } from '../types-actions';
-import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
+import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../constants';
 import axios from 'axios';
 
 export function getQuiz(subject) {
