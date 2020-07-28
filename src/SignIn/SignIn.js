@@ -8,13 +8,12 @@ class SignIn extends Component {
       email: '',
       password: '',
       isSubmitted: false,
-      isLogin: false,
+      success: true,
     };
   }
 
   onSubmit() {
-    if (this.state.email.length !== 0 && this.state.password.length !== 0)
-      this.setState({ ...this.state, isSubmitted: true });
+    this.setState({ ...this.state, isSubmitted: true });
   }
 
   onChange(e) {
@@ -26,7 +25,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { email, password, isSubmitted, isLogin } = this.state;
+    const { email, password, isSubmitted, success } = this.state;
 
     return (
       <Form data-test="sign-in">
@@ -61,7 +60,7 @@ class SignIn extends Component {
         <Button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
           Sign In
         </Button>
-        {!isLogin && isSubmitted && (
+        {!success && isSubmitted && (
           <span data-test="msg-failure">Invalid login</span>
         )}
       </Form>

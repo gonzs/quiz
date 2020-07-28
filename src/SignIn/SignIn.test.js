@@ -86,29 +86,19 @@ test('verify onChange event for password', () => {
 });
 
 test('no renders error message for valid login', () => {
-  const isLogin = true;
+  const success = true;
   const isSubmitted = true;
-  const wrapper = setup(null, { isSubmitted, isLogin });
+  const wrapper = setup(null, { isSubmitted, success });
   const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
   expect(msgSubmit.length).toBe(0);
 });
 
 test('renders error message for invalid login', () => {
-  const isLogin = false;
+  const success = false;
   const isSubmitted = true;
-  const wrapper = setup(null, { isSubmitted, isLogin });
+  const wrapper = setup(null, { isSubmitted, success });
   const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
   expect(msgSubmit.length).toBe(1);
-});
-
-test('No submit without values', () => {
-  const email = '';
-  const password = '';
-  const wrapper = setup(null, { email, password });
-  const submit = findByTestAttr(wrapper, 'submit-button');
-  submit.simulate('click');
-
-  expect(wrapper.state().isSubmitted).toBe(false);
 });
