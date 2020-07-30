@@ -45,58 +45,67 @@ test('renders without error messages at initial', () => {
   expect(msgFailure.length).toBe(0);
 });
 
-test('if submit without email value', () => {
-  const email = { value: '', error: '' };
-  const wrapper = setup(null, { email });
-  const submit = findByTestAttr(wrapper, 'submit-button');
-  submit.simulate('click');
+describe('if submit without values', () => {
+  test('submit without email value', () => {
+    const email = { value: '', error: '' };
+    const wrapper = setup(null, { email });
+    const submit = findByTestAttr(wrapper, 'submit-button');
+    submit.simulate('click');
 
-  expect(wrapper.state().isSubmitted).toBe(false);
-});
-
-test('if submit without password value', () => {
-  const password = { value: '', error: '' };
-  const wrapper = setup(null, { password });
-  const submit = findByTestAttr(wrapper, 'submit-button');
-  submit.simulate('click');
-
-  expect(wrapper.state().isSubmitted).toBe(false);
-});
-
-test('verify onChange event for email', () => {
-  const emailObj = { value: 'gonzs@gonzs.com', error: '' };
-  const wrapper = setup();
-  const email = findByTestAttr(wrapper, 'email-field');
-  email.simulate('change', {
-    target: { id: 'email', value: 'gonzs@gonzs.com' },
+    expect(wrapper.state().isSubmitted).toBe(false);
   });
 
-  expect(wrapper.state().email).toMatchObject(emailObj);
+  test('submit without password value', () => {
+    const password = { value: '', error: '' };
+    const wrapper = setup(null, { password });
+    const submit = findByTestAttr(wrapper, 'submit-button');
+    submit.simulate('click');
+
+    expect(wrapper.state().isSubmitted).toBe(false);
+  });
 });
 
-test('verify onChange event for password', () => {
-  const passwordObj = { value: '12345', error: '' };
-  const wrapper = setup();
-  const password = findByTestAttr(wrapper, 'password-field');
-  password.simulate('change', { target: { id: 'password', value: '12345' } });
+describe('if onChange event', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup();
+  });
 
-  expect(wrapper.state().password).toMatchObject(passwordObj);
+  test('verify onChange event for email', () => {
+    const emailObj = { value: 'gonzs@gonzs.com', error: '' };
+    const email = findByTestAttr(wrapper, 'email-field');
+    email.simulate('change', {
+      target: { id: 'email', value: 'gonzs@gonzs.com' },
+    });
+
+    expect(wrapper.state().email).toMatchObject(emailObj);
+  });
+
+  test('verify onChange event for password', () => {
+    const passwordObj = { value: '12345', error: '' };
+    const password = findByTestAttr(wrapper, 'password-field');
+    password.simulate('change', { target: { id: 'password', value: '12345' } });
+
+    expect(wrapper.state().password).toMatchObject(passwordObj);
+  });
 });
 
-test('no renders error message for valid login', () => {
-  const success = true;
-  const isSubmitted = true;
-  const wrapper = setup(null, { isSubmitted, success });
-  const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
+describe('After Submit event', () => {
+  test('no renders error message for valid login', () => {
+    const success = true;
+    const isSubmitted = true;
+    const wrapper = setup(null, { isSubmitted, success });
+    const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
-  expect(msgSubmit.length).toBe(0);
-});
+    expect(msgSubmit.length).toBe(0);
+  });
 
-test('renders error message for invalid login', () => {
-  const success = false;
-  const isSubmitted = true;
-  const wrapper = setup(null, { isSubmitted, success });
-  const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
+  test('renders error message for invalid login', () => {
+    const success = false;
+    const isSubmitted = true;
+    const wrapper = setup(null, { isSubmitted, success });
+    const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
-  expect(msgSubmit.length).toBe(1);
+    expect(msgSubmit.length).toBe(1);
+  });
 });
