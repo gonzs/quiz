@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 
 class SignIn extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: { value: '', error: '' },
+      password: { value: '', error: '' },
       isSubmitted: false,
       success: true,
     };
   }
 
   onSubmit() {
-    this.setState({ ...this.state, isSubmitted: true });
+    if (
+      this.state.email.value.length !== 0 &&
+      this.state.password.value.length !== 0
+    ) {
+      // TODO - Simulate fetch API
+      let i = Math.random();
+      console.log(i);
+      if (i < 0.5)
+        this.setState({ ...this.state, isSubmitted: true, success: true });
+      else this.setState({ ...this.state, isSubmitted: true, success: false });
+    }
   }
 
   onChange(e) {
+    let error = '';
+    if (e.target.value.length === 0) error = `${e.target.id} is mandatory`;
+
     this.setState({
       ...this.state,
       isSubmitted: false,
-      [e.target.id]: e.target.value,
+      [e.target.id]: { value: e.target.value, error: error },
     });
   }
 
@@ -28,42 +41,52 @@ class SignIn extends Component {
     const { email, password, isSubmitted, success } = this.state;
 
     return (
-      <Form data-test="sign-in">
-        <Form.Group>
-          <Form.Label> Email address </Form.Label>
-          <Form.Control
-            id="email"
-            type="email"
-            placeholder="Enter email"
-            onChange={this.onChange.bind(this)}
-            data-test="email-field"
-          />
-          {email.length === 0 && isSubmitted && (
-            <p data-test="msg-email">Email is mandatory</p>
-          )}
-        </Form.Group>
+      <div>
+        <Form data-test="sign-in">
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label> Email address </Form.Label>
+            <Form.Control
+              id="email"
+              type="email"
+              placeholder="Enter email"
+              onChange={this.onChange.bind(this)}
+              onFocus={this.onChange.bind(this)}
+              data-test="email-field"
+            />
+            {email.value.length === 0 && email.error.length !== 0 && (
+              <span data-test="msg-email">
+                <Alert variant="danger">{email.error}</Alert>
+              </span>
+            )}
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            id="password"
-            type="password"
-            placeholder="Enter password"
-            onChange={this.onChange.bind(this)}
-            data-test="password-field"
-          />
-          {password.length === 0 && isSubmitted && (
-            <p data-test="msg-password">Password is mandatory</p>
-          )}
-        </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              id="password"
+              type="password"
+              placeholder="Enter password"
+              onChange={this.onChange.bind(this)}
+              onFocus={this.onChange.bind(this)}
+              data-test="password-field"
+            />
+            {password.value.length === 0 && password.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-password">
+                {password.error}
+              </Alert>
+            )}
+          </Form.Group>
 
-        <Button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
-          Sign In
-        </Button>
-        {!success && isSubmitted && (
-          <span data-test="msg-failure">Invalid login</span>
-        )}
-      </Form>
+          <Button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
+            Sign In
+          </Button>
+          {!success && isSubmitted && (
+            <Alert variant="danger" data-test="msg-failure">
+              Invalid login
+            </Alert>
+          )}
+        </Form>
+      </div>
     );
   }
 }

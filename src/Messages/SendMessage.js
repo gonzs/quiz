@@ -8,7 +8,7 @@ const SendMessage = ({ success, error }) => {
   const toggleShow = () => setShow(!show);
 
   return (
-    <Toast show={show} onClose={toggleShow}>
+    <Toast className="toast-2" show={show} onClose={toggleShow}>
       <Toast.Header>
         <strong className="mr-auto">Save Results</strong>
         <small>now</small>

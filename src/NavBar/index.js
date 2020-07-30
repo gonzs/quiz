@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HOME, SUB1, SUB2 } from '../Router/routes';
+import { HOME, SUB1, SUB2, SIGN_IN } from '../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
 
 const NavBar = () => {
@@ -20,7 +20,9 @@ const NavBar = () => {
           </Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link>More...</Nav.Link>
+          <Nav.Link as={Link} to={SIGN_IN}>
+            Sign In
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

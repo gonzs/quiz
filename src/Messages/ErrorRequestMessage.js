@@ -5,7 +5,7 @@ import { ERROR_TEXT } from '../constants';
 
 const ErrorRequestMessage = ({ text }) => {
   return (
-    <Alert variant="danger">
+    <Alert className="alert-2" variant="danger">
       <Alert.Heading>{ERROR_TEXT}</Alert.Heading>
       <img src={danger} className="danger" alt="danger" />
       {text}
