@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged test"
+      "pre-commit": "pretty-quick --staged mpm test"
     }
   }
 }
