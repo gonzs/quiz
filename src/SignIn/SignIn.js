@@ -19,7 +19,6 @@ class SignIn extends Component {
     ) {
       // TODO - Simulate fetch API
       let i = Math.random();
-      console.log(i);
       if (i < 0.5)
         this.setState({ ...this.state, isSubmitted: true, success: true });
       else this.setState({ ...this.state, isSubmitted: true, success: false });
@@ -43,7 +42,7 @@ class SignIn extends Component {
     return (
       <div>
         <Form data-test="sign-in">
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group>
             <Form.Label> Email address </Form.Label>
             <Form.Control
               id="email"
@@ -60,7 +59,7 @@ class SignIn extends Component {
             )}
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control
               id="password"
