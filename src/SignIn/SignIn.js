@@ -25,9 +25,28 @@ class SignIn extends Component {
     }
   }
 
+  checkRegExp(type, value) {
+    var emailRegex = /\S+@\S+\.\S+/;
+    let passwordRegex = /[A-Z](\w)/;
+    switch (type) {
+      case 'email':
+        return emailRegex.test(value.toString());
+
+      case 'password':
+        return passwordRegex.test(value);
+
+      default:
+        break;
+    }
+  }
+
   onChange(e) {
     let error = '';
-    if (e.target.value.length === 0) error = `${e.target.id} is mandatory`;
+    if (e.target.value.length === 0) {
+      error = `${e.target.id} is mandatory`;
+    } else if (!this.checkRegExp(e.target.id, e.target.value)) {
+      error = `${e.target.id} has invalid format`;
+    }
 
     this.setState({
       ...this.state,
@@ -52,10 +71,10 @@ class SignIn extends Component {
               onFocus={this.onChange.bind(this)}
               data-test="email-field"
             />
-            {email.value.length === 0 && email.error.length !== 0 && (
-              <span data-test="msg-email">
-                <Alert variant="danger">{email.error}</Alert>
-              </span>
+            {email.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-email">
+                {email.error}
+              </Alert>
             )}
           </Form.Group>
 
@@ -69,7 +88,7 @@ class SignIn extends Component {
               onFocus={this.onChange.bind(this)}
               data-test="password-field"
             />
-            {password.value.length === 0 && password.error.length !== 0 && (
+            {password.error.length !== 0 && (
               <Alert variant="danger" data-test="msg-password">
                 {password.error}
               </Alert>

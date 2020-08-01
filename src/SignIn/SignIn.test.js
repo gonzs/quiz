@@ -82,9 +82,11 @@ describe('if onChange event', () => {
   });
 
   test('verify onChange event for password', () => {
-    const passwordObj = { value: '12345', error: '' };
+    const passwordObj = { value: 'Gonzs*2', error: '' };
     const password = findByTestAttr(wrapper, 'password-field');
-    password.simulate('change', { target: { id: 'password', value: '12345' } });
+    password.simulate('change', {
+      target: { id: 'password', value: 'Gonzs*2' },
+    });
 
     expect(wrapper.state().password).toMatchObject(passwordObj);
   });
@@ -107,5 +109,101 @@ describe('After Submit event', () => {
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(1);
+  });
+});
+
+describe('if email field', () => {
+  let wrapper;
+  let email;
+
+  beforeEach(() => {
+    wrapper = setup();
+    email = findByTestAttr(wrapper, 'email-field');
+  });
+  test('has valid input', () => {
+    email.simulate('change', {
+      target: { id: 'email', value: 'gonzs@gonzs.com' },
+    });
+    const msgEmail = findByTestAttr(wrapper, 'msg-email');
+
+    expect(msgEmail.length).toBe(0);
+  });
+
+  test('has wrong input', () => {
+    email.simulate('change', {
+      target: { id: 'email', value: 'gonzs' },
+    });
+    const msgEmail = findByTestAttr(wrapper, 'msg-email');
+
+    expect(msgEmail.text()).toContain('invalid');
+    expect(msgEmail.length).toBe(1);
+  });
+});
+
+describe('if password field', () => {
+  let wrapper;
+  let password;
+
+  beforeEach(() => {
+    wrapper = setup();
+    password = findByTestAttr(wrapper, 'password-field');
+  });
+
+  test('has valid input', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'Gonzs*2' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.length).toBe(0);
+  });
+  test('has wrong input 1', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'gonzs' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.text()).toContain('invalid');
+    expect(msgPassword.length).toBe(1);
+  });
+
+  test('has wrong input 2', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'Gonzs' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.text()).toContain('invalid');
+    expect(msgPassword.length).toBe(1);
+  });
+
+  test('has wrong input 3', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'Gon1zs' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.text()).toContain('invalid');
+    expect(msgPassword.length).toBe(1);
+  });
+
+  test('has wrong input 4', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'Gonzs*' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.text()).toContain('invalid');
+    expect(msgPassword.length).toBe(1);
+  });
+
+  test('has wrong input 5', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: '*Gonzs2' },
+    });
+    const msgPassword = findByTestAttr(wrapper, 'msg-password');
+
+    expect(msgPassword.text()).toContain('invalid');
+    expect(msgPassword.length).toBe(1);
   });
 });
