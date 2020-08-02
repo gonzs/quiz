@@ -151,7 +151,7 @@ describe('if password field', () => {
 
   test('has valid input', () => {
     password.simulate('change', {
-      target: { id: 'password', value: 'gonzs*2G' },
+      target: { id: 'password', value: 'gonzs*2S' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
