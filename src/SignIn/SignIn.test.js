@@ -82,10 +82,10 @@ describe('if onChange event', () => {
   });
 
   test('verify onChange event for password', () => {
-    const passwordObj = { value: 'Gonzs*2', error: '' };
+    const passwordObj = { value: 'gonzs*2G', error: '' };
     const password = findByTestAttr(wrapper, 'password-field');
     password.simulate('change', {
-      target: { id: 'password', value: 'Gonzs*2' },
+      target: { id: 'password', value: 'gonzs*2G' },
     });
 
     expect(wrapper.state().password).toMatchObject(passwordObj);
@@ -151,7 +151,7 @@ describe('if password field', () => {
 
   test('has valid input', () => {
     password.simulate('change', {
-      target: { id: 'password', value: 'Gonzs*2' },
+      target: { id: 'password', value: 'gonzs*2G' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
@@ -179,7 +179,7 @@ describe('if password field', () => {
 
   test('has wrong input 3', () => {
     password.simulate('change', {
-      target: { id: 'password', value: 'Gon1zs' },
+      target: { id: 'password', value: 'Gon1zsSSSSSS' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
@@ -189,7 +189,7 @@ describe('if password field', () => {
 
   test('has wrong input 4', () => {
     password.simulate('change', {
-      target: { id: 'password', value: 'Gonzs*' },
+      target: { id: 'password', value: 'Go3nzs*' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
@@ -199,7 +199,7 @@ describe('if password field', () => {
 
   test('has wrong input 5', () => {
     password.simulate('change', {
-      target: { id: 'password', value: '*Gonzs2' },
+      target: { id: 'password', value: ',Gonzs2' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 

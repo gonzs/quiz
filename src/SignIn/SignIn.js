@@ -27,7 +27,7 @@ class SignIn extends Component {
 
   checkRegExp(type, value) {
     var emailRegex = /\S+@\S+\.\S+/;
-    let passwordRegex = /[A-Z](\w)/;
+    let passwordRegex = /(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[.!@#$%^&*])[\w.!@#$%^&*]{8,}/g;
     switch (type) {
       case 'email':
         return emailRegex.test(value.toString());
@@ -45,7 +45,7 @@ class SignIn extends Component {
     if (e.target.value.length === 0) {
       error = `${e.target.id} is mandatory`;
     } else if (!this.checkRegExp(e.target.id, e.target.value)) {
-      error = `${e.target.id} has invalid format`;
+      error = `${e.target.id} with invalid format`;
     }
 
     this.setState({
@@ -88,6 +88,10 @@ class SignIn extends Component {
               onFocus={this.onChange.bind(this)}
               data-test="password-field"
             />
+            <Form.Text className="text-muted">
+              Passwords must contains at least 8 characters long, one lowercase
+              letter, one capital letter, one number and one .!@#$%^&*
+            </Form.Text>
             {password.error.length !== 0 && (
               <Alert variant="danger" data-test="msg-password">
                 {password.error}
