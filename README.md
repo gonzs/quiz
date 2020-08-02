@@ -14,6 +14,10 @@ State management -> `redux` & `redux thunk` to handle asynchronism.
 
 Routing -> `react router`. Two sub-routes per subject, one for the question and other for results. e.g. /history/4 , /history/results
 
+Testing -> `jest` & `enzyme`.
+
+CI -> It's used `Husky` in order to execute unit tests and apply the linter before each commit
+
 **Note: React hooks approach is being used**
 
 ### Backend
