@@ -2,9 +2,9 @@
 
 This application is designed to evaluate for several subjects through questionnaires.
 
-### Frontend
+## Frontend
 
-The app has a menu bar with differents subjects. Each subject route will show 10 questions retrieved from an API, and the user will answer each one. Each answer will be saved and finally a the results will be showed.
+Te app has a menu bar with differents subjects. Each subject route will show 10 questions retrieved from an API, and the user will answer each one. Each answer will be saved and finally a the results will be showed.
 
 UI -> `CSS flex` & `react-bootstrap`.
 
@@ -20,7 +20,7 @@ CI -> It's used `Husky` in order to execute unit tests and apply the linter befo
 
 **Note: React hooks approach is being used**
 
-### Backend
+## Backend
 
 A rest API was built with `Firebase` Cloud Functions [(follow this repo)](https://github.com/gonzs/quiz-firebase-api)
 
