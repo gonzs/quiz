@@ -45,21 +45,23 @@ test('renders without error messages at initial', () => {
   expect(msgFailure.length).toBe(0);
 });
 
-describe('if submit without values', () => {
-  test('submit without email value', () => {
-    const email = { value: '', error: '' };
+describe('if submit without', () => {
+  test('email errors', () => {
+    const email = { value: '', error: 'error' };
     const wrapper = setup(null, { email });
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
+    wrapper.update();
 
     expect(wrapper.state().isSubmitted).toBe(false);
   });
 
-  test('submit without password value', () => {
-    const password = { value: '', error: '' };
+  test('password errors', () => {
+    const password = { value: '', error: 'error' };
     const wrapper = setup(null, { password });
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
+    wrapper.update();
 
     expect(wrapper.state().isSubmitted).toBe(false);
   });
@@ -137,73 +139,5 @@ describe('if email field', () => {
 
     expect(msgEmail.text()).toContain('invalid');
     expect(msgEmail.length).toBe(1);
-  });
-});
-
-describe('if password field', () => {
-  let wrapper;
-  let password;
-
-  beforeEach(() => {
-    wrapper = setup();
-    password = findByTestAttr(wrapper, 'password-field');
-  });
-
-  test('has valid input', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: 'gonzs*2S' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.length).toBe(0);
-  });
-  test('has wrong input 1', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: 'gonzs' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.text()).toContain('invalid');
-    expect(msgPassword.length).toBe(1);
-  });
-
-  test('has wrong input 2', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: 'Gonzs' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.text()).toContain('invalid');
-    expect(msgPassword.length).toBe(1);
-  });
-
-  test('has wrong input 3', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: 'Gon1zsSSSSSS' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.text()).toContain('invalid');
-    expect(msgPassword.length).toBe(1);
-  });
-
-  test('has wrong input 4', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: 'Go3nzs*' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.text()).toContain('invalid');
-    expect(msgPassword.length).toBe(1);
-  });
-
-  test('has wrong input 5', () => {
-    password.simulate('change', {
-      target: { id: 'password', value: ',Gonzs2' },
-    });
-    const msgPassword = findByTestAttr(wrapper, 'msg-password');
-
-    expect(msgPassword.text()).toContain('invalid');
-    expect(msgPassword.length).toBe(1);
   });
 });

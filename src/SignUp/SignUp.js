@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor() {
     super();
     this.state = {
       email: { value: '', error: '' },
       password: { value: '', error: '' },
+      name: { value: '', error: '' },
+      age: { value: '', error: '' },
       isSubmitted: false,
       success: true,
     };
@@ -28,10 +30,21 @@ class SignIn extends Component {
   }
 
   checkValue(type, value) {
-    var emailRegex = /\S+@\S+\.\S+/;
+    let emailRegex = /\S+@\S+\.\S+/;
+    let passwordRegex = /(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[.!@#$%^&*])[\w.!@#$%^&*]{8,}/g;
+    let nameRegex = /\S{5,}/;
     switch (type) {
       case 'email':
-        return emailRegex.test(value.toString());
+        return emailRegex.test(value);
+
+      case 'password':
+        return passwordRegex.test(value);
+
+      case 'name':
+        return nameRegex.test(value);
+
+      case 'age':
+        return parseInt(value) >= 18;
 
       default:
         return true;
@@ -43,7 +56,8 @@ class SignIn extends Component {
     if (e.target.value.length === 0) {
       error = `${e.target.id} is mandatory`;
     } else if (!this.checkValue(e.target.id, e.target.value)) {
-      error = `${e.target.id} with invalid format`;
+      if (e.target.id === 'age') error = 'You must be 18 years old';
+      else error = `${e.target.id} with invalid format`;
     }
 
     this.setState({
@@ -54,11 +68,11 @@ class SignIn extends Component {
   }
 
   render() {
-    const { email, password, isSubmitted, success } = this.state;
+    const { email, password, name, age, isSubmitted, success } = this.state;
 
     return (
       <div>
-        <Form data-test="sign-in">
+        <Form data-test="sign-up">
           <Form.Group>
             <Form.Label> Email address </Form.Label>
             <Form.Control
@@ -86,6 +100,10 @@ class SignIn extends Component {
               onFocus={this.onChange.bind(this)}
               data-test="password-field"
             />
+            <Form.Text className="text-muted">
+              Passwords must contains at least 8 characters long, one lowercase
+              letter, one capital letter, one number and one .!@#$%^&*
+            </Form.Text>
             {password.error.length !== 0 && (
               <Alert variant="danger" data-test="msg-password">
                 {password.error}
@@ -93,8 +111,42 @@ class SignIn extends Component {
             )}
           </Form.Group>
 
+          <Form.Group>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              id="name"
+              type="text"
+              placeholder="Enter name"
+              onChange={this.onChange.bind(this)}
+              onFocus={this.onChange.bind(this)}
+              data-test="name-field"
+            />
+            {name.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-name">
+                {name.error}
+              </Alert>
+            )}
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Age</Form.Label>
+            <Form.Control
+              id="age"
+              type="number"
+              placeholder="Enter age"
+              onChange={this.onChange.bind(this)}
+              onFocus={this.onChange.bind(this)}
+              data-test="age-field"
+            />
+            {age.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-age">
+                {age.error}
+              </Alert>
+            )}
+          </Form.Group>
+
           <Button data-test="submit-button" onClick={this.onSubmit.bind(this)}>
-            Sign In
+            Register
           </Button>
           {!success && isSubmitted && (
             <Alert variant="danger" data-test="msg-failure">
@@ -107,4 +159,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default SignUp;

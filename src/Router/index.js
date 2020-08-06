@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { HOME, SUB1, SUB2, RESULTS, SIGN_IN, SIGN_UP } from './routes';
 import Home from '../Home';
 import Trivia from '../Trivia/Trivia';
 import Question from '../Trivia/Question';
 import Results from '../Trivia/Results';
-import { HOME, SUB1, SUB2, RESULTS, SIGN_IN } from './routes';
-import SignIn from '../SignIn/SignIn';
+import { SignIn } from '../SignIn';
+import { SignUp } from '../SignUp';
 
 const Router = () => (
   <Switch>
@@ -30,6 +31,7 @@ const Router = () => (
     <Route path={SUB2} component={Trivia} />
 
     <Route path={SIGN_IN} component={SignIn} />
+    <Route path={SIGN_UP} component={SignUp} />
 
     <Redirect from="" to={HOME} />
   </Switch>
