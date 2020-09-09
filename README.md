@@ -20,8 +20,7 @@ CI -> It's used `Husky` in order to execute unit tests and apply the linter befo
 
 **Note: React hooks approach is being used**
 
-## Backend
-
+#### Backend
 A rest API was built with `Firebase` Cloud Functions [(follow this repo)](https://github.com/gonzs/quiz-firebase-api)
 
 _Dont forget to create a .env.local file with a API url. Format:_
