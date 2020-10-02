@@ -4,10 +4,10 @@ import {
   SEND_RESULTS_ERROR,
 } from '../types-actions';
 
-function results(
+export default (
   state = { isSending: false, success: true, error: '' },
   action
-) {
+) => {
   switch (action.type) {
     case SEND_RESULTS:
       return { ...state, isSending: true, error: '' };
@@ -26,5 +26,4 @@ function results(
     default:
       return state;
   }
-}
-export default results;
+};
