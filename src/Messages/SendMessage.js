@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Toast from 'react-bootstrap/Toast';
-import { SUCCESS_SEND } from '../constants';
+import { SUCCESS_SEND } from '../Constants';
 import './Message.css';
 
 const SendMessage = ({ success, error }) => {
