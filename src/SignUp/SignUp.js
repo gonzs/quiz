@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { checkValue } from '../Util/checkValue';
 
 class SignUp extends Component {
   constructor() {
@@ -16,8 +17,10 @@ class SignUp extends Component {
 
   onSubmit() {
     if (
-      this.state.email.error.length !== 0 &&
-      this.state.password.error.length !== 0
+      this.state.email.error.length === 0 &&
+      this.state.password.error.length === 0 &&
+      this.state.name.error.length === 0 &&
+      this.state.age.error.length === 0
     ) {
       // TODO - Simulate fetch API
       let i = Math.random();
@@ -29,41 +32,14 @@ class SignUp extends Component {
     }
   }
 
-  checkValue(type, value) {
-    let emailRegex = /\S+@\S+\.\S+/;
-    let passwordRegex = /(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[.!@#$%^&*])[\w.!@#$%^&*]{8,}/g;
-    let nameRegex = /\S{5,}/;
-    switch (type) {
-      case 'email':
-        return emailRegex.test(value);
-
-      case 'password':
-        return passwordRegex.test(value);
-
-      case 'name':
-        return nameRegex.test(value);
-
-      case 'age':
-        return parseInt(value) >= 18;
-
-      default:
-        return true;
-    }
-  }
-
   onChange(e) {
-    let error = '';
-    if (e.target.value.length === 0) {
-      error = `${e.target.id} is mandatory`;
-    } else if (!this.checkValue(e.target.id, e.target.value)) {
-      if (e.target.id === 'age') error = 'You must be 18 years old';
-      else error = `${e.target.id} with invalid format`;
-    }
+    const { id, value } = e.target;
+    const error = checkValue(id, value);
 
     this.setState({
       ...this.state,
       isSubmitted: false,
-      [e.target.id]: { value: e.target.value, error: error },
+      [id]: { value: value, error: error },
     });
   }
 

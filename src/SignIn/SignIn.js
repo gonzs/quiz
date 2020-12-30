@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { checkValue } from '../Util/checkValue';
 
 class SignIn extends Component {
   constructor() {
@@ -14,8 +15,8 @@ class SignIn extends Component {
 
   onSubmit() {
     if (
-      this.state.email.error.length !== 0 &&
-      this.state.password.error.length !== 0
+      this.state.email.error.length === 0 &&
+      this.state.password.error.length === 0
     ) {
       // TODO - Simulate fetch API
       let i = Math.random();
@@ -27,29 +28,14 @@ class SignIn extends Component {
     }
   }
 
-  checkValue(type, value) {
-    var emailRegex = /\S+@\S+\.\S+/;
-    switch (type) {
-      case 'email':
-        return emailRegex.test(value.toString());
-
-      default:
-        return true;
-    }
-  }
-
   onChange(e) {
-    let error = '';
-    if (e.target.value.length === 0) {
-      error = `${e.target.id} is mandatory`;
-    } else if (!this.checkValue(e.target.id, e.target.value)) {
-      error = `${e.target.id} with invalid format`;
-    }
+    const { id, value } = e.target;
+    const error = checkValue(id, value);
 
     this.setState({
       ...this.state,
       isSubmitted: false,
-      [e.target.id]: { value: e.target.value, error: error },
+      [id]: { value: value, error: error },
     });
   }
 

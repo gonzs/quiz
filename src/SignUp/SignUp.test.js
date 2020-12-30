@@ -179,14 +179,14 @@ describe('if email field', () => {
     expect(msgEmail.length).toBe(0);
   });
 
-  test('is not empty', () => {
+  test('is empty', () => {
     email.simulate('change', {
       target: { id: 'email', value: '' },
     });
     const msgEmail = findByTestAttr(wrapper, 'msg-email');
 
-    expect(msgEmail.text()).toContain('mandatory');
     expect(msgEmail.length).toBe(1);
+    expect(msgEmail.text()).toContain('mandatory');
   });
 
   test('has wrong input', () => {
@@ -195,8 +195,8 @@ describe('if email field', () => {
     });
     const msgEmail = findByTestAttr(wrapper, 'msg-email');
 
-    expect(msgEmail.text()).toContain('invalid');
     expect(msgEmail.length).toBe(1);
+    expect(msgEmail.text()).toContain('invalid');
   });
 });
 
@@ -211,21 +211,21 @@ describe('if password field', () => {
 
   test('has valid input', () => {
     password.simulate('change', {
-      target: { id: 'password', value: 'gonzs*2S' },
+      target: { id: 'password', value: 'gonzs*2G' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
     expect(msgPassword.length).toBe(0);
   });
 
-  test('is not empty', () => {
+  test('is empty', () => {
     password.simulate('change', {
       target: { id: 'password', value: '' },
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('mandatory');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('mandatory');
   });
 
   test('has wrong input 1', () => {
@@ -234,8 +234,8 @@ describe('if password field', () => {
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('invalid');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('invalid');
   });
 
   test('has wrong input 2', () => {
@@ -244,8 +244,8 @@ describe('if password field', () => {
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('invalid');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('invalid');
   });
 
   test('has wrong input 3', () => {
@@ -254,8 +254,8 @@ describe('if password field', () => {
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('invalid');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('invalid');
   });
 
   test('has wrong input 4', () => {
@@ -264,8 +264,8 @@ describe('if password field', () => {
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('invalid');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('invalid');
   });
 
   test('has wrong input 5', () => {
@@ -274,8 +274,8 @@ describe('if password field', () => {
     });
     const msgPassword = findByTestAttr(wrapper, 'msg-password');
 
-    expect(msgPassword.text()).toContain('invalid');
     expect(msgPassword.length).toBe(1);
+    expect(msgPassword.text()).toContain('invalid');
   });
 });
 
@@ -296,14 +296,14 @@ describe('if name field', () => {
     expect(msgName.length).toBe(0);
   });
 
-  test('is not empty', () => {
+  test('is empty', () => {
     name.simulate('change', {
       target: { id: 'name', value: '' },
     });
     const msgName = findByTestAttr(wrapper, 'msg-name');
 
-    expect(msgName.text()).toContain('mandatory');
     expect(msgName.length).toBe(1);
+    expect(msgName.text()).toContain('mandatory');
   });
 
   test('has wrong input', () => {
@@ -312,8 +312,8 @@ describe('if name field', () => {
     });
     const msgName = findByTestAttr(wrapper, 'msg-name');
 
-    expect(msgName.text()).toContain('invalid');
     expect(msgName.length).toBe(1);
+    expect(msgName.text()).toContain('invalid');
   });
 });
 
@@ -334,14 +334,14 @@ describe('if age field', () => {
     expect(msgAge.length).toBe(0);
   });
 
-  test('is not empty', () => {
+  test('is empty', () => {
     age.simulate('change', {
       target: { id: 'age', value: 0 },
     });
     const msgAge = findByTestAttr(wrapper, 'msg-age');
 
-    expect(msgAge.text()).toContain('must be');
     expect(msgAge.length).toBe(1);
+    expect(msgAge.text()).toContain('must be');
   });
 
   test('has wrong input', () => {
@@ -350,7 +350,7 @@ describe('if age field', () => {
     });
     const msgAge = findByTestAttr(wrapper, 'msg-age');
 
-    expect(msgAge.text()).toContain('must be');
     expect(msgAge.length).toBe(1);
+    expect(msgAge.text()).toContain('must be');
   });
 });
