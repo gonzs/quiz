@@ -14,11 +14,9 @@ const defaultProps = {};
  * @param {object} props
  * @returns {ShallowWrapper}
  */
-const setup = (props = {}, state = null) => {
+const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
-  const wrapper = shallow(<SignIn {...setupProps} />);
-  if (state) wrapper.setState(state);
-  return wrapper;
+  return shallow(<SignIn {...setupProps} />);
 };
 
 test('renders without error', () => {
@@ -46,68 +44,141 @@ test('renders without error messages at initial', () => {
 });
 
 describe('if submit without', () => {
+  let mockSetState = jest.fn();
+
+  beforeEach(() => {
+    mockSetState.mockClear();
+  });
+
   test('email errors', () => {
-    const email = { value: '', error: 'error' };
-    const wrapper = setup(null, { email });
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: 'error' },
+        password: { value: '', error: '' },
+        isSubmitted: false,
+        success: true,
+      },
+      mockSetState,
+    ]);
+    const wrapper = setup();
+
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
-    wrapper.update();
 
-    expect(wrapper.state().isSubmitted).toBe(false);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: '', error: 'error' },
+      password: { value: '', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 
   test('password errors', () => {
-    const password = { value: '', error: 'error' };
-    const wrapper = setup(null, { password });
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: 'error' },
+        isSubmitted: false,
+        success: true,
+      },
+      mockSetState,
+    ]);
+    const wrapper = setup();
+
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
-    wrapper.update();
 
-    expect(wrapper.state().isSubmitted).toBe(false);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: '', error: '' },
+      password: { value: '', error: 'error' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 });
 
 describe('if onChange event', () => {
+  let mockSetState = jest.fn();
   let wrapper;
+
   beforeEach(() => {
+    mockSetState.mockClear();
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: '' },
+        isSubmitted: false,
+        success: true,
+      },
+      mockSetState,
+    ]);
     wrapper = setup();
   });
 
   test('verify onChange event for email', () => {
-    const emailObj = { value: 'gonzs@gonzs.com', error: '' };
     const email = findByTestAttr(wrapper, 'email-field');
     email.simulate('change', {
       target: { id: 'email', value: 'gonzs@gonzs.com' },
     });
 
-    expect(wrapper.state().email).toMatchObject(emailObj);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: 'gonzs@gonzs.com', error: '' },
+      password: { value: '', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 
   test('verify onChange event for password', () => {
-    const passwordObj = { value: 'gonzs*2G', error: '' };
     const password = findByTestAttr(wrapper, 'password-field');
     password.simulate('change', {
       target: { id: 'password', value: 'gonzs*2G' },
     });
 
-    expect(wrapper.state().password).toMatchObject(passwordObj);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: '', error: '' },
+      password: { value: 'gonzs*2G', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 });
 
 describe('After Submit event', () => {
+  let mockSetState = jest.fn();
+  let wrapper;
+
+  beforeEach(() => {
+    mockSetState.mockClear();
+  });
+
   test('no renders error message for valid login', () => {
-    const success = true;
-    const isSubmitted = true;
-    const wrapper = setup(null, { isSubmitted, success });
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: '' },
+        isSubmitted: true,
+        success: true,
+      },
+      mockSetState,
+    ]);
+    wrapper = setup();
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(0);
   });
 
   test('renders error message for invalid login', () => {
-    const success = false;
-    const isSubmitted = true;
-    const wrapper = setup(null, { isSubmitted, success });
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: '' },
+        isSubmitted: true,
+        success: false,
+      },
+      mockSetState,
+    ]);
+    wrapper = setup();
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(1);
@@ -116,28 +187,94 @@ describe('After Submit event', () => {
 
 describe('if email field', () => {
   let wrapper;
-  let email;
+  let mockSetState = jest.fn();
 
   beforeEach(() => {
+    mockSetState.mockClear();
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: '' },
+        isSubmitted: false,
+        success: true,
+      },
+      mockSetState,
+    ]);
     wrapper = setup();
-    email = findByTestAttr(wrapper, 'email-field');
   });
+
   test('has valid input', () => {
+    const email = findByTestAttr(wrapper, 'email-field');
     email.simulate('change', {
       target: { id: 'email', value: 'gonzs@gonzs.com' },
     });
-    const msgEmail = findByTestAttr(wrapper, 'msg-email');
 
-    expect(msgEmail.length).toBe(0);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: 'gonzs@gonzs.com', error: '' },
+      password: { value: '', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 
   test('has wrong input', () => {
+    const email = findByTestAttr(wrapper, 'email-field');
     email.simulate('change', {
       target: { id: 'email', value: 'gonzs' },
     });
-    const msgEmail = findByTestAttr(wrapper, 'msg-email');
 
-    expect(msgEmail.text()).toContain('invalid');
-    expect(msgEmail.length).toBe(1);
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: 'gonzs', error: 'email with invalid format' },
+      password: { value: '', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
+  });
+});
+
+describe('if password field', () => {
+  let wrapper;
+  let mockSetState = jest.fn();
+
+  beforeEach(() => {
+    mockSetState.mockClear();
+    React.useState = jest.fn(() => [
+      {
+        email: { value: '', error: '' },
+        password: { value: '', error: '' },
+        isSubmitted: false,
+        success: true,
+      },
+      mockSetState,
+    ]);
+    wrapper = setup();
+  });
+
+  test('has valid input', () => {
+    const password = findByTestAttr(wrapper, 'password-field');
+    password.simulate('change', {
+      target: { id: 'password', value: 'gonzs*2F' },
+    });
+
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: '', error: '' },
+      password: { value: 'gonzs*2F', error: '' },
+      isSubmitted: false,
+      success: true,
+    });
+  });
+
+  test('has wrong input', () => {
+    const password = findByTestAttr(wrapper, 'password-field');
+    password.simulate('change', {
+      target: { id: 'password', value: 'gonzs' },
+    });
+
+    expect(mockSetState).toHaveBeenCalledWith({
+      email: { value: '', error: '' },
+      password: { value: 'gonzs', error: 'password with invalid format' },
+      isSubmitted: false,
+      success: true,
+    });
   });
 });
