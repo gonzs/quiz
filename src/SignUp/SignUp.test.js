@@ -320,7 +320,7 @@ describe('if confirm password field', () => {
     });
 
     confPassword.simulate('change', {
-      target: { id: 'conf-password', value: 'gonzs*2G' },
+      target: { id: 'confpassword', value: 'gonzs*2G' },
     });
     const msgConfPassword = findByTestAttr(wrapper, 'msg-conf-password');
 
