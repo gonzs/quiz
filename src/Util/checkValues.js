@@ -14,7 +14,7 @@ export const checkValue = (type, value) => {
       if (!passwordRegex.test(value)) return `${type} with invalid format`;
       break;
 
-    case 'name':
+    case 'displayname':
       if (!nameRegex.test(value)) return `${type} with invalid format`;
       break;
 
@@ -26,5 +26,10 @@ export const checkValue = (type, value) => {
       break;
   }
 
+  return '';
+};
+
+export const checkPasswordConfirmation = (pass, conf) => {
+  if (pass !== conf) return `Passwords are not equal`;
   return '';
 };

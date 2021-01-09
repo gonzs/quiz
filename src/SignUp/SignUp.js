@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import { checkValue } from '../Util/checkValue';
+import { checkPasswordConfirmation, checkValue } from '../Util/checkValues';
 
 class SignUp extends Component {
   constructor() {
@@ -8,7 +8,8 @@ class SignUp extends Component {
     this.state = {
       email: { value: '', error: '' },
       password: { value: '', error: '' },
-      name: { value: '', error: '' },
+      confpassword: { value: '', error: '' },
+      displayname: { value: '', error: '' },
       age: { value: '', error: '' },
       isSubmitted: false,
       success: true,
@@ -19,8 +20,14 @@ class SignUp extends Component {
     if (
       this.state.email.error.length === 0 &&
       this.state.password.error.length === 0 &&
-      this.state.name.error.length === 0 &&
-      this.state.age.error.length === 0
+      this.state.confpassword.error.length === 0 &&
+      this.state.displayname.error.length === 0 &&
+      this.state.age.error.length === 0 &&
+      this.state.email.value.length !== 0 &&
+      this.state.password.value.length !== 0 &&
+      this.state.confpassword.value.length !== 0 &&
+      this.state.displayname.value.length !== 0 &&
+      this.state.age.value.length !== 0
     ) {
       // TODO - Simulate fetch API
       let i = Math.random();
@@ -34,7 +41,10 @@ class SignUp extends Component {
 
   onChange(e) {
     const { id, value } = e.target;
-    const error = checkValue(id, value);
+    let error = checkValue(id, value);
+
+    if (id === 'confpassword' && this.state.password.value !== '')
+      error = checkPasswordConfirmation(value, this.state.password.value);
 
     this.setState({
       ...this.state,
@@ -44,7 +54,15 @@ class SignUp extends Component {
   }
 
   render() {
-    const { email, password, name, age, isSubmitted, success } = this.state;
+    const {
+      email,
+      password,
+      confpassword,
+      displayname,
+      age,
+      isSubmitted,
+      success,
+    } = this.state;
 
     return (
       <div>
@@ -88,18 +106,35 @@ class SignUp extends Component {
           </Form.Group>
 
           <Form.Group>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              id="confpassword"
+              type="password"
+              placeholder="Confirm password"
+              onChange={this.onChange.bind(this)}
+              onFocus={this.onChange.bind(this)}
+              data-test="confirm-password-field"
+            />
+            {confpassword.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-conf-password">
+                {confpassword.error}
+              </Alert>
+            )}
+          </Form.Group>
+
+          <Form.Group>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              id="name"
+              id="displayname"
               type="text"
               placeholder="Enter name"
               onChange={this.onChange.bind(this)}
               onFocus={this.onChange.bind(this)}
-              data-test="name-field"
+              data-test="display-name-field"
             />
-            {name.error.length !== 0 && (
-              <Alert variant="danger" data-test="msg-name">
-                {name.error}
+            {displayname.error.length !== 0 && (
+              <Alert variant="danger" data-test="msg-display-name">
+                {displayname.error}
               </Alert>
             )}
           </Form.Group>

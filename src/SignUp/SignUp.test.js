@@ -26,14 +26,16 @@ test('renders without error', () => {
   const component = findByTestAttr(wrapper, 'sign-up');
   const email = findByTestAttr(wrapper, 'email-field');
   const password = findByTestAttr(wrapper, 'password-field');
-  const name = findByTestAttr(wrapper, 'name-field');
+  const confPassword = findByTestAttr(wrapper, 'confirm-password-field');
+  const displayName = findByTestAttr(wrapper, 'display-name-field');
   const age = findByTestAttr(wrapper, 'age-field');
   const submit = findByTestAttr(wrapper, 'submit-button');
 
   expect(component.length).toBe(1);
   expect(email.length).toBe(1);
   expect(password.length).toBe(1);
-  expect(name.length).toBe(1);
+  expect(confPassword.length).toBe(1);
+  expect(displayName.length).toBe(1);
   expect(age.length).toBe(1);
   expect(submit.length).toBe(1);
 });
@@ -42,13 +44,15 @@ test('renders without error messages at initial', () => {
   const wrapper = setup();
   const msgEmail = findByTestAttr(wrapper, 'msg-email');
   const msgPassword = findByTestAttr(wrapper, 'msg-password');
-  const msgName = findByTestAttr(wrapper, 'msg-name');
+  const msgConfPassword = findByTestAttr(wrapper, 'msg-conf-password');
+  const msgDisplayName = findByTestAttr(wrapper, 'msg-display-name');
   const msgAge = findByTestAttr(wrapper, 'msg-age');
   const msgFailure = findByTestAttr(wrapper, 'msg-failure');
 
   expect(msgEmail.length).toBe(0);
   expect(msgPassword.length).toBe(0);
-  expect(msgName.length).toBe(0);
+  expect(msgConfPassword.length).toBe(0);
+  expect(msgDisplayName.length).toBe(0);
   expect(msgAge.length).toBe(0);
   expect(msgFailure.length).toBe(0);
 });
@@ -74,9 +78,19 @@ describe('if submit without', () => {
     expect(wrapper.state().isSubmitted).toBe(false);
   });
 
-  test('name errors', () => {
-    const name = { value: '', error: 'error' };
-    const wrapper = setup(null, { name });
+  test('confirm password errors', () => {
+    const confpassword = { value: '', error: '' };
+    const wrapper = setup(null, { confpassword });
+    const submit = findByTestAttr(wrapper, 'submit-button');
+    submit.simulate('click');
+    wrapper.update();
+
+    expect(wrapper.state().isSubmitted).toBe(false);
+  });
+
+  test('display name errors', () => {
+    const displayname = { value: '', error: 'error' };
+    const wrapper = setup(null, { displayname });
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
     wrapper.update();
@@ -121,14 +135,24 @@ describe('if onChange event', () => {
     expect(wrapper.state().password).toMatchObject(passwordObj);
   });
 
-  test('verify onChange event for name', () => {
-    const nameObj = { value: 'gonzs', error: '' };
-    const name = findByTestAttr(wrapper, 'name-field');
-    name.simulate('change', {
-      target: { id: 'name', value: 'gonzs' },
+  test('verify onChange event for confirm password', () => {
+    const confPasswordObj = { value: 'gonzs*2G', error: '' };
+    const confPassword = findByTestAttr(wrapper, 'confirm-password-field');
+    confPassword.simulate('change', {
+      target: { id: 'confpassword', value: 'gonzs*2G' },
     });
 
-    expect(wrapper.state().name).toMatchObject(nameObj);
+    expect(wrapper.state().confpassword).toMatchObject(confPasswordObj);
+  });
+
+  test('verify onChange event for display name', () => {
+    const displayNameObj = { value: 'gonzs', error: '' };
+    const displayName = findByTestAttr(wrapper, 'display-name-field');
+    displayName.simulate('change', {
+      target: { id: 'displayname', value: 'gonzs' },
+    });
+
+    expect(wrapper.state().displayname).toMatchObject(displayNameObj);
   });
 
   test('verify onChange event for age', () => {
@@ -279,41 +303,89 @@ describe('if password field', () => {
   });
 });
 
-describe('if name field', () => {
+describe('if confirm password field', () => {
   let wrapper;
-  let name;
+  let password;
+  let confPassword;
 
   beforeEach(() => {
     wrapper = setup();
-    name = findByTestAttr(wrapper, 'name-field');
+    password = findByTestAttr(wrapper, 'password-field');
+    confPassword = findByTestAttr(wrapper, 'confirm-password-field');
   });
-  test('has valid input', () => {
-    name.simulate('change', {
-      target: { id: 'name', value: 'gonzs' },
-    });
-    const msgName = findByTestAttr(wrapper, 'msg-name');
 
-    expect(msgName.length).toBe(0);
+  test('has valid input', () => {
+    password.simulate('change', {
+      target: { id: 'password', value: 'gonzs*2G' },
+    });
+
+    confPassword.simulate('change', {
+      target: { id: 'conf-password', value: 'gonzs*2G' },
+    });
+    const msgConfPassword = findByTestAttr(wrapper, 'msg-conf-password');
+
+    expect(msgConfPassword.length).toBe(0);
   });
 
   test('is empty', () => {
-    name.simulate('change', {
-      target: { id: 'name', value: '' },
+    confPassword.simulate('change', {
+      target: { id: 'confpassword', value: '' },
     });
-    const msgName = findByTestAttr(wrapper, 'msg-name');
+    const msgConfPassword = findByTestAttr(wrapper, 'msg-conf-password');
 
-    expect(msgName.length).toBe(1);
-    expect(msgName.text()).toContain('mandatory');
+    expect(msgConfPassword.length).toBe(1);
+    expect(msgConfPassword.text()).toContain('mandatory');
   });
 
   test('has wrong input', () => {
-    name.simulate('change', {
-      target: { id: 'name', value: 'gonz' },
+    password.simulate('change', {
+      target: { id: 'password', value: 'gonzs*2G' },
     });
-    const msgName = findByTestAttr(wrapper, 'msg-name');
+    confPassword.simulate('change', {
+      target: { id: 'confpassword', value: 'gonzs*2H' },
+    });
+    const msgConfPassword = findByTestAttr(wrapper, 'msg-conf-password');
 
-    expect(msgName.length).toBe(1);
-    expect(msgName.text()).toContain('invalid');
+    expect(msgConfPassword.length).toBe(1);
+    expect(msgConfPassword.text()).toContain('equal');
+  });
+});
+
+describe('if display name field', () => {
+  let wrapper;
+  let displayName;
+
+  beforeEach(() => {
+    wrapper = setup();
+    displayName = findByTestAttr(wrapper, 'display-name-field');
+  });
+  test('has valid input', () => {
+    displayName.simulate('change', {
+      target: { id: 'display-name', value: 'gonzs' },
+    });
+    const msgDisplayName = findByTestAttr(wrapper, 'msg-display-name');
+
+    expect(msgDisplayName.length).toBe(0);
+  });
+
+  test('is empty', () => {
+    displayName.simulate('change', {
+      target: { id: 'displayname', value: '' },
+    });
+    const msgDisplayName = findByTestAttr(wrapper, 'msg-display-name');
+
+    expect(msgDisplayName.length).toBe(1);
+    expect(msgDisplayName.text()).toContain('mandatory');
+  });
+
+  test('has wrong input', () => {
+    displayName.simulate('change', {
+      target: { id: 'displayname', value: 'gonz' },
+    });
+    const msgDisplayName = findByTestAttr(wrapper, 'msg-display-name');
+
+    expect(msgDisplayName.length).toBe(1);
+    expect(msgDisplayName.text()).toContain('invalid');
   });
 });
 
