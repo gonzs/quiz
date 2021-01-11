@@ -5,7 +5,7 @@ import {
   SAVE_ANSWER,
 } from '../types-actions';
 
-export default (
+export default function quiz(
   state = {
     isFetching: true,
     success: true,
@@ -15,7 +15,7 @@ export default (
     answers: [],
   },
   action
-) => {
+) {
   switch (action.type) {
     case REQUEST_QUIZ:
       return { ...state, isFetching: true, answers: [] };
@@ -65,4 +65,4 @@ export default (
     default:
       return state;
   }
-};
+}

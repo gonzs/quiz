@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { HOME, SUB1, SUB2, RESULTS, SIGN_IN, SIGN_UP } from './routes';
-import Home from '../Home';
-import Trivia from '../Trivia/Trivia';
-import Question from '../Trivia/Question';
-import Results from '../Trivia/Results';
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
+import { Home } from '../Components/Home';
+import { Trivia } from '../Components/Trivia/';
+import { Question } from '../Components/Question';
+import { Results } from '../Components/Results';
+import { SignIn } from '../Components/SignIn';
+import { SignUp } from '../Components/SignUp';
 
 const Router = () => (
   <Switch>
