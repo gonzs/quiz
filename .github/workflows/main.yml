@@ -34,3 +34,23 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+- name: OWASP ZAP Baseline Scan
+  # You may pin to the exact commit or the version.
+  # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
+  uses: zaproxy/action-baseline@v0.4.0
+  with:
+    # GitHub Token to create issues in the repository
+    token: # optional, default is ${{ github.token }}
+    # Target URL
+    target: 
+    # Relative path of the ZAP configuration file
+    rules_file_name: # optional
+    # The Docker file to be executed
+    docker_name: # default is owasp/zap2docker-stable
+    # Additional command line options
+    cmd_options: # optional
+    # The title for the GitHub issue to be created
+    issue_title: # optional, default is ZAP Scan Baseline Report
+    # The action status will be set to fail if ZAP identifies any alerts during the baseline scan
+    fail_action: # optional
