@@ -14,37 +14,40 @@ test('returns action creator type `CREATE_USER_ERROR`', () => {
 });
 
 describe(' userCreation action creator', () => {
-  // test('adds response user created succesfully', () => {
-  //   const store = storeFactory();
-  //   const email = 'gonzs@gonzs.com';
-  //   const password = '12345678';
-  //   const displayName = 'gonzs';
+  test('adds response user created succesfully', () => {
+    const store = storeFactory();
+    const email = 'gonzs@gonzs.com';
+    const password = '12345678';
+    const displayName = 'gonzs';
+    const idToken = 'ABCDEFGHIJKL';
+    const response = { user: { updateProfile: null, getIdToken: null } };
 
-  //   auth.createUserWithEmailAndPassword = jest.fn(
-  //     (email, password, displayName) => {
-  //       return Promise.resolve({ email, password, displayName });
-  //     }
-  //   );
+    auth.createUserWithEmailAndPassword = jest.fn(
+      (email, password, displayName) => Promise.resolve(response)
+    );
 
-  //   auth.currentUser.updateProfile = jest.fn(({displayName:displayName}) => {
-  //    return Promise.resolve()
-  //   })
+    response.user.updateProfile = jest.fn(({ displayName: displayName }) =>
+      Promise.resolve()
+    );
 
-  //   return store
-  //     .dispatch(userCreation(email, password, displayName))
-  //     .then(() => {
-  //       const newState = store.getState();
-  //       expect(newState.user.isLogged).toBe(true);
-  //       expect(newState.user.success).toBe(true);
-  //     });
-  // });
+    response.user.getIdToken = jest.fn(() => Promise.resolve(idToken));
+
+    return store
+      .dispatch(userCreation(email, password, displayName))
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.user.isLogged).toBe(true);
+        expect(newState.user.success).toBe(true);
+        expect(newState.user.error).toBe('');
+      });
+  });
 
   test('adds response user created non succesfully', () => {
     const store = storeFactory();
     const email = 'gonzs@gonzs.com';
     const password = '12345678';
     const displayName = 'gonzs';
-    const error = { code: 401, message: 'error when user is created' };
+    const error = { code: 401, message: 'Error when user is created' };
 
     auth.createUserWithEmailAndPassword = jest.fn(
       (email, password, displayName) => {

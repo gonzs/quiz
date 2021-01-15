@@ -92,32 +92,26 @@ export const sendError = payload => ({
 });
 
 export function userCreation(email, password, displayName) {
-  return dispatch => {
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        // Signed in
+  return async dispatch => {
+    try {
+      const res = await auth.createUserWithEmailAndPassword(email, password);
+      // Signed in
+      // Update user data
+      res.user.updateProfile({ displayName: displayName });
 
-        res.user
-          // Update user data
-          .updateProfile({
-            displayName: displayName,
-          })
-          .then(() => {
-            // Get token
-            res.user.getIdToken().then(idToken => {
-              dispatch(
-                createUserSuccess({
-                  displayName: res.user.displayName,
-                  tokenId: idToken,
-                })
-              );
-            });
-          });
-      })
-      .catch(error => {
-        dispatch(createUserError(error.message));
-      });
+      // Get token
+      const idToken = await res.user.getIdToken();
+
+      // User create successfully
+      dispatch(
+        createUserSuccess({
+          displayName: displayName,
+          tokenId: idToken,
+        })
+      );
+    } catch (error) {
+      dispatch(createUserError(error.message));
+    }
   };
 }
 
