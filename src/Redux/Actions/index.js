@@ -6,16 +6,21 @@ import {
   SEND_RESULTS,
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_ERROR,
 } from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
+import { auth } from '../../firebase/firebase';
 
-export function getQuiz(subject) {
+export function getQuiz(subject, tokenId) {
   return dispatch => {
     dispatch(requestQuiz());
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/${subject}`)
+      .get(`${process.env.REACT_APP_API_URL}/${subject}`, {
+        headers: { Authorization: `Bearer ${tokenId}` },
+      })
       .then(response => {
         if (response.status !== 200)
           throw new Error(`${response.status} - ${response.statusText}`);
@@ -83,5 +88,45 @@ export const sendSuccess = payload => ({
 
 export const sendError = payload => ({
   type: SEND_RESULTS_ERROR,
+  payload,
+});
+
+export function userCreation(email, password, displayName) {
+  return dispatch => {
+    return auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        // Signed in
+
+        res.user
+          // Update user data
+          .updateProfile({
+            displayName: displayName,
+          })
+          .then(() => {
+            // Get token
+            res.user.getIdToken().then(idToken => {
+              dispatch(
+                createUserSuccess({
+                  displayName: res.user.displayName,
+                  tokenId: idToken,
+                })
+              );
+            });
+          });
+      })
+      .catch(error => {
+        dispatch(createUserError(error.message));
+      });
+  };
+}
+
+export const createUserSuccess = payload => ({
+  type: CREATE_USER_SUCCESS,
+  payload,
+});
+
+export const createUserError = payload => ({
+  type: CREATE_USER_ERROR,
   payload,
 });

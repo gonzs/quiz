@@ -9,6 +9,8 @@ import {
 
 import { useResultsData, useValidateQuiz } from './Results';
 
+import { useUserData } from './User';
+
 export {
   useNavigation,
   useRetrieveAnswer,
@@ -18,4 +20,5 @@ export {
   useQuestion,
   useResultsData,
   useValidateQuiz,
+  useUserData,
 };

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { userCreation } from '../../Redux/Actions';
 import {
   checkPasswordConfirmation,
   checkValue,
 } from '../../Util/helperCheckFields';
 
-export class SignUp extends Component {
+export class UnconnectedSignUp extends Component {
   constructor() {
     super();
     this.state = {
@@ -33,6 +35,13 @@ export class SignUp extends Component {
       this.state.age.value.length !== 0
     ) {
       // TODO - Simulate fetch API
+
+      this.props.createUser(
+        this.state.email.value,
+        this.state.password.value,
+        this.state.displayname.value
+      );
+
       let i = Math.random();
       if (i < 0.5)
         this.setState({ ...this.state, isSubmitted: true, success: true });
@@ -164,7 +173,7 @@ export class SignUp extends Component {
           </Button>
           {!success && isSubmitted && (
             <Alert variant="danger" data-test="msg-failure">
-              Invalid login
+              Invalid register
             </Alert>
           )}
         </Form>
@@ -172,3 +181,17 @@ export class SignUp extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  createUser: (email, password, displayName) =>
+    dispatch(userCreation(email, password, displayName)),
+});
+
+export const SignUp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedSignUp);

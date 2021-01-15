@@ -37,12 +37,12 @@ export const useSaveAnswer = (retrieved, question, current) => {
   };
 };
 
-export const useQuiz = _path => {
+export const useQuiz = (_path, tokenId) => {
   const path = _path[1];
   const dispatch = useDispatch();
 
   useEffect(() => {
     // * Dispatch getQuiz action
-    dispatch(getQuiz(path));
-  }, [dispatch, path]);
+    dispatch(getQuiz(path, tokenId));
+  }, [dispatch, path, tokenId]);
 };

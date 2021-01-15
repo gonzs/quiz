@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { SignUp } from './SignUp';
+import { UnconnectedSignUp } from './SignUp';
 import { findByTestAttr } from '../../Test/testUtils';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -16,7 +16,7 @@ const defaultProps = {};
  */
 const setup = (props = {}, state = null) => {
   const setupProps = { ...defaultProps, ...props };
-  const wrapper = shallow(<SignUp {...setupProps} />);
+  const wrapper = shallow(<UnconnectedSignUp {...setupProps} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };
