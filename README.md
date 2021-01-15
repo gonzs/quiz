@@ -23,10 +23,18 @@ CI -> It's used `Husky` in order to execute unit tests and apply the linter befo
 #### Backend
 A rest API was built with `Firebase` Cloud Functions [(follow this repo)](https://github.com/gonzs/quiz-firebase-api)
 
-_Dont forget to create a .env.local file with a API url. Format:_
+_Dont forget to create a .env.local file with a API url. REACT_APP_FB* are retrieved from firebase project configuration. Format:_
 
 ```shell
 REACT_APP_API_URL = http://localhost:8080
+REACT_APP_FB_API_KEY = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_AUTH_DOMAIN = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_DB_URL = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_PROJ_ID = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_STORAGE_BUCKET = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_MESSAGING_SENDER_ID = xxxxxxxxxxxxxxxxxxxxx
+REACT_APP_FB_APP_ID = xxxxxxxxxxxxxxxxxxxxx
 ```
+
 
 This project was generated with [template](https://github.com/gonzs/react-template).
