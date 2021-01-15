@@ -6,8 +6,8 @@ import {
   SEND_RESULTS,
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_ERROR,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_ERROR,
 } from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
@@ -116,11 +116,11 @@ export function userCreation(email, password, displayName) {
 }
 
 export const createUserSuccess = payload => ({
-  type: CREATE_USER_SUCCESS,
+  type: SIGNUP_USER_SUCCESS,
   payload,
 });
 
 export const createUserError = payload => ({
-  type: CREATE_USER_ERROR,
+  type: SIGNUP_USER_ERROR,
   payload,
 });

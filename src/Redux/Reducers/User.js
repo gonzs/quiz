@@ -1,6 +1,6 @@
 import {
-  CREATE_USER_SUCCESS,
-  CREATE_USER_ERROR,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_ERROR,
   REQUEST_USER_TOKEN,
   REQUEST_USER_TOKEN_SUCCESS,
   REQUEST_USER_TOKEN_ERROR,
@@ -11,7 +11,7 @@ export default function user(
   action
 ) {
   switch (action.type) {
-    case CREATE_USER_SUCCESS:
+    case SIGNUP_USER_SUCCESS:
       return {
         ...state,
         isLogged: true,
@@ -20,7 +20,7 @@ export default function user(
         displayName: action.payload.displayName,
       };
 
-    case CREATE_USER_ERROR:
+    case SIGNUP_USER_ERROR:
       return {
         ...state,
         isLogged: false,
