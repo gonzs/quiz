@@ -8,6 +8,9 @@ import {
   SEND_RESULTS_ERROR,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_ERROR,
+  REQUEST_USER_TOKEN,
+  REQUEST_USER_TOKEN_SUCCESS,
+  REQUEST_USER_TOKEN_ERROR,
 } from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
@@ -100,27 +103,49 @@ export function userCreation(email, password, displayName) {
       res.user.updateProfile({ displayName: displayName });
 
       // Get token
-      const idToken = await res.user.getIdToken();
+      dispatch(requestUserToken(res.user));
 
       // User create successfully
       dispatch(
-        createUserSuccess({
-          displayName: displayName,
-          tokenId: idToken,
-        })
+        signUpSuccess(
+          displayName
+          // tokenId: idToken,
+        )
       );
     } catch (error) {
-      dispatch(createUserError(error.message));
+      dispatch(signUpError(error.message));
     }
   };
 }
 
-export const createUserSuccess = payload => ({
+export const signUpSuccess = payload => ({
   type: SIGNUP_USER_SUCCESS,
   payload,
 });
 
-export const createUserError = payload => ({
+export const signUpError = payload => ({
   type: SIGNUP_USER_ERROR,
+  payload,
+});
+
+export function requestUserToken(user) {
+  return async dispatch => {
+    try {
+      const idToken = await user.getIdToken();
+
+      dispatch(requestUserTokenSuccess(idToken));
+    } catch (error) {
+      dispatch(requestUserTokenError(error.message));
+    }
+  };
+}
+
+export const requestUserTokenSuccess = payload => ({
+  type: REQUEST_USER_TOKEN_SUCCESS,
+  payload,
+});
+
+export const requestUserTokenError = payload => ({
+  type: REQUEST_USER_TOKEN_ERROR,
   payload,
 });
