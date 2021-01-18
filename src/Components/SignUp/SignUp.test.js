@@ -79,7 +79,7 @@ describe('if submit without', () => {
   });
 
   test('confirm password errors', () => {
-    const confpassword = { value: '', error: '' };
+    const confpassword = { value: '', error: 'error' };
     const wrapper = setup(null, { confpassword });
     const submit = findByTestAttr(wrapper, 'submit-button');
     submit.simulate('click');
@@ -169,8 +169,9 @@ describe('if onChange event', () => {
 describe('After Submit event', () => {
   test('no renders error message for valid login', () => {
     const success = true;
+    const error = '';
     const isSubmitted = true;
-    const wrapper = setup(null, { isSubmitted, success });
+    const wrapper = setup({ success, error }, { isSubmitted });
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(0);
@@ -179,7 +180,8 @@ describe('After Submit event', () => {
   test('renders error message for invalid login', () => {
     const success = false;
     const isSubmitted = true;
-    const wrapper = setup(null, { isSubmitted, success });
+    const error = 'error';
+    const wrapper = setup({ success, error }, { isSubmitted });
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(1);

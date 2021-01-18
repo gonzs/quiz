@@ -17,7 +17,6 @@ export class UnconnectedSignUp extends Component {
       displayname: { value: '', error: '' },
       age: { value: '', error: '' },
       isSubmitted: false,
-      success: true,
     };
   }
 
@@ -27,24 +26,14 @@ export class UnconnectedSignUp extends Component {
       this.state.password.error.length === 0 &&
       this.state.confpassword.error.length === 0 &&
       this.state.displayname.error.length === 0 &&
-      this.state.age.error.length === 0 &&
-      this.state.email.value.length !== 0 &&
-      this.state.password.value.length !== 0 &&
-      this.state.confpassword.value.length !== 0 &&
-      this.state.displayname.value.length !== 0 &&
-      this.state.age.value.length !== 0
+      this.state.age.error.length === 0
     ) {
       this.props.createUser(
         this.state.email.value,
         this.state.password.value,
         this.state.displayname.value
       );
-
-      if (this.props.user.success)
-        this.setState({ ...this.state, isSubmitted: true, success: true });
-      else this.setState({ ...this.state, isSubmitted: true, success: false });
-    } else {
-      this.setState({ ...this.state, isSubmitted: false });
+      this.setState({ ...this.state, isSubmitted: true });
     }
   }
 
@@ -57,7 +46,6 @@ export class UnconnectedSignUp extends Component {
 
     this.setState({
       ...this.state,
-      isSubmitted: false,
       [id]: { value: value, error: error },
     });
   }
@@ -70,8 +58,9 @@ export class UnconnectedSignUp extends Component {
       displayname,
       age,
       isSubmitted,
-      success,
     } = this.state;
+
+    const { success, error } = this.props;
 
     return (
       <div>
@@ -170,7 +159,7 @@ export class UnconnectedSignUp extends Component {
           </Button>
           {!success && isSubmitted && (
             <Alert variant="danger" data-test="msg-failure">
-              Invalid register
+              {error}
             </Alert>
           )}
         </Form>
@@ -180,7 +169,8 @@ export class UnconnectedSignUp extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  success: state.user.success,
+  error: state.user.error,
 });
 
 const mapDispatchToProps = dispatch => ({

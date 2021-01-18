@@ -8,20 +8,15 @@ export const SignIn = () => {
     email: { value: '', error: '' },
     password: { value: '', error: '' },
     isSubmitted: false,
-    success: true,
   });
 
-  const { success } = useUserData();
-  const signInAction = useSignIn(state.email.value, state.password.value);
+  const { success, error } = useUserData();
+  const signInUser = useSignIn(state.email.value, state.password.value);
 
   const onSubmit = () => {
     if (state.email.error.length === 0 && state.password.error.length === 0) {
-      signInAction();
-
-      if (success) setState({ ...state, isSubmitted: true, success: true });
-      else setState({ ...state, isSubmitted: true, success: false });
-    } else {
-      setState({ ...state, isSubmitted: false });
+      signInUser();
+      setState({ ...state, isSubmitted: true });
     }
   };
 
@@ -31,7 +26,6 @@ export const SignIn = () => {
 
     setState({
       ...state,
-      isSubmitted: false,
       [id]: { value: value, error: error },
     });
   };
@@ -76,9 +70,9 @@ export const SignIn = () => {
         <Button data-test="submit-button" onClick={onSubmit}>
           Sign In
         </Button>
-        {!state.success && state.isSubmitted && (
+        {!success && state.isSubmitted && (
           <Alert variant="danger" data-test="msg-failure">
-            Invalid login
+            {error}
           </Alert>
         )}
       </Form>
