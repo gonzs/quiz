@@ -8,9 +8,12 @@ import {
   SEND_RESULTS_ERROR,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_ERROR,
-  REQUEST_USER_TOKEN,
   REQUEST_USER_TOKEN_SUCCESS,
   REQUEST_USER_TOKEN_ERROR,
+  SIGNIN_USER_ERROR,
+  SIGNIN_USER_SUCCESS,
+  SIGNOUT_USER_SUCCESS,
+  SIGNOUT_USER_ERROR,
 } from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
@@ -106,12 +109,7 @@ export function userCreation(email, password, displayName) {
       dispatch(requestUserToken(res.user));
 
       // User create successfully
-      dispatch(
-        signUpSuccess(
-          displayName
-          // tokenId: idToken,
-        )
-      );
+      dispatch(signUpSuccess(displayName));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -147,5 +145,42 @@ export const requestUserTokenSuccess = payload => ({
 
 export const requestUserTokenError = payload => ({
   type: REQUEST_USER_TOKEN_ERROR,
+  payload,
+});
+
+export function signIn(email, password) {
+  return async dispatch => {
+    try {
+      const res = await auth.signInWithEmailAndPassword(email, password);
+      // Signed in
+
+      // Get token
+      dispatch(requestUserToken(res.user));
+
+      // User create successfully
+      dispatch(signInSuccess());
+    } catch (error) {
+      dispatch(signInError(error.message));
+    }
+  };
+}
+
+export const signInSuccess = payload => ({
+  type: SIGNIN_USER_SUCCESS,
+  payload,
+});
+
+export const signInError = payload => ({
+  type: SIGNIN_USER_ERROR,
+  payload,
+});
+
+export const signOutSuccess = payload => ({
+  type: SIGNOUT_USER_SUCCESS,
+  payload,
+});
+
+export const signOutError = payload => ({
+  type: SIGNOUT_USER_ERROR,
   payload,
 });

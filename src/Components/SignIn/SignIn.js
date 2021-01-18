@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { useSignIn, useUserData } from '../../Hooks/User';
 import { checkValue } from '../../Util/helperCheckFields';
 
 export const SignIn = () => {
@@ -10,11 +11,14 @@ export const SignIn = () => {
     success: true,
   });
 
+  const { success } = useUserData();
+  const signInAction = useSignIn(state.email.value, state.password.value);
+
   const onSubmit = () => {
     if (state.email.error.length === 0 && state.password.error.length === 0) {
-      // TODO - Simulate fetch API
-      let i = Math.random();
-      if (i < 0.5) setState({ ...state, isSubmitted: true, success: true });
+      signInAction();
+
+      if (success) setState({ ...state, isSubmitted: true, success: true });
       else setState({ ...state, isSubmitted: true, success: false });
     } else {
       setState({ ...state, isSubmitted: false });

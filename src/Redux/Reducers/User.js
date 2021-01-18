@@ -3,6 +3,10 @@ import {
   SIGNUP_USER_ERROR,
   REQUEST_USER_TOKEN_SUCCESS,
   REQUEST_USER_TOKEN_ERROR,
+  SIGNIN_USER_SUCCESS,
+  SIGNIN_USER_ERROR,
+  SIGNOUT_USER_SUCCESS,
+  SIGNOUT_USER_ERROR,
 } from '../types-actions';
 
 export default function user(
@@ -21,7 +25,6 @@ export default function user(
     case SIGNUP_USER_ERROR:
       return {
         ...state,
-        isLogged: false,
         success: false,
         error: action.payload,
       };
@@ -31,6 +34,22 @@ export default function user(
 
     case REQUEST_USER_TOKEN_ERROR:
       return { ...state, error: action.payload };
+
+    case SIGNIN_USER_SUCCESS:
+      return { ...state, isLogged: true, success: true };
+
+    case SIGNIN_USER_ERROR:
+      return {
+        ...state,
+        success: false,
+        error: action.payload,
+      };
+
+    case SIGNOUT_USER_SUCCESS:
+      return state;
+
+    case SIGNOUT_USER_ERROR:
+      return state;
 
     default:
       return state;

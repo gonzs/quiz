@@ -34,16 +34,13 @@ export class UnconnectedSignUp extends Component {
       this.state.displayname.value.length !== 0 &&
       this.state.age.value.length !== 0
     ) {
-      // TODO - Simulate fetch API
-
       this.props.createUser(
         this.state.email.value,
         this.state.password.value,
         this.state.displayname.value
       );
 
-      let i = Math.random();
-      if (i < 0.5)
+      if (this.props.user.success)
         this.setState({ ...this.state, isSubmitted: true, success: true });
       else this.setState({ ...this.state, isSubmitted: true, success: false });
     } else {

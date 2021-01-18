@@ -3,6 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { SignIn } from './SignIn';
 import { findByTestAttr } from '../../Test/testUtils';
+import { useDispatch } from 'react-redux';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -25,6 +26,8 @@ test('renders without error', () => {
   const email = findByTestAttr(wrapper, 'email-field');
   const password = findByTestAttr(wrapper, 'password-field');
   const submit = findByTestAttr(wrapper, 'submit-button');
+
+  useDispatch = jest.fn(() => useDispatch());
 
   expect(component.length).toBe(1);
   expect(email.length).toBe(1);
