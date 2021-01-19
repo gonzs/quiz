@@ -8,6 +8,7 @@ export const useUserData = () => {
     success: useSelector(state => state.user.success),
     error: useSelector(state => state.user.error),
     displayName: useSelector(state => state.user.displayName),
+    email: useSelector(state => state.user.email),
   };
 };
 

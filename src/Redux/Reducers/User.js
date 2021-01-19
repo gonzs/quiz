@@ -10,7 +10,14 @@ import {
 } from '../types-actions';
 
 export default function user(
-  state = { isLogged: false, tokenId: null, success: false, error: '' },
+  state = {
+    isLogged: false,
+    tokenId: null,
+    success: false,
+    error: '',
+    displayName: undefined,
+    email: undefined,
+  },
   action
 ) {
   switch (action.type) {
@@ -19,7 +26,8 @@ export default function user(
         ...state,
         isLogged: true,
         success: true,
-        displayName: action.payload,
+        email: action.payload.email,
+        displayName: action.payload.displayName,
       };
 
     case SIGNUP_USER_ERROR:
@@ -40,7 +48,8 @@ export default function user(
         ...state,
         isLogged: true,
         success: true,
-        displayName: action.payload,
+        email: action.payload.email,
+        displayName: action.payload.displayName,
       };
 
     case SIGNIN_USER_ERROR:
@@ -51,7 +60,14 @@ export default function user(
       };
 
     case SIGNOUT_USER_SUCCESS:
-      return { ...state, isLogged: false, tokenId: null, succes: false };
+      return {
+        ...state,
+        isLogged: false,
+        tokenId: null,
+        succes: false,
+        email: undefined,
+        displayName: undefined,
+      };
 
     case SIGNOUT_USER_ERROR:
       return { ...state, error: action.payload };

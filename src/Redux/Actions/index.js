@@ -65,7 +65,7 @@ export const saveAnswer = payload => ({
   payload,
 });
 
-export function postResults(subject, score, tokenId) {
+export function postResults(email, subject, score, tokenId) {
   return dispatch => {
     dispatch(sendResults());
 
@@ -74,6 +74,7 @@ export function postResults(subject, score, tokenId) {
         `${process.env.REACT_APP_API_URL}/results`,
         {
           subject,
+          email,
           score,
         },
         { headers: { Authorization: `Bearer ${tokenId}` } }
@@ -117,7 +118,7 @@ export function userCreation(email, password, displayName) {
       dispatch(requestUserToken(res.user));
 
       // User create successfully
-      dispatch(signUpSuccess(displayName));
+      dispatch(signUpSuccess({ email: res.user.email, displayName }));
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -166,7 +167,12 @@ export function signIn(email, password) {
       dispatch(requestUserToken(res.user));
 
       // User signed successfully
-      dispatch(signInSuccess(res.user.displayName));
+      dispatch(
+        signInSuccess({
+          email: res.user.email,
+          displayName: res.user.displayName,
+        })
+      );
     } catch (error) {
       dispatch(signInError(error.message));
     }
