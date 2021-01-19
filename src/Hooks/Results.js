@@ -12,6 +12,7 @@ export const useResultsData = () => {
 
 export const useValidateQuiz = (questions, answers, setResults, subject) => {
   const dispatch = useDispatch();
+  const tokenId = useSelector(state => state.user.tokenId);
 
   useEffect(() => {
     let score = 0;
@@ -23,7 +24,11 @@ export const useValidateQuiz = (questions, answers, setResults, subject) => {
         return 'Correct';
       } else return 'Incorrect';
     });
+
     setResults({ validated: validated, score: score });
-    if (validated.length !== 0) dispatch(postResults(subject, score));
-  }, [dispatch, questions, answers, setResults, subject]);
+
+    if (validated.length !== 0) {
+      dispatch(postResults(subject, score, tokenId));
+    }
+  }, [dispatch, questions, answers, setResults, subject, tokenId]);
 };

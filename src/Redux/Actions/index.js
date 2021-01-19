@@ -65,12 +65,19 @@ export const saveAnswer = payload => ({
   payload,
 });
 
-export function postResults(subject, score) {
+export function postResults(subject, score, tokenId) {
   return dispatch => {
     dispatch(sendResults());
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/results`, { subject, score })
+      .post(
+        `${process.env.REACT_APP_API_URL}/results`,
+        {
+          subject,
+          score,
+        },
+        { headers: { Authorization: `Bearer ${tokenId}` } }
+      )
       .then(response => {
         if (response.status !== 200)
           throw new Error(response.status + response.statusText);
