@@ -1,32 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HOME, SUB1, SUB2, SIGN_IN, SIGN_UP } from '../../Router/routes';
+import { routes } from '../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
+import { useUserData } from '../../Hooks';
 
 export const NavBar = () => {
+  const { isLogged, displayName } = useUserData();
+
   return (
     <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to={HOME}>
+          <Nav.Link as={Link} to={routes.HOME}>
             HOME
           </Nav.Link>
-          <Nav.Link as={Link} to={SUB1}>
+          <Nav.Link as={Link} to={routes.SUB1}>
             SUBJECT 1
           </Nav.Link>
-          <Nav.Link as={Link} to={SUB2}>
+          <Nav.Link as={Link} to={routes.SUB2}>
             SUBJECT 2
           </Nav.Link>
         </Nav>
-        <Nav>
-          <Nav.Link as={Link} to={SIGN_IN}>
-            Sign In
-          </Nav.Link>
-          <Nav.Link as={Link} to={SIGN_UP}>
-            Register
-          </Nav.Link>
-        </Nav>
+        {!isLogged && (
+          <Nav>
+            <Nav.Link as={Link} to={routes.SIGN_IN}>
+              Sign In
+            </Nav.Link>
+            <Nav.Link as={Link} to={routes.SIGN_UP}>
+              Register
+            </Nav.Link>
+          </Nav>
+        )}
+
+        {isLogged && (
+          <Nav>
+            <Nav.Link>{displayName}</Nav.Link>
+            <Nav.Link as={Link} to={routes.SIGN_OUT}>
+              Sign Out
+            </Nav.Link>
+          </Nav>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

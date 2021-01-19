@@ -1,4 +1,4 @@
-import { useNavigation } from './Navigation';
+import { useNavigation, useRouter } from './Navigation';
 import {
   useRetrieveAnswer,
   useSaveAnswer,
@@ -9,7 +9,7 @@ import {
 
 import { useResultsData, useValidateQuiz } from './Results';
 
-import { useUserData } from './User';
+import { useUserData, useSignIn, useSignOut } from './User';
 
 export {
   useNavigation,
@@ -21,4 +21,7 @@ export {
   useResultsData,
   useValidateQuiz,
   useUserData,
+  useSignIn,
+  useSignOut,
+  useRouter,
 };

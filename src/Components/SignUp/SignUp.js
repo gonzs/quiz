@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { userCreation } from '../../Redux/Actions';
 import {
   checkPasswordConfirmation,
@@ -21,19 +22,21 @@ export class UnconnectedSignUp extends Component {
   }
 
   onSubmit() {
-    if (
-      this.state.email.error.length === 0 &&
-      this.state.password.error.length === 0 &&
-      this.state.confpassword.error.length === 0 &&
-      this.state.displayname.error.length === 0 &&
-      this.state.age.error.length === 0
-    ) {
-      this.props.createUser(
-        this.state.email.value,
-        this.state.password.value,
-        this.state.displayname.value
-      );
-      this.setState({ ...this.state, isSubmitted: true });
+    const { history } = this.props;
+    const { email, password, displayname, confpassword, age } = this.state;
+
+    const shouldSubmit =
+      email.error.length === 0 &&
+      password.error.length === 0 &&
+      confpassword.error.length === 0 &&
+      displayname.error.length === 0 &&
+      age.error.length === 0;
+
+    if (shouldSubmit) {
+      this.props
+        .createUser(email.value, password.value, displayname.value)
+        .then(() => this.setState({ ...this.state, isSubmitted: true }))
+        .then(() => history.push('/'));
     }
   }
 
@@ -178,7 +181,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(userCreation(email, password, displayName)),
 });
 
-export const SignUp = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UnconnectedSignUp);
+export const SignUp = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(UnconnectedSignUp)
+);

@@ -101,7 +101,8 @@ export function userCreation(email, password, displayName) {
   return async dispatch => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
-      // Signed in
+      // Signed in too
+
       // Update user data
       res.user.updateProfile({ displayName: displayName });
 
@@ -157,8 +158,8 @@ export function signIn(email, password) {
       // Get token
       dispatch(requestUserToken(res.user));
 
-      // User create successfully
-      dispatch(signInSuccess());
+      // User signed successfully
+      dispatch(signInSuccess(res.user.displayName));
     } catch (error) {
       dispatch(signInError(error.message));
     }
@@ -174,6 +175,20 @@ export const signInError = payload => ({
   type: SIGNIN_USER_ERROR,
   payload,
 });
+
+export function signOut() {
+  return async dispatch => {
+    try {
+      await auth.signOut();
+      //Sign Out
+
+      // User signed out successfully
+      dispatch(signOutSuccess());
+    } catch (error) {
+      dispatch(signOutError(error.message));
+    }
+  };
+}
 
 export const signOutSuccess = payload => ({
   type: SIGNOUT_USER_SUCCESS,

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { signIn } from '../Redux/Actions';
+import { signIn, signOut } from '../Redux/Actions';
 
 export const useUserData = () => {
   return {
@@ -7,6 +7,7 @@ export const useUserData = () => {
     tokenId: useSelector(state => state.user.tokenId),
     success: useSelector(state => state.user.success),
     error: useSelector(state => state.user.error),
+    displayName: useSelector(state => state.user.displayName),
   };
 };
 
@@ -15,5 +16,13 @@ export const useSignIn = (email, password) => {
 
   return () => {
     if (email && password) dispatch(signIn(email, password));
+  };
+};
+
+export const useSignOut = () => {
+  const dispatch = useDispatch();
+
+  return () => {
+    dispatch(signOut());
   };
 };

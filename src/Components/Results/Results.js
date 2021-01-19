@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { HOME } from '../../Router/routes';
+import { routes } from '../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import { SendMessage } from '../Message';
 import { useQuizData, useResultsData, useValidateQuiz } from '../../Hooks';
@@ -17,7 +17,7 @@ export const Results = () => {
   useValidateQuiz(questions, answers, setResults, subject);
 
   // Render if there are not answers
-  if (answers.length === 0) return <Redirect to={HOME} />;
+  if (answers.length === 0) return <Redirect to={routes.HOME} />;
 
   // Render results table
   return (

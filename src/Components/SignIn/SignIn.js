@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import { useSignIn, useUserData } from '../../Hooks/User';
+import { useSignIn, useUserData, useRouter } from '../../Hooks/';
 import { checkValue } from '../../Util/helperCheckFields';
 
 export const SignIn = () => {
@@ -11,12 +11,17 @@ export const SignIn = () => {
   });
 
   const { success, error } = useUserData();
+  const router = useRouter();
   const signInUser = useSignIn(state.email.value, state.password.value);
 
   const onSubmit = () => {
-    if (state.email.error.length === 0 && state.password.error.length === 0) {
+    const shouldSubmit =
+      state.email.error.length === 0 && state.password.error.length === 0;
+
+    if (shouldSubmit) {
       signInUser();
       setState({ ...state, isSubmitted: true });
+      router.push('/');
     }
   };
 

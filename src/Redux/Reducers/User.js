@@ -36,7 +36,12 @@ export default function user(
       return { ...state, error: action.payload };
 
     case SIGNIN_USER_SUCCESS:
-      return { ...state, isLogged: true, success: true };
+      return {
+        ...state,
+        isLogged: true,
+        success: true,
+        displayName: action.payload,
+      };
 
     case SIGNIN_USER_ERROR:
       return {
@@ -46,10 +51,10 @@ export default function user(
       };
 
     case SIGNOUT_USER_SUCCESS:
-      return state;
+      return { ...state, isLogged: false, tokenId: null, succes: false };
 
     case SIGNOUT_USER_ERROR:
-      return state;
+      return { ...state, error: action.payload };
 
     default:
       return state;

@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export const useNavigation = () => {
@@ -17,4 +18,22 @@ export const useNavigation = () => {
     isFirst,
     isLast,
   };
+};
+
+export const useRouter = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  // Return our custom router object
+  // Memoize so that a new object is only returned if something changes
+  return useMemo(() => {
+    return {
+      // For convenience add push(), replace(), pathname at top level
+      push: history.push,
+      replace: history.replace,
+      pathname: location.pathname,
+      location,
+      history,
+    };
+  }, [location, history]);
 };
