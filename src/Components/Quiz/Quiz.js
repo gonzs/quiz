@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import { ErrorRequestMessage } from '../Message';
+import { ErrorRequestMessage } from '../Message/Message';
 import { useQuiz, useQuizData, useUserData } from '../../Hooks';
 
-export const Trivia = props => {
+export const Quiz = props => {
   // * Get quiz data
   const { isFetching, subject, success, error } = useQuizData();
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { routes } from './routes';
 import { Home } from '../Home';
-import { Trivia } from '../Trivia';
+import { Quiz } from '../Quiz';
 import { Question } from '../Question';
 import { Results } from '../Results';
 import { SignIn } from '../SignIn';
@@ -20,7 +20,7 @@ const Router = () => (
       render={props => <Question key={props.match.params.id || 'empty'} />}
     />
 
-    <Route path={routes.SUB1} component={Trivia} />
+    <Route path={routes.SUB1} component={Quiz} />
 
     <Route path={routes.SUB2 + routes.RESULTS} component={Results} exact />
 
@@ -29,7 +29,7 @@ const Router = () => (
       render={props => <Question key={props.match.params.id || 'empty'} />}
     />
 
-    <Route path={routes.SUB2} component={Trivia} />
+    <Route path={routes.SUB2} component={Quiz} />
 
     <Route path={routes.SIGN_IN} component={SignIn} />
     <Route path={routes.SIGN_UP} component={SignUp} />
