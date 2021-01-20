@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import { useSignIn, useUserData, useRouter } from '../../Hooks/';
+import { useSignIn, useUserData } from '../../Hooks/';
 import { checkValue } from '../../Util/helperCheckFields';
+import { Redirect } from 'react-router-dom';
 
 export const SignIn = () => {
   const [state, setState] = React.useState({
@@ -10,8 +11,7 @@ export const SignIn = () => {
     isSubmitted: false,
   });
 
-  const { success, error } = useUserData();
-  const router = useRouter();
+  const { isLogged, error, isFetching } = useUserData();
   const signInUser = useSignIn(state.email.value, state.password.value);
 
   const onSubmit = () => {
@@ -19,9 +19,8 @@ export const SignIn = () => {
       state.email.error.length === 0 && state.password.error.length === 0;
 
     if (shouldSubmit) {
-      signInUser();
       setState({ ...state, isSubmitted: true });
-      router.push('/');
+      signInUser();
     }
   };
 
@@ -35,8 +34,12 @@ export const SignIn = () => {
     });
   };
 
+  // Render
+
+  if (isLogged) return <Redirect to="/" />;
+
   return (
-    <div>
+    <>
       <Form data-test="sign-in">
         <Form.Group>
           <Form.Label> Email address </Form.Label>
@@ -72,15 +75,20 @@ export const SignIn = () => {
           )}
         </Form.Group>
 
-        <Button data-test="submit-button" onClick={onSubmit}>
-          Sign In
+        <Button
+          data-test="submit-button"
+          disabled={isFetching}
+          onClick={!isFetching ? onSubmit : null}
+        >
+          {isFetching ? 'Loading...' : 'Login'}
         </Button>
-        {!success && state.isSubmitted && (
+
+        {!isLogged && state.isSubmitted && error && (
           <Alert variant="danger" data-test="msg-failure">
             {error}
           </Alert>
         )}
       </Form>
-    </div>
+    </>
   );
 };

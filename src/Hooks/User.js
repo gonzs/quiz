@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { signIn, signOut } from '../Redux/Actions';
+import { login, signOut } from '../Redux/Actions';
 
 export const useUserData = () => {
   return {
     isLogged: useSelector(state => state.user.isLogged),
     tokenId: useSelector(state => state.user.tokenId),
-    success: useSelector(state => state.user.success),
     error: useSelector(state => state.user.error),
     displayName: useSelector(state => state.user.displayName),
     email: useSelector(state => state.user.email),
+    isFetching: useSelector(state => state.user.isFetching),
   };
 };
 
@@ -16,7 +16,7 @@ export const useSignIn = (email, password) => {
   const dispatch = useDispatch();
 
   return () => {
-    if (email && password) dispatch(signIn(email, password));
+    if (email && password) dispatch(login(email, password));
   };
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { UnconnectedSignUp } from './SignUp';
+import { SignUpForm } from './SignUpForm';
 import { findByTestAttr } from '../../Test/testUtils';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -16,7 +16,7 @@ const defaultProps = {};
  */
 const setup = (props = {}, state = null) => {
   const setupProps = { ...defaultProps, ...props };
-  const wrapper = shallow(<UnconnectedSignUp {...setupProps} />);
+  const wrapper = shallow(<SignUpForm {...setupProps} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };
@@ -168,20 +168,20 @@ describe('if onChange event', () => {
 
 describe('After Submit event', () => {
   test('no renders error message for valid login', () => {
-    const success = true;
+    const isLogged = true;
     const error = '';
     const isSubmitted = true;
-    const wrapper = setup({ success, error }, { isSubmitted });
+    const wrapper = setup({ isLogged, error }, { isSubmitted });
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(0);
   });
 
   test('renders error message for invalid login', () => {
-    const success = false;
+    const isLogged = false;
     const isSubmitted = true;
     const error = 'error';
-    const wrapper = setup({ success, error }, { isSubmitted });
+    const wrapper = setup({ isLogged, error }, { isSubmitted });
     const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
 
     expect(msgSubmit.length).toBe(1);

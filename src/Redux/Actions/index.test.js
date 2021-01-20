@@ -1,8 +1,10 @@
 import {
+  SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_ERROR,
   REQUEST_USER_TOKEN_SUCCESS,
   REQUEST_USER_TOKEN_ERROR,
+  SIGNIN_USER,
   SIGNIN_USER_SUCCESS,
   SIGNIN_USER_ERROR,
 } from '../types-actions';
@@ -10,6 +12,7 @@ import { auth } from '../../firebase';
 import { storeFactory } from '../../Test/testUtils';
 import {
   userCreation,
+  signUp,
   signUpSuccess,
   signUpError,
   requestUserToken,
@@ -18,7 +21,13 @@ import {
   signIn,
   signInSuccess,
   signInError,
+  login,
 } from './';
+
+test('returns action creator type `SIGNUP_USER`', () => {
+  const action = signUp();
+  expect(action).toEqual({ type: SIGNUP_USER });
+});
 
 test('returns action creator type `SIGNUP_USER_SUCCESS`', () => {
   const action = signUpSuccess();
@@ -38,6 +47,11 @@ test('returns action creator type `REQUEST_USER_TOKEN_SUCCESS`', () => {
 test('returns action creator type `REQUEST_USER_TOKEN_ERROR`', () => {
   const action = requestUserTokenError();
   expect(action).toEqual({ type: REQUEST_USER_TOKEN_ERROR });
+});
+
+test('returns action creator type `SIGNIN_USER`', () => {
+  const action = signIn();
+  expect(action).toEqual({ type: SIGNIN_USER });
 });
 
 test('returns action creator type `SIGNIN_USER_SUCCESS`', () => {
@@ -75,7 +89,6 @@ describe(' userCreation action creator', () => {
       .then(() => {
         const newState = store.getState();
         expect(newState.user.isLogged).toBe(true);
-        expect(newState.user.success).toBe(true);
         expect(newState.user.error).toBe('');
       });
   });
@@ -98,7 +111,7 @@ describe(' userCreation action creator', () => {
       .then(() => {
         const newState = store.getState();
         expect(newState.user.isLogged).toBe(false);
-        expect(newState.user.success).toBe(false);
+
         expect(newState.user.error).not.toBe(' ');
       });
   });
@@ -151,10 +164,9 @@ describe('signIn action creator', () => {
       return Promise.resolve();
     });
 
-    return store.dispatch(signIn(email, password)).then(() => {
+    return store.dispatch(login(email, password)).then(() => {
       const newState = store.getState();
       expect(newState.user.isLogged).toBe(true);
-      expect(newState.user.success).toBe(true);
     });
   });
 
@@ -168,10 +180,9 @@ describe('signIn action creator', () => {
       Promise.reject(error)
     );
 
-    return store.dispatch(signIn()).then(() => {
+    return store.dispatch(login()).then(() => {
       const newState = store.getState();
       expect(newState.user.isLogged).toBe(false);
-      expect(newState.user.success).toBe(false);
       expect(newState.user.error).not.toBe(' ');
     });
   });

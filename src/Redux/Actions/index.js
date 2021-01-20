@@ -6,10 +6,12 @@ import {
   SEND_RESULTS,
   SEND_RESULTS_SUCCESS,
   SEND_RESULTS_ERROR,
+  SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_ERROR,
   REQUEST_USER_TOKEN_SUCCESS,
   REQUEST_USER_TOKEN_ERROR,
+  SIGNIN_USER,
   SIGNIN_USER_ERROR,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
@@ -108,6 +110,7 @@ export const sendError = payload => ({
 export function userCreation(email, password, displayName) {
   return async dispatch => {
     try {
+      dispatch(signUp());
       const res = await auth.createUserWithEmailAndPassword(email, password);
       // Signed in too
 
@@ -124,6 +127,11 @@ export function userCreation(email, password, displayName) {
     }
   };
 }
+
+export const signUp = payload => ({
+  type: SIGNUP_USER,
+  payload,
+});
 
 export const signUpSuccess = payload => ({
   type: SIGNUP_USER_SUCCESS,
@@ -157,9 +165,10 @@ export const requestUserTokenError = payload => ({
   payload,
 });
 
-export function signIn(email, password) {
+export function login(email, password) {
   return async dispatch => {
     try {
+      dispatch(signIn());
       const res = await auth.signInWithEmailAndPassword(email, password);
       // Signed in
 
@@ -178,6 +187,11 @@ export function signIn(email, password) {
     }
   };
 }
+
+export const signIn = payload => ({
+  type: SIGNIN_USER,
+  payload,
+});
 
 export const signInSuccess = payload => ({
   type: SIGNIN_USER_SUCCESS,
