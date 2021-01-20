@@ -16,6 +16,8 @@ Routing -> `react router`. Two sub-routes per subject, one for the question and 
 
 Testing -> `jest` & `enzyme`.
 
+Authentication -> `Firebase Auth` to sign up, sign in, sign out and get token ID functionalities.
+
 CI -> It's used `Husky` in order to execute unit tests and apply the linter before each commit
 
 **Note: React hooks approach is being used**
