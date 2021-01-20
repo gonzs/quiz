@@ -1,6 +1,6 @@
 ## QUIZ GAME
 
-This application is designed to evaluate for several subjects through questionnaires.
+This application is designed to evaluate for several subjects through quiz.
 
 ## Frontend
 
@@ -12,7 +12,7 @@ HTTP client -> `axios` to hadle rest API
 
 State management -> `redux` & `redux thunk` to handle asynchronism.
 
-Routing -> `react router`. Two sub-routes per subject, one for the question and other for results. e.g. /history/4 , /history/results
+Routing -> `react router`. Two sub-routes per subject, one for the question and other for results. e.g. /history/4 , /math/results
 
 Testing -> `jest` & `enzyme`.
 
