@@ -23,6 +23,7 @@ import {
   signInError,
   login,
 } from './';
+import moxios from 'moxios';
 
 test('returns action creator type `SIGNUP_USER`', () => {
   const action = signUp();
@@ -65,6 +66,13 @@ test('returns action creator type `SIGNIN_USER_ERROR`', () => {
 });
 
 describe(' userCreation action creator', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
   test('adds response user created succesfully', () => {
     const store = storeFactory();
     const email = 'gonzs@gonzs.com';
@@ -80,15 +88,16 @@ describe(' userCreation action creator', () => {
       Promise.resolve()
     );
 
-    response.user.getIdToken = jest.fn(() => {
-      return Promise.resolve();
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({ status: 200, response: '' });
     });
 
     return store
       .dispatch(userCreation(email, password, displayName))
       .then(() => {
         const newState = store.getState();
-        expect(newState.user.isLogged).toBe(true);
+        expect(newState.user.isFetching).toBeFalsy();
         expect(newState.user.error).toBe('');
       });
   });
@@ -110,8 +119,7 @@ describe(' userCreation action creator', () => {
       .dispatch(userCreation(email, password, displayName))
       .then(() => {
         const newState = store.getState();
-        expect(newState.user.isLogged).toBe(false);
-
+        expect(newState.user.isFetching).toBeFalsy();
         expect(newState.user.error).not.toBe(' ');
       });
   });

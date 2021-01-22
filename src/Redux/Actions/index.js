@@ -117,11 +117,10 @@ export function userCreation(email, password, displayName) {
       // Update user data
       res.user.updateProfile({ displayName: displayName });
 
-      // Get token
-      dispatch(requestUserToken(res.user));
+      await axios.get(`${process.env.REACT_APP_API_URL}/role${res.user.uid}`);
 
       // User create successfully
-      dispatch(signUpSuccess({ email: res.user.email, displayName }));
+      dispatch(signUpSuccess());
     } catch (error) {
       dispatch(signUpError(error.message));
     }

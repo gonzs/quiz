@@ -4,6 +4,7 @@ import { routes } from '../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import { SendMessage } from '../Message';
 import { useQuizData, useResultsData, useValidateQuiz } from '../../Hooks';
+import { SUCCESS_SEND } from '../../Constants';
 
 export const Results = () => {
   // * Get Quiz data
@@ -22,7 +23,14 @@ export const Results = () => {
   // Render results table
   return (
     <div>
-      {!isSending && <SendMessage success={success} error={error} />}
+      {!isSending && (
+        <SendMessage
+          title={'Save results'}
+          success={success}
+          successMsg={SUCCESS_SEND}
+          error={error}
+        />
+      )}
 
       <Card bg="light" text="dark">
         <Card.Header>Results</Card.Header>

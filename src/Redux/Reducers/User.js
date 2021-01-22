@@ -15,6 +15,7 @@ export default function user(
   state = {
     isLogged: false,
     tokenId: null,
+    success: false,
     error: '',
     displayName: undefined,
     email: undefined,
@@ -32,9 +33,7 @@ export default function user(
     case SIGNUP_USER_SUCCESS:
       return {
         ...state,
-        isLogged: true,
-        email: action.payload.email,
-        displayName: action.payload.displayName,
+        success: true,
         error: '',
         isFetching: false,
       };
@@ -83,6 +82,7 @@ export default function user(
         email: undefined,
         displayName: undefined,
         error: '',
+        success: false,
       };
 
     case SIGNOUT_USER_ERROR:

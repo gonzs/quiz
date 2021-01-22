@@ -3,12 +3,13 @@ import {
   REQUEST_QUIZ_SUCCESS,
   REQUEST_QUIZ_ERROR,
   SAVE_ANSWER,
+  SIGNOUT_USER_SUCCESS,
 } from '../types-actions';
 
 export default function quiz(
   state = {
-    isFetching: true,
-    success: true,
+    isFetching: false,
+    success: false,
     error: '',
     subject: '',
     questions: [],
@@ -61,6 +62,15 @@ export default function quiz(
           answers: [...state.answers, action.payload],
         };
       }
+
+    case SIGNOUT_USER_SUCCESS:
+      return {
+        ...state,
+        success: false,
+        subject: '',
+        questions: [],
+        answers: [],
+      };
 
     default:
       return state;

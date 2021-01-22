@@ -4,19 +4,22 @@ import {
   checkPasswordConfirmation,
   checkValue,
 } from '../../Util/helperCheckFields';
+import { routes } from '../Router/routes';
+
+const initialState = {
+  email: { value: '', error: '' },
+  password: { value: '', error: '' },
+  confpassword: { value: '', error: '' },
+  displayname: { value: '', error: '' },
+  age: { value: '', error: '' },
+  isSubmitted: false,
+  isFetching: false,
+};
 
 export class SignUpForm extends Component {
   constructor() {
     super();
-    this.state = {
-      email: { value: '', error: '' },
-      password: { value: '', error: '' },
-      confpassword: { value: '', error: '' },
-      displayname: { value: '', error: '' },
-      age: { value: '', error: '' },
-      isSubmitted: false,
-      isFetching: false,
-    };
+    this.state = { ...initialState };
   }
 
   onSubmit() {
@@ -62,7 +65,7 @@ export class SignUpForm extends Component {
       isFetching,
     } = this.state;
 
-    const { isLogged, error } = this.props;
+    const { success, error } = this.props;
 
     return (
       <>
@@ -164,9 +167,15 @@ export class SignUpForm extends Component {
             {isFetching ? 'Loading...' : 'Register'}
           </Button>
 
-          {!isLogged && isSubmitted && error && (
+          {!success && isSubmitted && error && (
             <Alert variant="danger" data-test="msg-failure">
               {error}
+            </Alert>
+          )}
+          {success && isSubmitted && (
+            <Alert variant="success" data-test="msg-failure">
+              User created successfully.
+              <a href={routes.SIGN_IN}>Login</a>
             </Alert>
           )}
         </Form>

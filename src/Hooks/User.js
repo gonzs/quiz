@@ -4,6 +4,7 @@ import { login, signOut } from '../Redux/Actions';
 export const useUserData = () => {
   return {
     isLogged: useSelector(state => state.user.isLogged),
+    success: useSelector(state => state.user.success),
     tokenId: useSelector(state => state.user.tokenId),
     error: useSelector(state => state.user.error),
     displayName: useSelector(state => state.user.displayName),
