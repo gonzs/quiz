@@ -1,5 +1,4 @@
 {
-  "homepage": "https://gonzs.github.io/quiz",
   "name": "quiz-app",
   "version": "3.0.0",
   "private": true,
@@ -20,9 +19,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,7 +42,6 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-plugin-prettier": "3.1.1",
     "eslint-plugin-react-hooks": "^3.0.0",
-    "gh-pages": "^2.2.0",
     "husky": "^3.0.8",
     "jest-enzyme": "^7.1.2",
     "moxios": "^0.4.0",
