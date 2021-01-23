@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import {
   checkPasswordConfirmation,
   checkValue,
@@ -175,7 +176,7 @@ export class SignUpForm extends Component {
           {success && isSubmitted && (
             <Alert variant="success" data-test="msg-failure">
               User created successfully.
-              <a href={routes.SIGN_IN}>Login</a>
+              <Link to={routes.SIGN_IN}>Login</Link>
             </Alert>
           )}
         </Form>
