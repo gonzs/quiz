@@ -176,7 +176,7 @@ export class SignUpForm extends Component {
           {success && isSubmitted && (
             <Alert variant="success" data-test="msg-failure">
               User created successfully.
-              <Link to={routes.SIGN_IN}>Login</Link>
+              <Link to={routes.SIGN_IN}> Login</Link>
             </Alert>
           )}
         </Form>
