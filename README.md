@@ -1,6 +1,6 @@
-# QUIZ GAME
+# QUIZ GAME 
 
-This application is designed to evaluate subjects through quiz.
+This application is designed to evaluate subjects through quiz. https://quiz-gonzs.netlify.app/
 
 ## Frontend
 
