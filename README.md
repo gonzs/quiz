@@ -1,10 +1,10 @@
 ## QUIZ GAME
 
-This application is designed to evaluate for several subjects through quiz.
+This application is designed to evaluate subjects through quiz.
 
 ## Frontend
 
-Te app has a menu bar with differents subjects. Each subject route will show 10 questions retrieved from an API, and the user will answer each one. Each answer will be saved and finally a the results will be showed.
+The app has a menu bar with differents subjects. Each subject route will show 10 questions retrieved from an API, and the user will answer each one. Each answer will be saved and finally a the results will be showed.
 
 UI -> `CSS flex` & `react-bootstrap`.
 
