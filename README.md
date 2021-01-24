@@ -1,4 +1,4 @@
-## QUIZ GAME
+# QUIZ GAME
 
 This application is designed to evaluate subjects through quiz.
 
