@@ -1,22 +1,4 @@
-import {
-  REQUEST_QUIZ,
-  REQUEST_QUIZ_SUCCESS,
-  REQUEST_QUIZ_ERROR,
-  SAVE_ANSWER,
-  SEND_RESULTS,
-  SEND_RESULTS_SUCCESS,
-  SEND_RESULTS_ERROR,
-  SIGNUP_USER,
-  SIGNUP_USER_SUCCESS,
-  SIGNUP_USER_ERROR,
-  REQUEST_USER_TOKEN_SUCCESS,
-  REQUEST_USER_TOKEN_ERROR,
-  SIGNIN_USER,
-  SIGNIN_USER_ERROR,
-  SIGNIN_USER_SUCCESS,
-  SIGNOUT_USER_SUCCESS,
-  SIGNOUT_USER_ERROR,
-} from '../types-actions';
+import * as types from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
 import { auth } from '../../firebase/firebase';
@@ -47,23 +29,23 @@ export function getQuiz(subject, tokenId) {
 }
 
 export const requestQuiz = () => ({
-  type: REQUEST_QUIZ,
+  type: types.REQUEST_QUIZ,
 });
 
 export const requestSuccess = payload => {
   return {
-    type: REQUEST_QUIZ_SUCCESS,
+    type: types.REQUEST_QUIZ_SUCCESS,
     payload,
   };
 };
 
 export const requestError = payload => ({
-  type: REQUEST_QUIZ_ERROR,
+  type: types.REQUEST_QUIZ_ERROR,
   payload,
 });
 
 export const saveAnswer = payload => ({
-  type: SAVE_ANSWER,
+  type: types.SAVE_ANSWER,
   payload,
 });
 
@@ -94,16 +76,16 @@ export function postResults(email, subject, score, tokenId) {
 }
 
 export const sendResults = () => ({
-  type: SEND_RESULTS,
+  type: types.SEND_RESULTS,
 });
 
 export const sendSuccess = payload => ({
-  type: SEND_RESULTS_SUCCESS,
+  type: types.SEND_RESULTS_SUCCESS,
   payload,
 });
 
 export const sendError = payload => ({
-  type: SEND_RESULTS_ERROR,
+  type: types.SEND_RESULTS_ERROR,
   payload,
 });
 
@@ -128,17 +110,17 @@ export function userCreation(email, password, displayName) {
 }
 
 export const signUp = payload => ({
-  type: SIGNUP_USER,
+  type: types.SIGNUP_USER,
   payload,
 });
 
 export const signUpSuccess = payload => ({
-  type: SIGNUP_USER_SUCCESS,
+  type: types.SIGNUP_USER_SUCCESS,
   payload,
 });
 
 export const signUpError = payload => ({
-  type: SIGNUP_USER_ERROR,
+  type: types.SIGNUP_USER_ERROR,
   payload,
 });
 
@@ -155,12 +137,12 @@ export function requestUserToken(user) {
 }
 
 export const requestUserTokenSuccess = payload => ({
-  type: REQUEST_USER_TOKEN_SUCCESS,
+  type: types.REQUEST_USER_TOKEN_SUCCESS,
   payload,
 });
 
 export const requestUserTokenError = payload => ({
-  type: REQUEST_USER_TOKEN_ERROR,
+  type: types.REQUEST_USER_TOKEN_ERROR,
   payload,
 });
 
@@ -188,17 +170,17 @@ export function login(email, password) {
 }
 
 export const signIn = payload => ({
-  type: SIGNIN_USER,
+  type: types.SIGNIN_USER,
   payload,
 });
 
 export const signInSuccess = payload => ({
-  type: SIGNIN_USER_SUCCESS,
+  type: types.SIGNIN_USER_SUCCESS,
   payload,
 });
 
 export const signInError = payload => ({
-  type: SIGNIN_USER_ERROR,
+  type: types.SIGNIN_USER_ERROR,
   payload,
 });
 
@@ -217,11 +199,34 @@ export function signOut() {
 }
 
 export const signOutSuccess = payload => ({
-  type: SIGNOUT_USER_SUCCESS,
+  type: types.SIGNOUT_USER_SUCCESS,
   payload,
 });
 
 export const signOutError = payload => ({
-  type: SIGNOUT_USER_ERROR,
+  type: types.SIGNOUT_USER_ERROR,
+  payload,
+});
+
+export function resetPassword(email) {
+  return async dispatch => {
+    try {
+      await auth.sendPasswordResetEmail(email);
+
+      // Reset email was sent
+      dispatch(resetPasswordSuccess());
+    } catch (error) {
+      dispatch(resetPasswordError(error.message));
+    }
+  };
+}
+
+export const resetPasswordSuccess = payload => ({
+  type: types.RESET_PASSWORD_SUCCESS,
+  payload,
+});
+
+export const resetPasswordError = payload => ({
+  type: types.RESET_PASSWORD_ERROR,
   payload,
 });

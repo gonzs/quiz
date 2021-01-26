@@ -8,6 +8,7 @@ import { Results } from '../Results';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 import { SignOut } from '../SignOut';
+import { ResetPassword } from '../ResetPassword';
 
 const Router = () => (
   <Switch>
@@ -34,6 +35,7 @@ const Router = () => (
     <Route path={routes.SIGN_IN} component={SignIn} />
     <Route path={routes.SIGN_UP} component={SignUp} />
     <Route path={routes.SIGN_OUT} component={SignOut} />
+    <Route path={`${routes.RESET_PASSWORD}/:email`} component={ResetPassword} />
 
     <Redirect from="" to={routes.HOME} />
   </Switch>

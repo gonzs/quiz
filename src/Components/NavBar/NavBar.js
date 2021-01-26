@@ -7,22 +7,17 @@ import { useUserData } from '../../Hooks';
 export const NavBar = () => {
   const { isLogged, displayName } = useUserData();
 
-  return (
-    <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to={routes.HOME}>
-            HOME
-          </Nav.Link>
-          <Nav.Link as={Link} to={routes.SUB1}>
-            SUBJECT 1
-          </Nav.Link>
-          <Nav.Link as={Link} to={routes.SUB2}>
-            SUBJECT 2
-          </Nav.Link>
-        </Nav>
-        {!isLogged && (
+  if (!isLogged)
+    return (
+      <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to={routes.HOME}>
+              HOME
+            </Nav.Link>
+          </Nav>
+
           <Nav>
             <Nav.Link as={Link} to={routes.SIGN_IN}>
               Sign In
@@ -31,17 +26,33 @@ export const NavBar = () => {
               Register
             </Nav.Link>
           </Nav>
-        )}
+        </Navbar.Collapse>
+      </Navbar>
+    );
 
-        {isLogged && (
+  if (isLogged)
+    return (
+      <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to={routes.HOME}>
+              HOME
+            </Nav.Link>
+            <Nav.Link as={Link} to={routes.SUB1}>
+              SUBJECT 1
+            </Nav.Link>
+            <Nav.Link as={Link} to={routes.SUB2}>
+              SUBJECT 2
+            </Nav.Link>
+          </Nav>
           <Nav>
             <Nav.Link>{displayName}</Nav.Link>
             <Nav.Link as={Link} to={routes.SIGN_OUT}>
               Sign Out
             </Nav.Link>
           </Nav>
-        )}
-      </Navbar.Collapse>
-    </Navbar>
-  );
+        </Navbar.Collapse>
+      </Navbar>
+    );
 };

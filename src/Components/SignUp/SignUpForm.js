@@ -99,8 +99,9 @@ export class SignUpForm extends Component {
               data-test="password-field"
             />
             <Form.Text className="text-muted">
-              Passwords must contains at least 8 characters long, one lowercase
-              letter, one capital letter, one number and one .!@#$%^&*
+              Password must contains at least 8 characters. At least one
+              lowercase letter, one capital letter, one number and one symbol
+              (.!@#$%^&*)
             </Form.Text>
             {password.error.length !== 0 && (
               <Alert variant="danger" data-test="msg-password">

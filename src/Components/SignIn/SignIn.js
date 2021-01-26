@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useSignIn, useUserData } from '../../Hooks/';
 import { checkValue } from '../../Util/helperCheckFields';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import { routes } from '../Router/routes';
 
 export const SignIn = () => {
   const [state, setState] = React.useState({
@@ -88,6 +89,10 @@ export const SignIn = () => {
             {error}
           </Alert>
         )}
+        <br />
+        <Link to={`${routes.RESET_PASSWORD}/${state.email.value}`}>
+          Do you forget the password?
+        </Link>
       </Form>
     </>
   );

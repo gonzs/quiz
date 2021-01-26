@@ -1,21 +1,17 @@
-import {
-  SEND_RESULTS,
-  SEND_RESULTS_SUCCESS,
-  SEND_RESULTS_ERROR,
-} from '../types-actions';
+import * as types from '../types-actions';
 
 export default function results(
   state = { isSending: false, success: true, error: '' },
   action
 ) {
   switch (action.type) {
-    case SEND_RESULTS:
+    case types.SEND_RESULTS:
       return { ...state, isSending: true, error: '' };
 
-    case SEND_RESULTS_SUCCESS:
+    case types.SEND_RESULTS_SUCCESS:
       return { ...state, isSending: false, success: true };
 
-    case SEND_RESULTS_ERROR:
+    case types.SEND_RESULTS_ERROR:
       return {
         ...state,
         isSending: false,

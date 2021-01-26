@@ -1,15 +1,4 @@
-import {
-  SIGNUP_USER,
-  SIGNUP_USER_SUCCESS,
-  SIGNUP_USER_ERROR,
-  REQUEST_USER_TOKEN_SUCCESS,
-  REQUEST_USER_TOKEN_ERROR,
-  SIGNIN_USER,
-  SIGNIN_USER_SUCCESS,
-  SIGNIN_USER_ERROR,
-  SIGNOUT_USER_SUCCESS,
-  SIGNOUT_USER_ERROR,
-} from '../types-actions';
+import * as types from '../types-actions';
 
 export default function user(
   state = {
@@ -24,13 +13,13 @@ export default function user(
   action
 ) {
   switch (action.type) {
-    case SIGNUP_USER:
+    case types.SIGNUP_USER:
       return {
         ...state,
         isFetching: true,
       };
 
-    case SIGNUP_USER_SUCCESS:
+    case types.SIGNUP_USER_SUCCESS:
       return {
         ...state,
         success: true,
@@ -38,26 +27,26 @@ export default function user(
         isFetching: false,
       };
 
-    case SIGNUP_USER_ERROR:
+    case types.SIGNUP_USER_ERROR:
       return {
         ...state,
         error: action.payload,
         isFetching: false,
       };
 
-    case REQUEST_USER_TOKEN_SUCCESS:
+    case types.REQUEST_USER_TOKEN_SUCCESS:
       return { ...state, tokenId: action.payload };
 
-    case REQUEST_USER_TOKEN_ERROR:
+    case types.REQUEST_USER_TOKEN_ERROR:
       return { ...state, error: action.payload };
 
-    case SIGNIN_USER:
+    case types.SIGNIN_USER:
       return {
         ...state,
         isFetching: true,
       };
 
-    case SIGNIN_USER_SUCCESS:
+    case types.SIGNIN_USER_SUCCESS:
       return {
         ...state,
         isLogged: true,
@@ -67,14 +56,14 @@ export default function user(
         isFetching: false,
       };
 
-    case SIGNIN_USER_ERROR:
+    case types.SIGNIN_USER_ERROR:
       return {
         ...state,
         error: action.payload,
         isFetching: false,
       };
 
-    case SIGNOUT_USER_SUCCESS:
+    case types.SIGNOUT_USER_SUCCESS:
       return {
         ...state,
         isLogged: false,
@@ -85,8 +74,14 @@ export default function user(
         success: false,
       };
 
-    case SIGNOUT_USER_ERROR:
+    case types.SIGNOUT_USER_ERROR:
       return { ...state, error: action.payload };
+
+    case types.RESET_PASSWORD_SUCCESS:
+      return { ...state, success: true };
+
+    case types.RESET_PASSWORD_ERROR:
+      return { ...state, success: false, error: action.payload };
 
     default:
       return state;

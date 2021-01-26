@@ -1,10 +1,4 @@
-import {
-  REQUEST_QUIZ,
-  REQUEST_QUIZ_SUCCESS,
-  REQUEST_QUIZ_ERROR,
-  SAVE_ANSWER,
-  SIGNOUT_USER_SUCCESS,
-} from '../types-actions';
+import * as types from '../types-actions';
 
 export default function quiz(
   state = {
@@ -18,10 +12,10 @@ export default function quiz(
   action
 ) {
   switch (action.type) {
-    case REQUEST_QUIZ:
+    case types.REQUEST_QUIZ:
       return { ...state, isFetching: true, answers: [] };
 
-    case REQUEST_QUIZ_SUCCESS:
+    case types.REQUEST_QUIZ_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -30,7 +24,7 @@ export default function quiz(
         questions: action.payload.data,
       };
 
-    case REQUEST_QUIZ_ERROR:
+    case types.REQUEST_QUIZ_ERROR:
       return {
         ...state,
         isFetching: false,
@@ -38,7 +32,7 @@ export default function quiz(
         error: action.payload.toString(),
       };
 
-    case SAVE_ANSWER:
+    case types.SAVE_ANSWER:
       let existed_item = state.answers.find(
         item => item.id === action.payload.id
       );
@@ -63,7 +57,7 @@ export default function quiz(
         };
       }
 
-    case SIGNOUT_USER_SUCCESS:
+    case types.SIGNOUT_USER_SUCCESS:
       return {
         ...state,
         success: false,

@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, signOut } from '../Redux/Actions';
+import { login, signOut, resetPassword } from '../Redux/Actions';
 
 export const useUserData = () => {
   return {
@@ -27,4 +28,13 @@ export const useSignOut = () => {
   return () => {
     dispatch(signOut());
   };
+};
+
+export const useResetPassword = email => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // * Dispatch resetPassword action
+    dispatch(resetPassword(email));
+  }, [dispatch, email]);
 };

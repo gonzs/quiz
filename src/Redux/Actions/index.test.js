@@ -1,13 +1,4 @@
-import {
-  SIGNUP_USER,
-  SIGNUP_USER_SUCCESS,
-  SIGNUP_USER_ERROR,
-  REQUEST_USER_TOKEN_SUCCESS,
-  REQUEST_USER_TOKEN_ERROR,
-  SIGNIN_USER,
-  SIGNIN_USER_SUCCESS,
-  SIGNIN_USER_ERROR,
-} from '../types-actions';
+import * as types from '../types-actions';
 import { auth } from '../../firebase';
 import { storeFactory } from '../../Test/testUtils';
 import {
@@ -27,42 +18,42 @@ import moxios from 'moxios';
 
 test('returns action creator type `SIGNUP_USER`', () => {
   const action = signUp();
-  expect(action).toEqual({ type: SIGNUP_USER });
+  expect(action).toEqual({ type: types.SIGNUP_USER });
 });
 
 test('returns action creator type `SIGNUP_USER_SUCCESS`', () => {
   const action = signUpSuccess();
-  expect(action).toEqual({ type: SIGNUP_USER_SUCCESS });
+  expect(action).toEqual({ type: types.SIGNUP_USER_SUCCESS });
 });
 
 test('returns action creator type `SIGNUP_USER_ERROR`', () => {
   const action = signUpError();
-  expect(action).toEqual({ type: SIGNUP_USER_ERROR });
+  expect(action).toEqual({ type: types.SIGNUP_USER_ERROR });
 });
 
 test('returns action creator type `REQUEST_USER_TOKEN_SUCCESS`', () => {
   const action = requestUserTokenSuccess();
-  expect(action).toEqual({ type: REQUEST_USER_TOKEN_SUCCESS });
+  expect(action).toEqual({ type: types.REQUEST_USER_TOKEN_SUCCESS });
 });
 
 test('returns action creator type `REQUEST_USER_TOKEN_ERROR`', () => {
   const action = requestUserTokenError();
-  expect(action).toEqual({ type: REQUEST_USER_TOKEN_ERROR });
+  expect(action).toEqual({ type: types.REQUEST_USER_TOKEN_ERROR });
 });
 
 test('returns action creator type `SIGNIN_USER`', () => {
   const action = signIn();
-  expect(action).toEqual({ type: SIGNIN_USER });
+  expect(action).toEqual({ type: types.SIGNIN_USER });
 });
 
 test('returns action creator type `SIGNIN_USER_SUCCESS`', () => {
   const action = signInSuccess();
-  expect(action).toEqual({ type: SIGNIN_USER_SUCCESS });
+  expect(action).toEqual({ type: types.SIGNIN_USER_SUCCESS });
 });
 
 test('returns action creator type `SIGNIN_USER_ERROR`', () => {
   const action = signInError();
-  expect(action).toEqual({ type: SIGNIN_USER_ERROR });
+  expect(action).toEqual({ type: types.SIGNIN_USER_ERROR });
 });
 
 describe(' userCreation action creator', () => {
