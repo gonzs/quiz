@@ -102,13 +102,16 @@ export function userCreation(email, password, displayName) {
       // Firebase user creation
       const user = await createUser(email, password);
 
-      dispatch(updateProfile(user, displayName));
+      await dispatch(updateProfile(user, displayName));
 
       // User create successfully
       dispatch(signUpSuccess());
 
       // Update role
-      axios.get(`${process.env.REACT_APP_API_URL}/role${user.uid}`);
+      await axios.get(`${process.env.REACT_APP_API_URL}/role${user.uid}`);
+
+      // NOTE: HACK: SignOut to generate a new token
+      dispatch(signOut());
     } catch (error) {
       dispatch(signUpError(error.message));
     }

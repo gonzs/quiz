@@ -21,7 +21,6 @@ export default function user(
     case types.SIGNUP_USER_SUCCESS:
       return {
         ...state,
-        isLogged: true,
         success: true,
         error: '',
         isFetching: false,
@@ -61,7 +60,6 @@ export default function user(
         isLogged: false,
         tokenId: null,
         error: '',
-        success: false,
         displayName: '',
       };
 
