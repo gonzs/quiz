@@ -1,7 +1,7 @@
 import * as types from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
-import { auth } from '../../firebase/firebase';
+import { createUser, loginUser, logoutUser } from '../../firebase/firebase';
 
 export function getQuiz(subject, tokenId) {
   return dispatch => {
@@ -93,16 +93,14 @@ export function userCreation(email, password, displayName) {
   return async dispatch => {
     try {
       dispatch(signUp());
-      const res = await auth.createUserWithEmailAndPassword(email, password);
-      // Signed in too
-
-      // Update user data
-      res.user.updateProfile({ displayName: displayName });
-
-      await axios.get(`${process.env.REACT_APP_API_URL}/role${res.user.uid}`);
+      // Firebase user creation
+      const uid = await createUser(email, password, displayName);
 
       // User create successfully
       dispatch(signUpSuccess());
+
+      // Update role
+      axios.get(`${process.env.REACT_APP_API_URL}/role${uid}`);
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -150,17 +148,17 @@ export function login(email, password) {
   return async dispatch => {
     try {
       dispatch(signIn());
-      const res = await auth.signInWithEmailAndPassword(email, password);
+      const user = await loginUser(email, password);
       // Signed in
 
       // Get token
-      dispatch(requestUserToken(res.user));
+      dispatch(requestUserToken(user));
 
       // User signed successfully
       dispatch(
         signInSuccess({
-          email: res.user.email,
-          displayName: res.user.displayName,
+          email: user.email,
+          displayName: user.displayName,
         })
       );
     } catch (error) {
@@ -187,9 +185,7 @@ export const signInError = payload => ({
 export function signOut() {
   return async dispatch => {
     try {
-      await auth.signOut();
-      //Sign Out
-
+      await logoutUser();
       // User signed out successfully
       dispatch(signOutSuccess());
     } catch (error) {
@@ -211,7 +207,7 @@ export const signOutError = payload => ({
 export function resetPassword(email) {
   return async dispatch => {
     try {
-      await auth.sendPasswordResetEmail(email);
+      await resetPassword(email);
 
       // Reset email was sent
       dispatch(resetPasswordSuccess());
