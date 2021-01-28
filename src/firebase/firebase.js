@@ -6,21 +6,21 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 
-const createUser = async (email, password, displayName) => {
+const createUser = async (email, password) => {
   //Create user
   const res = await auth.createUserWithEmailAndPassword(email, password);
 
-  // Update user data
-  await res.user.updateProfile({ displayName: displayName });
+  return res.user;
+};
 
-  return res.user.uid;
+const updateDisplayName = async (user, displayName) => {
+  // Update user data
+  await user.updateProfile({ displayName: displayName });
 };
 
 const loginUser = async (email, password) => {
   //Login user
-  const res = await auth.signInWithEmailAndPassword(email, password);
-
-  return res.user;
+  await auth.signInWithEmailAndPassword(email, password);
 };
 
 const logoutUser = async () => {
@@ -32,4 +32,11 @@ const resetPassword = async email => {
   await auth.sendPasswordResetEmail(email);
 };
 
-export { firebase, createUser, loginUser, logoutUser, resetPassword };
+export {
+  firebase,
+  createUser,
+  loginUser,
+  logoutUser,
+  updateDisplayName,
+  resetPassword,
+};

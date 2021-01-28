@@ -9,7 +9,13 @@ import {
 
 import { useResultsData, useValidateQuiz } from './Results';
 
-import { useUserData, useSignIn, useSignOut } from './User';
+import {
+  useUserData,
+  useSignIn,
+  useSignOut,
+  useResetPassword,
+  useUserPers,
+} from './User';
 
 export {
   useNavigation,
@@ -23,5 +29,7 @@ export {
   useUserData,
   useSignIn,
   useSignOut,
+  useResetPassword,
+  useUserPers,
   useRouter,
 };

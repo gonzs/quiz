@@ -6,9 +6,6 @@ import {
   signUp,
   signUpSuccess,
   signUpError,
-  requestUserToken,
-  requestUserTokenSuccess,
-  requestUserTokenError,
   signIn,
   signInSuccess,
   signInError,
@@ -29,16 +26,6 @@ test('returns action creator type `SIGNUP_USER_SUCCESS`', () => {
 test('returns action creator type `SIGNUP_USER_ERROR`', () => {
   const action = signUpError();
   expect(action).toEqual({ type: types.SIGNUP_USER_ERROR });
-});
-
-test('returns action creator type `REQUEST_USER_TOKEN_SUCCESS`', () => {
-  const action = requestUserTokenSuccess();
-  expect(action).toEqual({ type: types.REQUEST_USER_TOKEN_SUCCESS });
-});
-
-test('returns action creator type `REQUEST_USER_TOKEN_ERROR`', () => {
-  const action = requestUserTokenError();
-  expect(action).toEqual({ type: types.REQUEST_USER_TOKEN_ERROR });
 });
 
 test('returns action creator type `SIGNIN_USER`', () => {
@@ -113,38 +100,6 @@ describe(' userCreation action creator', () => {
         expect(newState.user.isFetching).toBeFalsy();
         expect(newState.user.error).not.toBe(' ');
       });
-  });
-});
-
-describe('requestToken action creator', () => {
-  test('adds response token retrieved successfully', () => {
-    const store = storeFactory();
-    const user = { getIdToken: null };
-    const token = 'ABCDEFGH';
-
-    user.getIdToken = jest.fn(() => {
-      return Promise.resolve(token);
-    });
-
-    return store.dispatch(requestUserToken(user)).then(() => {
-      const newState = store.getState();
-      expect(newState.user.tokenId).toBe(token);
-    });
-  });
-
-  test('adds response token retrieved non succesfully', () => {
-    const store = storeFactory();
-    const user = { getIdToken: null };
-    const error = { code: 401, message: 'Error when token is retrieved' };
-
-    user.getIdToken = jest.fn(() => {
-      return Promise.reject(error);
-    });
-
-    return store.dispatch(requestUserToken(user)).then(() => {
-      const newState = store.getState();
-      expect(newState.user.error).not.toBe(' ');
-    });
   });
 });
 

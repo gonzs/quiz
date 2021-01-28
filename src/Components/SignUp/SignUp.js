@@ -10,6 +10,7 @@ export class SignUpComp extends Component {
 }
 
 const mapStateToProps = state => ({
+  isLogged: state.user.isLogged,
   success: state.user.success,
   error: state.user.error,
 });

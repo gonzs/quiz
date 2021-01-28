@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, signOut, resetPassword } from '../Redux/Actions';
+import { login, signOut, resetPassword, requestUser } from '../Redux/Actions';
 
 export const useUserData = () => {
   return {
@@ -8,9 +8,8 @@ export const useUserData = () => {
     success: useSelector(state => state.user.success),
     tokenId: useSelector(state => state.user.tokenId),
     error: useSelector(state => state.user.error),
-    displayName: useSelector(state => state.user.displayName),
-    email: useSelector(state => state.user.email),
     isFetching: useSelector(state => state.user.isFetching),
+    displayName: useSelector(state => state.user.displayName),
   };
 };
 
@@ -37,4 +36,13 @@ export const useResetPassword = email => {
     // * Dispatch resetPassword action
     dispatch(resetPassword(email));
   }, [dispatch, email]);
+};
+
+export const useUserPers = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // * Dispatch requestUser action
+    dispatch(requestUser());
+  }, [dispatch]);
 };

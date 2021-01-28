@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import {
   checkPasswordConfirmation,
   checkValue,
 } from '../../Util/helperCheckFields';
-import { routes } from '../Router/routes';
 
 const initialState = {
   email: { value: '', error: '' },
@@ -66,7 +65,11 @@ export class SignUpForm extends Component {
       isFetching,
     } = this.state;
 
-    const { success, error } = this.props;
+    const { success, error, isLogged } = this.props;
+
+    // Render
+
+    if (isLogged) return <Redirect to="/" />;
 
     return (
       <>
@@ -172,12 +175,6 @@ export class SignUpForm extends Component {
           {!success && isSubmitted && error && (
             <Alert variant="danger" data-test="msg-failure">
               {error}
-            </Alert>
-          )}
-          {success && isSubmitted && (
-            <Alert variant="success" data-test="msg-failure">
-              User created successfully.
-              <Link to={routes.SIGN_IN}> Login</Link>
             </Alert>
           )}
         </Form>

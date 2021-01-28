@@ -3,12 +3,11 @@ import * as types from '../types-actions';
 export default function user(
   state = {
     isLogged: false,
-    tokenId: null,
     success: false,
     error: '',
-    displayName: undefined,
-    email: undefined,
     isFetching: false,
+    tokenId: null,
+    displayName: '',
   },
   action
 ) {
@@ -22,6 +21,7 @@ export default function user(
     case types.SIGNUP_USER_SUCCESS:
       return {
         ...state,
+        isLogged: true,
         success: true,
         error: '',
         isFetching: false,
@@ -34,12 +34,6 @@ export default function user(
         isFetching: false,
       };
 
-    case types.REQUEST_USER_TOKEN_SUCCESS:
-      return { ...state, tokenId: action.payload };
-
-    case types.REQUEST_USER_TOKEN_ERROR:
-      return { ...state, error: action.payload };
-
     case types.SIGNIN_USER:
       return {
         ...state,
@@ -50,8 +44,6 @@ export default function user(
       return {
         ...state,
         isLogged: true,
-        email: action.payload.email,
-        displayName: action.payload.displayName,
         error: '',
         isFetching: false,
       };
@@ -68,10 +60,9 @@ export default function user(
         ...state,
         isLogged: false,
         tokenId: null,
-        email: undefined,
-        displayName: undefined,
         error: '',
         success: false,
+        displayName: '',
       };
 
     case types.SIGNOUT_USER_ERROR:
@@ -82,6 +73,23 @@ export default function user(
 
     case types.RESET_PASSWORD_ERROR:
       return { ...state, success: false, error: action.payload };
+
+    case types.REQUEST_USER_SUCCESS:
+      return {
+        ...state,
+        isLogged: true,
+        tokenId: action.payload.tokenId,
+        displayName: action.payload.displayName,
+      };
+
+    case types.REQUEST_USER_ERROR:
+      return { ...state, error: action.payload };
+
+    case types.UPDATE_PROFILE_SUCCESS:
+      return { ...state, displayName: action.payload };
+
+    case types.UPDATE_PROFILE_ERROR:
+      return { ...state, error: action.payload };
 
     default:
       return state;

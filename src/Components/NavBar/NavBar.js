@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
-import { useUserData } from '../../Hooks';
+import { useUserData, useUserPers } from '../../Hooks';
 
 export const NavBar = () => {
+  useUserPers();
   const { isLogged, displayName } = useUserData();
 
   if (!isLogged)
@@ -29,8 +30,7 @@ export const NavBar = () => {
         </Navbar.Collapse>
       </Navbar>
     );
-
-  if (isLogged)
+  else
     return (
       <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import { useRouter } from '../../Hooks';
-import { useResetPassword, useUserData } from '../../Hooks/User';
+import { useRouter, useResetPassword, useUserData } from '../../Hooks';
 
 export const ResetPassword = props => {
   const { query } = useRouter();

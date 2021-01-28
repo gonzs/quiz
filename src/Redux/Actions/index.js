@@ -1,7 +1,13 @@
 import * as types from '../types-actions';
 import { ERROR_TEXT, ERROR_FETCH, ERROR_SEND } from '../../Constants';
 import axios from 'axios';
-import { createUser, loginUser, logoutUser } from '../../firebase/firebase';
+import {
+  firebase,
+  createUser,
+  loginUser,
+  logoutUser,
+  updateDisplayName,
+} from '../../firebase/firebase';
 
 export function getQuiz(subject, tokenId) {
   return dispatch => {
@@ -94,13 +100,15 @@ export function userCreation(email, password, displayName) {
     try {
       dispatch(signUp());
       // Firebase user creation
-      const uid = await createUser(email, password, displayName);
+      const user = await createUser(email, password);
+
+      dispatch(updateProfile(user, displayName));
 
       // User create successfully
       dispatch(signUpSuccess());
 
       // Update role
-      axios.get(`${process.env.REACT_APP_API_URL}/role${uid}`);
+      axios.get(`${process.env.REACT_APP_API_URL}/role${user.uid}`);
     } catch (error) {
       dispatch(signUpError(error.message));
     }
@@ -122,25 +130,24 @@ export const signUpError = payload => ({
   payload,
 });
 
-export function requestUserToken(user) {
+export function updateProfile(user, displayName) {
   return async dispatch => {
     try {
-      const idToken = await user.getIdToken();
-
-      dispatch(requestUserTokenSuccess(idToken));
+      await updateDisplayName(user, displayName);
+      dispatch(updateProfileSuccess(displayName));
     } catch (error) {
-      dispatch(requestUserTokenError(error.message));
+      dispatch(updateProfileError());
     }
   };
 }
 
-export const requestUserTokenSuccess = payload => ({
-  type: types.REQUEST_USER_TOKEN_SUCCESS,
+export const updateProfileSuccess = payload => ({
+  type: types.UPDATE_PROFILE_SUCCESS,
   payload,
 });
 
-export const requestUserTokenError = payload => ({
-  type: types.REQUEST_USER_TOKEN_ERROR,
+export const updateProfileError = payload => ({
+  type: types.UPDATE_PROFILE_ERROR,
   payload,
 });
 
@@ -148,19 +155,10 @@ export function login(email, password) {
   return async dispatch => {
     try {
       dispatch(signIn());
-      const user = await loginUser(email, password);
-      // Signed in
-
-      // Get token
-      dispatch(requestUserToken(user));
+      await loginUser(email, password);
 
       // User signed successfully
-      dispatch(
-        signInSuccess({
-          email: user.email,
-          displayName: user.displayName,
-        })
-      );
+      dispatch(signInSuccess());
     } catch (error) {
       dispatch(signInError(error.message));
     }
@@ -224,5 +222,35 @@ export const resetPasswordSuccess = payload => ({
 
 export const resetPasswordError = payload => ({
   type: types.RESET_PASSWORD_ERROR,
+  payload,
+});
+
+export function requestUser() {
+  return dispatch => {
+    try {
+      firebase.auth().onAuthStateChanged(async user => {
+        if (user !== null) {
+          const token = await user.getIdToken();
+          dispatch(
+            requestUserSuccess({
+              displayName: user.displayName,
+              tokenId: token,
+            })
+          );
+        }
+      });
+    } catch (error) {
+      dispatch(requestUserError());
+    }
+  };
+}
+
+export const requestUserSuccess = payload => ({
+  type: types.REQUEST_USER_SUCCESS,
+  payload,
+});
+
+export const requestUserError = payload => ({
+  types: types.REQUEST_USER_ERROR,
   payload,
 });
