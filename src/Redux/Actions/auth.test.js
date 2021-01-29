@@ -1,5 +1,5 @@
 import * as types from '../types-actions';
-import { firebase } from '../../firebase';
+import { auth } from '../../firebase';
 import { storeFactory } from '../../Test/testUtils';
 import {
   userCreation,
@@ -58,7 +58,7 @@ describe(' userCreation action creator', () => {
     const displayName = 'gonzs';
     const response = { user: { updateProfile: null, getIdToken: null } };
 
-    firebase.auth().createUserWithEmailAndPassword = jest.fn(
+    auth.createUserWithEmailAndPassword = jest.fn(
       (email, password, displayName) => Promise.resolve(response)
     );
 
@@ -87,7 +87,7 @@ describe(' userCreation action creator', () => {
     const displayName = 'gonzs';
     const error = { code: 401, message: 'Error when user is created' };
 
-    firebase.auth().createUserWithEmailAndPassword = jest.fn(
+    auth.createUserWithEmailAndPassword = jest.fn(
       (email, password, displayName) => {
         return Promise.reject(error);
       }
@@ -110,7 +110,7 @@ describe('signIn action creator', () => {
     const password = '12345678';
     const response = { user: { updateProfile: null, getIdToken: null } };
 
-    firebase.auth().signInWithEmailAndPassword = jest.fn((email, password) =>
+    auth.signInWithEmailAndPassword = jest.fn((email, password) =>
       Promise.resolve(response)
     );
 
@@ -130,7 +130,7 @@ describe('signIn action creator', () => {
     const password = '12345678';
     const error = { code: 401, message: 'Error when user is logged' };
 
-    firebase.auth().signInWithEmailAndPassword = jest.fn((email, password) =>
+    auth.signInWithEmailAndPassword = jest.fn((email, password) =>
       Promise.reject(error)
     );
 

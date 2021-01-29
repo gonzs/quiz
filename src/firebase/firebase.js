@@ -33,7 +33,7 @@ const resetPassword = async email => {
 };
 
 export {
-  firebase,
+  auth,
   createUser,
   loginUser,
   logoutUser,

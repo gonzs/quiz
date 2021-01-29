@@ -4,13 +4,15 @@ import { routes } from '../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import { SendMessage } from '../Message';
 import { useQuizData, useResultsData, useValidateQuiz } from '../../Hooks';
-import { SUCCESS_SEND } from '../../Constants';
+
+const successMsg = `🎉Your results were saved successfully.`;
+const errorMsg = `😪Sorry... We couldn't save the results of your quiz.`;
 
 export const Results = () => {
   // * Get Quiz data
   const { questions, answers, subject } = useQuizData();
   // * Get Results data
-  const { isSending, success, error } = useResultsData();
+  const { isSending, success } = useResultsData();
   // * Declare local results state
   const [results, setResults] = useState({ validated: [], score: 0 });
 
@@ -25,10 +27,10 @@ export const Results = () => {
     <div>
       {!isSending && (
         <SendMessage
-          title={'Save results'}
+          title="Save results"
           success={success}
-          successMsg={SUCCESS_SEND}
-          error={error}
+          successMsg={successMsg}
+          errorMsg={errorMsg}
         />
       )}
 

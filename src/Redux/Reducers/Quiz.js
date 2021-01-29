@@ -29,7 +29,7 @@ export default function quiz(
         ...state,
         isFetching: false,
         success: false,
-        error: action.payload.toString(),
+        error: action.payload,
       };
 
     case types.SAVE_ANSWER:

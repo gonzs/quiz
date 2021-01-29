@@ -7,7 +7,6 @@ export const useResultsData = () => {
   return {
     isSending: useSelector(state => state.results.isSending),
     success: useSelector(state => state.results.success),
-    error: useSelector(state => state.results.error),
   };
 };
 
