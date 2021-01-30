@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { routes } from './routes';
+import routes from './routes';
 import { Home } from '../Home';
 import { Quiz } from '../Quiz';
 import { Question } from '../Question';

@@ -2,17 +2,17 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import { ErrorRequestMessage } from '../Message/Message';
-import { useQuiz, useQuizData, useUserData } from '../../Hooks';
+import hooks from '../../Hooks';
 
 export const Quiz = props => {
   // * Get quiz data
-  const { isFetching, subject, success, error } = useQuizData();
+  const { isFetching, subject, success, error } = hooks.useQuizData();
 
   // * Get TokenId from user data
-  const { tokenId } = useUserData();
+  const { tokenId } = hooks.useUserData();
 
   // * Get questions
-  useQuiz(props.match.path.split('/'), tokenId);
+  hooks.useQuiz(props.match.path.split('/'), tokenId);
 
   // Render loading
   if (isFetching)

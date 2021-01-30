@@ -5,7 +5,7 @@ import {
   checkPasswordConfirmation,
   checkValue,
 } from '../../Util/helperCheckFields';
-import { routes } from '../Router/routes';
+import routes from '../Router/routes';
 
 const initialState = {
   email: { value: '', error: '' },

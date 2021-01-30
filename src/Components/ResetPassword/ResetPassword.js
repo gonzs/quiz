@@ -1,13 +1,13 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import { useRouter, useResetPassword, useUserData } from '../../Hooks';
+import hooks from '../../Hooks';
 
 export const ResetPassword = props => {
-  const { query } = useRouter();
-  const { success, error } = useUserData();
+  const { query } = hooks.useRouter();
+  const { success, error } = hooks.useUserData();
 
   // * Reset Password
-  useResetPassword(query.email);
+  hooks.useResetPassword(query.email);
 
   return (
     <>

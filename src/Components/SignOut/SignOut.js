@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useSignOut } from '../../Hooks';
 import { Button, Modal } from 'react-bootstrap';
-import { useRouter } from '../../Hooks';
+import hooks from '../../Hooks';
 
 export const SignOut = () => {
-  const signOutUser = useSignOut();
-  const router = useRouter();
+  const signOutUser = hooks.useSignOut();
+  const router = hooks.useRouter();
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleSignOut = () => {

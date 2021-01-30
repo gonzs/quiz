@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, signOut, resetPassword, requestUser } from '../Redux/Actions';
+import actions from '../Redux/Actions';
 
 export const useUserData = () => {
   return {
@@ -17,7 +17,7 @@ export const useSignIn = (email, password) => {
   const dispatch = useDispatch();
 
   return () => {
-    if (email && password) dispatch(login(email, password));
+    if (email && password) dispatch(actions.login(email, password));
   };
 };
 
@@ -25,7 +25,7 @@ export const useSignOut = () => {
   const dispatch = useDispatch();
 
   return () => {
-    dispatch(signOut());
+    dispatch(actions.signOut());
   };
 };
 
@@ -34,7 +34,7 @@ export const useResetPassword = email => {
 
   useEffect(() => {
     // * Dispatch resetPassword action
-    dispatch(resetPassword(email));
+    dispatch(actions.resetPassword(email));
   }, [dispatch, email]);
 };
 
@@ -43,6 +43,6 @@ export const useUserPers = () => {
 
   useEffect(() => {
     // * Dispatch requestUser action
-    dispatch(requestUser());
+    dispatch(actions.requestUser());
   }, [dispatch]);
 };

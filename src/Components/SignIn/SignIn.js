@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import { useSignIn, useUserData } from '../../Hooks/';
+import hooks from '../../Hooks/';
 import { checkValue } from '../../Util/helperCheckFields';
 import { Redirect, Link } from 'react-router-dom';
-import { routes } from '../Router/routes';
+import routes from '../Router/routes';
 
 export const SignIn = () => {
   const [state, setState] = React.useState({
@@ -12,8 +12,8 @@ export const SignIn = () => {
     isSubmitted: false,
   });
 
-  const { isLogged, error, isFetching } = useUserData();
-  const signInUser = useSignIn(state.email.value, state.password.value);
+  const { isLogged, error, isFetching } = hooks.useUserData();
+  const signInUser = hooks.useSignIn(state.email.value, state.password.value);
 
   const onSubmit = () => {
     const shouldSubmit =

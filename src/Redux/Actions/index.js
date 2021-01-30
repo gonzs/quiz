@@ -33,7 +33,7 @@ import {
   requestUserError,
 } from './auth';
 
-export {
+const actions = {
   getQuiz,
   requestQuiz,
   requestSuccess,
@@ -64,3 +64,4 @@ export {
   requestUserSuccess,
   requestUserError,
 };
+export default actions;

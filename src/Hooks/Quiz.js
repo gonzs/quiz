@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAnswer, getQuiz } from '../Redux/Actions';
+import actions from '../Redux/Actions';
 
 export const useRetrieveAnswer = id => {
   const question = useSelector(state => state.quiz.questions[id - 1]);
@@ -32,7 +32,7 @@ export const useSaveAnswer = (retrieved, question, current) => {
   const dispatch = useDispatch();
   return () => {
     if (retrieved.length === 0 || current !== retrieved[0].text) {
-      dispatch(saveAnswer({ id: question.id, text: current }));
+      dispatch(actions.saveAnswer({ id: question.id, text: current }));
     }
   };
 };
@@ -43,6 +43,6 @@ export const useQuiz = (_path, tokenId) => {
 
   useEffect(() => {
     // * Dispatch getQuiz action
-    dispatch(getQuiz(path, tokenId));
+    dispatch(actions.getQuiz(path, tokenId));
   }, [dispatch, path, tokenId]);
 };

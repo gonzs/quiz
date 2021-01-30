@@ -1,31 +1,25 @@
 import React, { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import {
-  useNavigation,
-  useRetrieveAnswer,
-  useQuestion,
-  useSaveAnswer,
-  useQuizData,
-} from '../../Hooks';
+import hooks from '../../Hooks';
 import { NavButtons } from '../Buttons/';
 import './Question.css';
 
 export const Question = () => {
   // * Get Navigation data
-  const { id } = useNavigation();
+  const { id } = hooks.useNavigation();
   // * Get current question
-  const question = useQuestion(id);
+  const question = hooks.useQuestion(id);
   // * Get current subject
-  const { subject } = useQuizData();
+  const { subject } = hooks.useQuizData();
   // * Get cached answer
-  const { retrievedAnswer } = useRetrieveAnswer(id);
+  const { retrievedAnswer } = hooks.useRetrieveAnswer(id);
   // * Answer local state
   const [answer, setAnswer] = useState(() => {
     if (retrievedAnswer.length !== 0) return retrievedAnswer[0].text;
   });
   // * Save Answer event
-  const saveAnswer = useSaveAnswer(retrievedAnswer, question, answer);
+  const saveAnswer = hooks.useSaveAnswer(retrievedAnswer, question, answer);
 
   // Render if there is not question
   if (question === undefined) return <Redirect to={subject} />;

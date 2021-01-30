@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { postResults } from '../Redux/Actions';
-import { useUserData } from './User';
+import actions from '../Redux/Actions';
 
 export const useResultsData = () => {
   return {
@@ -10,9 +9,15 @@ export const useResultsData = () => {
   };
 };
 
-export const useValidateQuiz = (questions, answers, setResults, subject) => {
+export const useValidateQuiz = (
+  questions,
+  answers,
+  setResults,
+  subject,
+  email,
+  tokenId
+) => {
   const dispatch = useDispatch();
-  const { email, tokenId } = useUserData();
 
   useEffect(() => {
     let score = 0;
@@ -28,7 +33,7 @@ export const useValidateQuiz = (questions, answers, setResults, subject) => {
     setResults({ validated: validated, score: score });
 
     if (validated.length !== 0) {
-      dispatch(postResults(email, subject, score, tokenId));
+      dispatch(actions.postResults(email, subject, score, tokenId));
     }
   }, [dispatch, questions, answers, setResults, email, subject, tokenId]);
 };

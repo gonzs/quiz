@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { routes } from '../Router/routes';
+import routes from '../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import { SendMessage } from '../Message';
-import { useQuizData, useResultsData, useValidateQuiz } from '../../Hooks';
+import hooks from '../../Hooks';
 
 const successMsg = `🎉Your results were saved successfully.`;
 const errorMsg = `😪Sorry... We couldn't save the results of your quiz.`;
 
 export const Results = () => {
   // * Get Quiz data
-  const { questions, answers, subject } = useQuizData();
+  const { questions, answers, subject } = hooks.useQuizData();
   // * Get Results data
-  const { isSending, success } = useResultsData();
+  const { isSending, success } = hooks.useResultsData();
   // * Declare local results state
   const [results, setResults] = useState({ validated: [], score: 0 });
 
+  // *Get user data
+  const { email, tokenId } = hooks.useUserData();
+
   // * Validate Quiz
-  useValidateQuiz(questions, answers, setResults, subject);
+  hooks.useValidateQuiz(
+    questions,
+    answers,
+    setResults,
+    subject,
+    email,
+    tokenId
+  );
 
   // Render if there are not answers
   if (answers.length === 0) return <Redirect to={routes.HOME} />;

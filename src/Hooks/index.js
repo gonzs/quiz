@@ -17,7 +17,7 @@ import {
   useUserPers,
 } from './User';
 
-export {
+const hooks = {
   useNavigation,
   useRetrieveAnswer,
   useSaveAnswer,
@@ -33,3 +33,5 @@ export {
   useUserPers,
   useRouter,
 };
+
+export default hooks;

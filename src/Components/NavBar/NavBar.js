@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { routes } from '../Router/routes';
+import routes from '../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
-import { useUserData, useUserPers } from '../../Hooks';
+import hooks from '../../Hooks';
 
 export const NavBar = () => {
-  useUserPers();
-  const { isLogged, displayName } = useUserData();
+  hooks.useUserPers();
+  const { isLogged, displayName } = hooks.useUserData();
 
   if (!isLogged)
     return (

@@ -1,45 +1,36 @@
 import * as types from '../types-actions';
 import { auth } from '../../firebase';
 import { storeFactory } from '../../Test/testUtils';
-import {
-  userCreation,
-  signUp,
-  signUpSuccess,
-  signUpError,
-  signIn,
-  signInSuccess,
-  signInError,
-  login,
-} from './';
+import actions from './';
 import moxios from 'moxios';
 
 test('returns action creator type `SIGNUP_USER`', () => {
-  const action = signUp();
+  const action = actions.signUp();
   expect(action).toEqual({ type: types.SIGNUP_USER });
 });
 
 test('returns action creator type `SIGNUP_USER_SUCCESS`', () => {
-  const action = signUpSuccess();
+  const action = actions.signUpSuccess();
   expect(action).toEqual({ type: types.SIGNUP_USER_SUCCESS });
 });
 
 test('returns action creator type `SIGNUP_USER_ERROR`', () => {
-  const action = signUpError();
+  const action = actions.signUpError();
   expect(action).toEqual({ type: types.SIGNUP_USER_ERROR });
 });
 
 test('returns action creator type `SIGNIN_USER`', () => {
-  const action = signIn();
+  const action = actions.signIn();
   expect(action).toEqual({ type: types.SIGNIN_USER });
 });
 
 test('returns action creator type `SIGNIN_USER_SUCCESS`', () => {
-  const action = signInSuccess();
+  const action = actions.signInSuccess();
   expect(action).toEqual({ type: types.SIGNIN_USER_SUCCESS });
 });
 
 test('returns action creator type `SIGNIN_USER_ERROR`', () => {
-  const action = signInError();
+  const action = actions.signInError();
   expect(action).toEqual({ type: types.SIGNIN_USER_ERROR });
 });
 
@@ -72,7 +63,7 @@ describe(' userCreation action creator', () => {
     });
 
     return store
-      .dispatch(userCreation(email, password, displayName))
+      .dispatch(actions.userCreation(email, password, displayName))
       .then(() => {
         const newState = store.getState();
         expect(newState.user.isFetching).toBeFalsy();
@@ -94,7 +85,7 @@ describe(' userCreation action creator', () => {
     );
 
     return store
-      .dispatch(userCreation(email, password, displayName))
+      .dispatch(actions.userCreation(email, password, displayName))
       .then(() => {
         const newState = store.getState();
         expect(newState.user.isFetching).toBeFalsy();
@@ -118,7 +109,7 @@ describe('signIn action creator', () => {
       return Promise.resolve();
     });
 
-    return store.dispatch(login(email, password)).then(() => {
+    return store.dispatch(actions.login(email, password)).then(() => {
       const newState = store.getState();
       expect(newState.user.isLogged).toBe(true);
     });
@@ -134,7 +125,7 @@ describe('signIn action creator', () => {
       Promise.reject(error)
     );
 
-    return store.dispatch(login()).then(() => {
+    return store.dispatch(actions.login()).then(() => {
       const newState = store.getState();
       expect(newState.user.isLogged).toBe(false);
       expect(newState.user.error).not.toBe(' ');

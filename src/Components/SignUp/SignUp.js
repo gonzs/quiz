@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userCreation } from '../../Redux/Actions';
+import actions from '../../Redux/Actions';
 import { SignUpForm } from './SignUpForm';
 
 export class SignUpComp extends Component {
@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createUser: (email, password, displayName) =>
-    dispatch(userCreation(email, password, displayName)),
+    dispatch(actions.userCreation(email, password, displayName)),
 });
 
 export const SignUp = connect(
