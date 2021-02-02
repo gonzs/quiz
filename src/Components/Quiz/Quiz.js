@@ -5,14 +5,17 @@ import { ErrorRequestMessage } from '../Message/Message';
 import hooks from '../../Hooks';
 
 export const Quiz = props => {
+  // * Get Router
+  const router = hooks.useRouter();
+  const subject = router.match.params.subject;
   // * Get quiz data
-  const { isFetching, subject, success, error } = hooks.useQuizData();
+  const { isFetching, success, error } = hooks.useQuizData();
 
   // * Get TokenId from user data
   const { tokenId } = hooks.useUserData();
 
   // * Get questions
-  hooks.useQuiz(props.match.path.split('/'), tokenId);
+  hooks.useQuiz(subject, tokenId);
 
   // Render loading
   if (isFetching)

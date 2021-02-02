@@ -1,13 +1,14 @@
-import { useNavigation, useRouter } from './Navigation';
+import { useNavigation, useRouter } from './navigation';
 import {
   useRetrieveAnswer,
   useSaveAnswer,
   useQuiz,
   useQuizData,
   useQuestion,
-} from './Quiz';
+  useSubjects,
+} from './quiz';
 
-import { useResultsData, useValidateQuiz } from './Results';
+import { useResultsData, useValidateQuiz } from './results';
 
 import {
   useUserData,
@@ -15,7 +16,7 @@ import {
   useSignOut,
   useResetPassword,
   useUserPers,
-} from './User';
+} from './user';
 
 const hooks = {
   useNavigation,
@@ -24,6 +25,7 @@ const hooks = {
   useQuiz,
   useQuizData,
   useQuestion,
+  useSubjects,
   useResultsData,
   useValidateQuiz,
   useUserData,

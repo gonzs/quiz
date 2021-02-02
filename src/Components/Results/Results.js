@@ -60,15 +60,17 @@ export const Results = () => {
                 return (
                   <tr key={index}>
                     <td>
-                      <Link to={`/${subject}/${index + 1}`}>{index + 1}</Link>
+                      <Link to={`/subj/${subject}/${index + 1}`}>
+                        {index + 1}
+                      </Link>
                     </td>
                     <td>
                       <Link
                         className={elem.toLowerCase()}
-                        to={`/${subject}/${index + 1}`}
+                        to={`/subj/${subject}/${index + 1}`}
                       >
                         {elem}
-                      </Link>{' '}
+                      </Link>
                     </td>
                   </tr>
                 );

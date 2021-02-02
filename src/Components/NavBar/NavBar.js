@@ -6,7 +6,17 @@ import hooks from '../../Hooks';
 
 export const NavBar = () => {
   hooks.useUserPers();
-  const { isLogged, displayName } = hooks.useUserData();
+  const { isLogged, displayName, tokenId } = hooks.useUserData();
+  let subjectsList;
+
+  hooks.useSubjects(tokenId);
+  const { subjects } = hooks.useQuizData();
+
+  subjectsList = subjects.map((subj, key) => (
+    <Nav.Link as={Link} to={`/subj/${subj.id}`} key={key}>
+      {subj.id}
+    </Nav.Link>
+  ));
 
   if (!isLogged)
     return (
@@ -39,12 +49,7 @@ export const NavBar = () => {
             <Nav.Link as={Link} to={routes.HOME}>
               HOME
             </Nav.Link>
-            <Nav.Link as={Link} to={routes.SUB1}>
-              SUBJECT 1
-            </Nav.Link>
-            <Nav.Link as={Link} to={routes.SUB2}>
-              SUBJECT 2
-            </Nav.Link>
+            {subjectsList}
           </Nav>
           <Nav>
             <Nav.Link>{displayName}</Nav.Link>

@@ -12,6 +12,7 @@ export const Question = () => {
   const question = hooks.useQuestion(id);
   // * Get current subject
   const { subject } = hooks.useQuizData();
+
   // * Get cached answer
   const { retrievedAnswer } = hooks.useRetrieveAnswer(id);
   // * Answer local state
@@ -22,7 +23,7 @@ export const Question = () => {
   const saveAnswer = hooks.useSaveAnswer(retrievedAnswer, question, answer);
 
   // Render if there is not question
-  if (question === undefined) return <Redirect to={subject} />;
+  if (question === undefined) return <Redirect to={`${subject}`} />;
 
   // Render Trivia
   return (

@@ -46,7 +46,7 @@ export const signUpError = payload => ({
   payload,
 });
 
-export function updateProfile(user, displayName) {
+function updateProfile(user, displayName) {
   return async dispatch => {
     try {
       await updateDisplayName(user, displayName);
@@ -57,12 +57,12 @@ export function updateProfile(user, displayName) {
   };
 }
 
-export const updateProfileSuccess = payload => ({
+const updateProfileSuccess = payload => ({
   type: types.UPDATE_PROFILE_SUCCESS,
   payload,
 });
 
-export const updateProfileError = payload => ({
+const updateProfileError = payload => ({
   type: types.UPDATE_PROFILE_ERROR,
   payload,
 });
@@ -108,12 +108,12 @@ export function signOut() {
   };
 }
 
-export const signOutSuccess = payload => ({
+const signOutSuccess = payload => ({
   type: types.SIGNOUT_USER_SUCCESS,
   payload,
 });
 
-export const signOutError = payload => ({
+const signOutError = payload => ({
   type: types.SIGNOUT_USER_ERROR,
   payload,
 });
@@ -131,12 +131,12 @@ export function resetPassword(email) {
   };
 }
 
-export const resetPasswordSuccess = payload => ({
+const resetPasswordSuccess = payload => ({
   type: types.RESET_PASSWORD_SUCCESS,
   payload,
 });
 
-export const resetPasswordError = payload => ({
+const resetPasswordError = payload => ({
   type: types.RESET_PASSWORD_ERROR,
   payload,
 });
@@ -161,12 +161,12 @@ export function requestUser() {
   };
 }
 
-export const requestUserSuccess = payload => ({
+const requestUserSuccess = payload => ({
   type: types.REQUEST_USER_SUCCESS,
   payload,
 });
 
-export const requestUserError = payload => ({
+const requestUserError = payload => ({
   types: types.REQUEST_USER_ERROR,
   payload,
 });

@@ -8,6 +8,7 @@ export default function quiz(
     subject: '',
     questions: [],
     answers: [],
+    subjects: [],
   },
   action
 ) {
@@ -64,6 +65,25 @@ export default function quiz(
         subject: '',
         questions: [],
         answers: [],
+      };
+
+    case types.REQUEST_SUBJECTS:
+      return { ...state, isFetching: true, subjects: [] };
+
+    case types.REQUEST_SUBJECTS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        // success: true,
+        subjects: action.payload,
+      };
+
+    case types.REQUEST_SUBJECTS_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        // success: false,
+        error: action.payload,
       };
 
     default:

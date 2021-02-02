@@ -25,6 +25,7 @@ export const useQuizData = () => {
     error: useSelector(state => state.quiz.error),
     questions: useSelector(state => state.quiz.questions),
     answers: useSelector(state => state.quiz.answers),
+    subjects: useSelector(state => state.quiz.subjects),
   };
 };
 
@@ -37,12 +38,19 @@ export const useSaveAnswer = (retrieved, question, current) => {
   };
 };
 
-export const useQuiz = (_path, tokenId) => {
-  const path = _path[1];
+export const useQuiz = (path, tokenId) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     // * Dispatch getQuiz action
     dispatch(actions.getQuiz(path, tokenId));
   }, [dispatch, path, tokenId]);
+};
+
+export const useSubjects = tokenId => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (tokenId !== null) dispatch(actions.getSubjects(tokenId));
+  }, [dispatch, tokenId]);
 };

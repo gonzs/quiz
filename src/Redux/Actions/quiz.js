@@ -1,19 +1,83 @@
 import * as types from '../types-actions';
 import axios from 'axios';
 
-export function getQuiz(subject, tokenId) {
+export function getSubjects(tokenId) {
   return dispatch => {
-    dispatch(requestQuiz());
+    dispatch(requestSubjects());
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/${subject}`, {
+      .get(`${process.env.REACT_APP_API_URL}/subjects`, {
         headers: { Authorization: `Bearer ${tokenId}` },
       })
       .then(response => {
         if (response.status === 200) {
           let data = response.data;
           if (data.length === 0) throw new Error();
-          else dispatch(requestSuccess({ data, subject }));
+          else dispatch(requestSubjectsSuccess(data));
+        }
+      })
+      .catch(error => {
+        let msg = '';
+
+        if (error.hasOwnProperty('response') && error.response !== undefined) {
+          const { response } = error;
+
+          switch (response.status) {
+            case 403:
+              msg = `You do not have authorization. Contact the administrator.`;
+              break;
+            case 401:
+              msg = `You are not authenticated. Please Sign In`;
+              break;
+            default:
+              break;
+          }
+          console.error(
+            `An error occurred... : ${response.status} - ${response.statusText}`
+          );
+        } else if (
+          error.hasOwnProperty('response') &&
+          error.response === undefined
+        ) {
+          msg = `${error}`;
+          console.error(`An error occurred... : ${error}`);
+        } else {
+          msg = `We couldn't find any subject.`;
+        }
+        dispatch(requestSubjectsError(msg));
+      });
+  };
+}
+
+const requestSubjects = () => ({
+  type: types.REQUEST_SUBJECTS,
+});
+
+const requestSubjectsSuccess = payload => {
+  return {
+    type: types.REQUEST_SUBJECTS_SUCCESS,
+    payload,
+  };
+};
+
+const requestSubjectsError = payload => ({
+  type: types.REQUEST_SUBJECTS_ERROR,
+  payload,
+});
+
+export function getQuiz(subject, tokenId) {
+  return dispatch => {
+    dispatch(requestQuiz());
+
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/subj/${subject}`, {
+        headers: { Authorization: `Bearer ${tokenId}` },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          let data = response.data;
+          if (data.length === 0) throw new Error();
+          else dispatch(requestQuizSuccess({ data, subject }));
         }
       })
       .catch(error => {
@@ -44,23 +108,23 @@ export function getQuiz(subject, tokenId) {
         } else {
           msg = `We couldn't find any questions for the quiz.`;
         }
-        dispatch(requestError(msg));
+        dispatch(requestQuizError(msg));
       });
   };
 }
 
-export const requestQuiz = () => ({
+const requestQuiz = () => ({
   type: types.REQUEST_QUIZ,
 });
 
-export const requestSuccess = payload => {
+const requestQuizSuccess = payload => {
   return {
     type: types.REQUEST_QUIZ_SUCCESS,
     payload,
   };
 };
 
-export const requestError = payload => ({
+const requestQuizError = payload => ({
   type: types.REQUEST_QUIZ_ERROR,
   payload,
 });
@@ -96,16 +160,16 @@ export function postResults(email, subject, score, tokenId) {
   };
 }
 
-export const sendResults = () => ({
+const sendResults = () => ({
   type: types.SEND_RESULTS,
 });
 
-export const sendResultsSuccess = payload => ({
+const sendResultsSuccess = payload => ({
   type: types.SEND_RESULTS_SUCCESS,
   payload,
 });
 
-export const sendResultsError = payload => ({
+const sendResultsError = payload => ({
   type: types.SEND_RESULTS_ERROR,
   payload,
 });

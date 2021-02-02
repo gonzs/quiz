@@ -21,7 +21,7 @@ export const CustomButton = ({
     defProps = {
       variant,
       as: Link,
-      to: `/${subject}/${id}`,
+      to: `/subj/${subject}/${id}`,
       onClick,
     };
   }
