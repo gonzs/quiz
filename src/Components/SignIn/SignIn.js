@@ -3,7 +3,11 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import hooks from '../../Hooks/';
 import { checkValue } from '../../Util/helperCheckFields';
 import { Redirect, Link } from 'react-router-dom';
-import routes from '../Router/routes';
+import routes from '../../Router/routes';
+
+/**
+ * Component for login user
+ */
 
 export const SignIn = () => {
   const [state, setState] = React.useState({

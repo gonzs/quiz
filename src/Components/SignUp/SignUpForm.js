@@ -5,7 +5,8 @@ import {
   checkPasswordConfirmation,
   checkValue,
 } from '../../Util/helperCheckFields';
-import routes from '../Router/routes';
+import routes from '../../Router/routes';
+import PropTypes from 'prop-types';
 
 const initialState = {
   email: { value: '', error: '' },
@@ -17,6 +18,9 @@ const initialState = {
   isFetching: false,
 };
 
+/**
+ * Component for register user unconnected from Redux
+ */
 export class SignUpForm extends Component {
   constructor() {
     super();
@@ -175,7 +179,7 @@ export class SignUpForm extends Component {
             </Alert>
           )}
           {success && isSubmitted && (
-            <Alert variant="success" data-test="msg-failure">
+            <Alert variant="success" data-test="msg-success">
               User created successfully.
               <Link to={routes.SIGN_IN}> Login</Link>
             </Alert>
@@ -185,3 +189,8 @@ export class SignUpForm extends Component {
     );
   }
 }
+SignUpForm.propTypes = {
+  createUser: PropTypes.func.isRequired,
+  success: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+};

@@ -1,6 +1,11 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+/**
+ * Custom button for question navigation bar
+ */
 
 export const CustomButton = ({
   variant = 'secondary',
@@ -27,4 +32,12 @@ export const CustomButton = ({
   }
 
   return <Button {...defProps}>{text}</Button>;
+};
+CustomButton.propTypes = {
+  variant: PropTypes.string.isRequired,
+  subject: PropTypes.string,
+  id: PropTypes.number,
+  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };

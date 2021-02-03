@@ -6,7 +6,11 @@ import { findByTestAttr } from '../../Test/testUtils';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const defaultProps = {};
+const defaultProps = {
+  createUser: jest.fn(),
+  success: false,
+  error: '',
+};
 
 /**
  *  Factory function to create ShallowWrapper for the App component
@@ -48,6 +52,7 @@ test('renders without error messages at initial', () => {
   const msgDisplayName = findByTestAttr(wrapper, 'msg-display-name');
   const msgAge = findByTestAttr(wrapper, 'msg-age');
   const msgFailure = findByTestAttr(wrapper, 'msg-failure');
+  const msgSuccess = findByTestAttr(wrapper, 'msg-success');
 
   expect(msgEmail.length).toBe(0);
   expect(msgPassword.length).toBe(0);
@@ -55,6 +60,7 @@ test('renders without error messages at initial', () => {
   expect(msgDisplayName.length).toBe(0);
   expect(msgAge.length).toBe(0);
   expect(msgFailure.length).toBe(0);
+  expect(msgSuccess.length).toBe(0);
 });
 
 describe('if submit without', () => {
@@ -168,23 +174,26 @@ describe('if onChange event', () => {
 
 describe('After Submit event', () => {
   test('no renders error message for valid login', () => {
-    const isLogged = true;
+    const success = true;
     const error = '';
     const isSubmitted = true;
-    const wrapper = setup({ isLogged, error }, { isSubmitted });
-    const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
+    const wrapper = setup({ success, error }, { isSubmitted });
+    const msgSuccess = findByTestAttr(wrapper, 'msg-success');
+    const msgFailure = findByTestAttr(wrapper, 'msg-failure');
 
-    expect(msgSubmit.length).toBe(0);
+    expect(msgSuccess.length).toBe(1);
+    expect(msgFailure.length).toBe(0);
   });
 
   test('renders error message for invalid login', () => {
-    const isLogged = false;
     const isSubmitted = true;
     const error = 'error';
-    const wrapper = setup({ isLogged, error }, { isSubmitted });
-    const msgSubmit = findByTestAttr(wrapper, 'msg-failure');
+    const wrapper = setup({ error }, { isSubmitted });
+    const msgSuccess = findByTestAttr(wrapper, 'msg-success');
+    const msgFailure = findByTestAttr(wrapper, 'msg-failure');
 
-    expect(msgSubmit.length).toBe(1);
+    expect(msgSuccess.length).toBe(0);
+    expect(msgFailure.length).toBe(1);
   });
 });
 

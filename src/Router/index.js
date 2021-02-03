@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import routes from './routes';
-import { Home } from '../Home';
-import { Quiz } from '../Quiz';
-import { Question } from '../Question';
-import { Results } from '../Results';
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
-import { SignOut } from '../SignOut';
-import { ResetPassword } from '../ResetPassword';
+import { Home } from '../Components/Home';
+import { Quiz } from '../Components/Quiz';
+import { Question } from '../Components/Question';
+import { Results } from '../Components/Results';
+import { SignIn } from '../Components/SignIn';
+import { SignUp } from '../Components/SignUp';
+import { SignOut } from '../Components/SignOut';
+import { ResetPassword } from '../Components/ResetPassword';
 
 const Router = () => (
   <Switch>

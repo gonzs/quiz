@@ -2,6 +2,10 @@ import React from 'react';
 import './Header.css';
 import logo from '../../Icons/logo.svg';
 
+/**
+ * Header Component
+ */
+
 export const Header = () => {
   return (
     <div className="header">

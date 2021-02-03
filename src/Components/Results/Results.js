@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import routes from '../Router/routes';
+import routes from '../../Router/routes';
 import { Table, Card, Badge } from 'react-bootstrap';
 import { SendMessage } from '../Message';
 import hooks from '../../Hooks';
 
 const successMsg = `🎉Your results were saved successfully.`;
-const errorMsg = `😪Sorry... We couldn't save the results of your quiz.`;
+const failureMsg = `😪Sorry... We couldn't save the results of your quiz.`;
+
+/**
+ * Show Quiz's results
+ */
 
 export const Results = () => {
   // * Get Quiz data
@@ -38,9 +42,7 @@ export const Results = () => {
       {!isSending && (
         <SendMessage
           title="Save results"
-          success={success}
-          successMsg={successMsg}
-          errorMsg={errorMsg}
+          text={success ? successMsg : failureMsg}
         />
       )}
 

@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import actions from '../../Redux/Actions';
 import { SignUpForm } from './SignUpForm';
 
+/**
+ * Component for register user connected
+ */
 export class SignUpComp extends Component {
   render() {
     return <SignUpForm {...this.props} />;

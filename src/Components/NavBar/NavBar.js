@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../Router/routes';
+import routes from '../../Router/routes';
 import { Nav, Navbar } from 'react-bootstrap/';
 import hooks from '../../Hooks';
+
+/**
+ * Navigation bar
+ */
 
 export const NavBar = () => {
   hooks.useUserPers();

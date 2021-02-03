@@ -2,6 +2,11 @@ import React from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import hooks from '../../Hooks';
 import { CustomButton } from './CustomButton';
+import PropTypes from 'prop-types';
+
+/**
+ * Question Navigation Buttons
+ */
 
 export const NavButtons = ({ subject, saveAnswer }) => {
   // * Get Navigation data
@@ -37,4 +42,8 @@ export const NavButtons = ({ subject, saveAnswer }) => {
       )}
     </ButtonGroup>
   );
+};
+NavButtons.propTypes = {
+  subject: PropTypes.string.isRequired,
+  saveAnswer: PropTypes.func.isRequired,
 };

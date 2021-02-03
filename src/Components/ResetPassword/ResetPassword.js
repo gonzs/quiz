@@ -2,11 +2,14 @@ import React from 'react';
 import { Alert } from 'react-bootstrap';
 import hooks from '../../Hooks';
 
-export const ResetPassword = props => {
+/**
+ * Reset Password
+ */
+
+export const ResetPassword = () => {
   const { query } = hooks.useRouter();
   const { success, error } = hooks.useUserData();
 
-  // * Reset Password
   hooks.useResetPassword(query.email);
 
   return (

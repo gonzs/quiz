@@ -1,4 +1,4 @@
-# QUIZ GAME 
+# QUIZ GAME
 
 This application is designed to evaluate subjects through quiz. https://quiz-gonzs.netlify.app/
 
@@ -20,12 +20,15 @@ Authentication -> `Firebase Auth` to sign up, sign in, sign out and get token ID
 
 CI -> It's used `Husky` in order to execute unit tests and apply the linter before each commit
 
+Documentation -> `React Styleguidist` for documenting components
+
 **Note: React hooks approach is being used**
 
 #### Backend
+
 A rest API was built with `Firebase` Cloud Functions [(follow this repo)](https://github.com/gonzs/quiz-firebase-api)
 
-_Dont forget to create a .env.local file with a API url. REACT_APP_FB* are retrieved from firebase project configuration. Format:_
+_Dont forget to create a .env.local file with a API url. REACT_APP_FB\* are retrieved from firebase project configuration. Format:_
 
 ```shell
 REACT_APP_API_URL = http://localhost:8080

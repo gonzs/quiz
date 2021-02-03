@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import hooks from '../../Hooks';
 
+/**
+ * Component for logout user
+ */
+
 export const SignOut = () => {
   const signOutUser = hooks.useSignOut();
   const router = hooks.useRouter();

@@ -1,10 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import { ErrorRequestMessage } from '../Message/Message';
+import { ErrorRequestMessage } from '../Message';
 import hooks from '../../Hooks';
 
-export const Quiz = props => {
+/**
+ * Show First question for selected subject or error message
+ */
+
+export const Quiz = () => {
   // * Get Router
   const router = hooks.useRouter();
   const subject = router.match.params.subject;

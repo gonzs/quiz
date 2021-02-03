@@ -5,6 +5,10 @@ import hooks from '../../Hooks';
 import { NavButtons } from '../Buttons/';
 import './Question.css';
 
+/**
+ * Show Question
+ */
+
 export const Question = () => {
   // * Get Navigation data
   const { id } = hooks.useNavigation();
