@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../Router/routes';
-import { Nav, Navbar } from 'react-bootstrap/';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap/';
 import hooks from '../../Hooks';
 
 /**
@@ -17,9 +17,9 @@ export const NavBar = () => {
   const { subjects } = hooks.useQuizData();
 
   subjectsList = subjects.map((subj, key) => (
-    <Nav.Link as={Link} to={`/subj/${subj.id}`} key={key}>
+    <NavDropdown.Item as={Link} to={`/subj/${subj.id}`} key={key}>
       {subj.id}
-    </Nav.Link>
+    </NavDropdown.Item>
   ));
 
   if (!isLogged)
@@ -53,7 +53,12 @@ export const NavBar = () => {
             <Nav.Link as={Link} to={routes.HOME}>
               HOME
             </Nav.Link>
-            {subjectsList}
+            <Nav.Link as={Link} to={routes.NEW_QUIZ}>
+              New Quiz
+            </Nav.Link>
+            <NavDropdown title="Subjects" id="collasible-nav-dropdown">
+              {subjectsList}
+            </NavDropdown>
           </Nav>
           <Nav>
             <Nav.Link>{displayName}</Nav.Link>
