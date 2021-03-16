@@ -6,6 +6,10 @@ import {
   useQuizData,
   useQuestion,
   useSubjects,
+  useSaveQuestion,
+  useNewQuizData,
+  useSaveQuiz,
+  useClearAllNewQuiz,
 } from './quiz';
 
 import { useResultsData, useValidateQuiz } from './results';
@@ -26,6 +30,10 @@ const hooks = {
   useQuizData,
   useQuestion,
   useSubjects,
+  useSaveQuestion,
+  useNewQuizData,
+  useSaveQuiz,
+  useClearAllNewQuiz,
   useResultsData,
   useValidateQuiz,
   useUserData,

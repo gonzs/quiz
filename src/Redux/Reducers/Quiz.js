@@ -74,7 +74,6 @@ export default function quiz(
       return {
         ...state,
         isFetching: false,
-        // success: true,
         subjects: action.payload,
       };
 
@@ -82,7 +81,6 @@ export default function quiz(
       return {
         ...state,
         isFetching: false,
-        // success: false,
         error: action.payload,
       };
 

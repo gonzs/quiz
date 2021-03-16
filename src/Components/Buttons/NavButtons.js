@@ -17,7 +17,7 @@ export const NavButtons = ({ subject, saveAnswer }) => {
       {!isFirst ? (
         <CustomButton
           subject={subject}
-          id={prevId}
+          id={prevId.toString()}
           onClick={saveAnswer}
           text="Previous"
         />
@@ -35,7 +35,7 @@ export const NavButtons = ({ subject, saveAnswer }) => {
       ) : (
         <CustomButton
           subject={subject}
-          id={nextId}
+          id={nextId.toString()}
           onClick={saveAnswer}
           text="Next"
         />

@@ -173,3 +173,53 @@ const sendResultsError = payload => ({
   type: types.SEND_RESULTS_ERROR,
   payload,
 });
+
+export function postNewQuiz(quizName, questions, tokenId) {
+  return dispatch => {
+    dispatch(sendNewQuiz());
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/new-quiz`,
+        {
+          quizName,
+          questions,
+        },
+        {
+          headers: { Authorization: `Bearer ${tokenId}` },
+        }
+      )
+      .then(response => {
+        if (response.status !== 200)
+          throw new Error(response.status + response.statusText);
+        else dispatch(sendNewQuizSuccess());
+      })
+      .catch(error => {
+        console.error(`An error occurred ... ${error}`);
+        dispatch(sendNewQuizError());
+      });
+  };
+}
+
+const sendNewQuiz = () => ({
+  type: types.SEND_NEW_QUIZ,
+});
+
+const sendNewQuizSuccess = payload => ({
+  type: types.SEND_NEW_QUIZ_SUCCESS,
+  payload,
+});
+
+const sendNewQuizError = payload => ({
+  type: types.SEND_NEW_QUIZ_ERROR,
+  payload,
+});
+
+export const saveNewQuestion = payload => ({
+  type: types.SAVE_NEW_QUESTION,
+  payload,
+});
+
+export const clearAllNewQuiz = payload => ({
+  type: types.CLEAR_ALL_NEW_QUIZ,
+  payload,
+});

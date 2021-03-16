@@ -10,17 +10,23 @@ import hooks from '../../Hooks';
 
 export const NavBar = () => {
   hooks.useUserPers();
-  const { isLogged, displayName, tokenId } = hooks.useUserData();
-  let subjectsList;
+  const { isLogged, displayName, tokenId, role } = hooks.useUserData();
 
   hooks.useSubjects(tokenId);
   const { subjects } = hooks.useQuizData();
 
-  subjectsList = subjects.map((subj, key) => (
+  const subjectsList = subjects.map((subj, key) => (
     <NavDropdown.Item as={Link} to={`/subj/${subj.id}`} key={key}>
       {subj.id}
     </NavDropdown.Item>
   ));
+
+  const adminRoutes =
+    role === 'admin' ? (
+      <Nav.Link as={Link} to={routes.NEW_QUIZ}>
+        New Quiz
+      </Nav.Link>
+    ) : null;
 
   if (!isLogged)
     return (
@@ -53,9 +59,7 @@ export const NavBar = () => {
             <Nav.Link as={Link} to={routes.HOME}>
               HOME
             </Nav.Link>
-            <Nav.Link as={Link} to={routes.NEW_QUIZ}>
-              New Quiz
-            </Nav.Link>
+            {adminRoutes}
             <NavDropdown title="Subjects" id="collasible-nav-dropdown">
               {subjectsList}
             </NavDropdown>

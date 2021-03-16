@@ -8,6 +8,7 @@ export default function user(
     isFetching: false,
     tokenId: null,
     displayName: '',
+    role: '',
   },
   action
 ) {
@@ -78,6 +79,7 @@ export default function user(
         isLogged: true,
         tokenId: action.payload.tokenId,
         displayName: action.payload.displayName,
+        role: action.payload.role,
       };
 
     case types.REQUEST_USER_ERROR:

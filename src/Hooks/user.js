@@ -10,6 +10,7 @@ export const useUserData = () => {
     error: useSelector(state => state.user.error),
     isFetching: useSelector(state => state.user.isFetching),
     displayName: useSelector(state => state.user.displayName),
+    role: useSelector(state => state.user.role),
   };
 };
 
