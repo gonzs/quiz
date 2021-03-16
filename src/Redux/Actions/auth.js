@@ -146,11 +146,12 @@ export function requestUser() {
     try {
       auth.onAuthStateChanged(async user => {
         if (user !== null) {
-          const token = await user.getIdToken();
+          const token = await user.getIdTokenResult();
           dispatch(
             requestUserSuccess({
               displayName: user.displayName,
-              tokenId: token,
+              tokenId: token.token,
+              role: token.claims.role,
             })
           );
         }

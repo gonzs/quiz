@@ -1,4 +1,12 @@
-import { getQuiz, saveAnswer, postResults, getSubjects } from './quiz';
+import {
+  getQuiz,
+  saveAnswer,
+  postResults,
+  getSubjects,
+  saveNewQuestion,
+  postNewQuiz,
+  clearAllNewQuiz,
+} from './quiz';
 
 import {
   userCreation,
@@ -19,6 +27,9 @@ const actions = {
   saveAnswer,
   postResults,
   getSubjects,
+  saveNewQuestion,
+  postNewQuiz,
+  clearAllNewQuiz,
   userCreation,
   signUp,
   signUpSuccess,
