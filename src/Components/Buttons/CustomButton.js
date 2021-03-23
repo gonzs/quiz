@@ -34,10 +34,10 @@ export const CustomButton = ({
   return <Button {...defProps}>{text}</Button>;
 };
 CustomButton.propTypes = {
-  variant: PropTypes.string.isRequired,
+  variant: PropTypes.string,
   subject: PropTypes.string,
-  id: PropTypes.number,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.string,
+  onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
 };

@@ -54,3 +54,35 @@ export const useSubjects = tokenId => {
     if (tokenId !== null) dispatch(actions.getSubjects(tokenId));
   }, [dispatch, tokenId]);
 };
+
+export const useSaveQuestion = (quizName, question) => {
+  const dispatch = useDispatch();
+  const newOptions = question.options.filter(o => o !== '');
+  const newQuestion = { ...question, options: newOptions };
+  return () => {
+    dispatch(actions.saveNewQuestion({ quizName, question: newQuestion }));
+  };
+};
+
+export const useNewQuizData = () => {
+  return {
+    isSending: useSelector(state => state.newQuiz.isSending),
+    success: useSelector(state => state.newQuiz.success),
+    error: useSelector(state => state.newQuiz.error),
+    quizName: useSelector(state => state.newQuiz.quizName),
+    questions: useSelector(state => state.newQuiz.questions),
+  };
+};
+
+export const useSaveQuiz = (quizName, questions, tokenId) => {
+  const dispatch = useDispatch();
+  return () => {
+    if (quizName !== '' && questions.length !== 0)
+      dispatch(actions.postNewQuiz(quizName, questions, tokenId));
+  };
+};
+
+export const useClearAllNewQuiz = () => {
+  const dispatch = useDispatch();
+  return () => dispatch(actions.clearAllNewQuiz());
+};

@@ -9,6 +9,7 @@ import { SignIn } from '../Components/SignIn';
 import { SignUp } from '../Components/SignUp';
 import { SignOut } from '../Components/SignOut';
 import { ResetPassword } from '../Components/ResetPassword';
+import { NewQuiz } from '../Components/NewQuiz';
 
 const Router = () => (
   <Switch>
@@ -32,6 +33,8 @@ const Router = () => (
     <Route path={routes.SIGN_OUT} component={SignOut} />
 
     <Route path={`${routes.RESET_PASSWORD}/:email`} component={ResetPassword} />
+
+    <Route path={routes.NEW_QUIZ} component={NewQuiz} />
 
     <Redirect from="" to={routes.HOME} />
   </Switch>

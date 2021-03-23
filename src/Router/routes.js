@@ -5,5 +5,6 @@ const routes = {
   SIGN_UP: '/sign-up',
   SIGN_OUT: '/sign-out',
   RESET_PASSWORD: '/reset-password',
+  NEW_QUIZ: '/new-quiz',
 };
 export default routes;
