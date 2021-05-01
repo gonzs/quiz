@@ -42,4 +42,3 @@ REACT_APP_FB_APP_ID = xxxxxxxxxxxxxxxxxxxxx
 ```
 
 This project was bootstrapped with CRA and [template](https://github.com/gonzs/react-template)
-
