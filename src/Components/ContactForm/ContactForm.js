@@ -17,7 +17,7 @@ export default function ContactForm() {
     //     </Col>
     //   </Row>
     // </form>
-    <form name="contact" method="POST" data-netlify="true">
+    <form name="contact" method="POST" data-netlify="true" action="/#/home">
       <p>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name" />
