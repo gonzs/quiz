@@ -1,5 +1,4 @@
 import React from 'react';
-import routes from '../../Router/routes';
 // import { Button, Col, Form, Row } from 'react-bootstrap';
 
 export default function ContactForm() {
@@ -18,7 +17,7 @@ export default function ContactForm() {
     //     </Col>
     //   </Row>
     // </form>
-    <form name="contact" method="POST" data-netlify="true" action={routes.HOME}>
+    <form name="contact" method="POST" data-netlify="true" action="/#/home">
       <p>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name" />
