@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Store } from '../../Redux/Store';
 import { NavBar } from '../NavBar';
 import { Header } from '../Header';
@@ -13,13 +13,13 @@ export const App = function App() {
   return (
     <div>
       <Store>
-        <HashRouter basename="/">
+        <BrowserRouter basename="/">
           <Header />
 
           <NavBar />
 
           <Router />
-        </HashRouter>
+        </BrowserRouter>
       </Store>
     </div>
   );
