@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 
 export default function ContactForm() {
   return (
-    <form name="contact" method="POST" data-netlify="true">
+    <form name="contact" netlify>
       <Row>
         <Col xs={3}>
           <Form.Group controlId="formBasicEmail">
