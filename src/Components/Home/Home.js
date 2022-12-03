@@ -1,5 +1,6 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
+import ContactForm from '../ContactForm/ContactForm';
 
 /**
  * Home Component
@@ -19,12 +20,13 @@ export const Home = () => {
         <br />
         <br />
         <br />
-        ***DISCLAIMER***
+        ***NOTES***
         <ul> - Admin users are only able to create new trivias.</ul>
         <ul> - All user can display all trivias.</ul>
         <br />
-        <b>We are working to add new features.</b>
+        <b>We are working to add new features. Stay tuned for more updates!</b>
       </p>
+      <ContactForm />
     </>
   ) : (
     <p>
