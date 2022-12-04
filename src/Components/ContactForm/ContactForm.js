@@ -17,19 +17,22 @@ export default function ContactForm() {
     //     </Col>
     //   </Row>
     // </form>
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-      {/* <input type="hidden" name="form-name" value="contact" /> */}
+    <form name="contact" method="post">
+      <input type="hidden" name="form-name" value="contact" />
       <p>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" />
+        <label>
+          Your Name: <input type="text" name="name" />
+        </label>
       </p>
       <p>
-        <label htmlFor="email">Email</label>
-        <input type="text" id="email" name="email" />
+        <label>
+          Your Email: <input type="email" name="email" />
+        </label>
       </p>
       <p>
-        <label htmlFor="message">Message</label>
-        <textarea id="message" name="message"></textarea>
+        <label>
+          Message: <textarea name="message"></textarea>
+        </label>
       </p>
       <p>
         <button type="submit">Send</button>
